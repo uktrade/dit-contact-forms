@@ -1,5 +1,3 @@
-DIT Contact Forms
-=======
 # DIT Helpdesk
 
 This service is used to help people find the correct Harmonised System (HS) code, duties, rules of origin etc for the
