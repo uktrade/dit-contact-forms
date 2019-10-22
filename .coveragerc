@@ -1,6 +1,6 @@
 [run]
 branch = True
-include = dit_helpdesk/*
+include = contact_forms/*
 omit = *tests*, *migrations*
 plugins =
     django_coverage_plugin
@@ -10,4 +10,4 @@ output = $TEST_OUTPUT_DIR/coverage.xml
 
 [html]
 directory = $TEST_OUTPUT_DIR/coverage_html
-title = DIT Helpdesk Coverage Report
+title = Contact Forms Coverage Report
