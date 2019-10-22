@@ -1,0 +1,6 @@
+# PRECAUTION: avoid production dependencies that aren't in development
+
+-r ./requirements/base.txt
+
+gunicorn==19.9.0  # https://github.com/benoitc/gunicorn
+django-debug-toolbar==1.11
