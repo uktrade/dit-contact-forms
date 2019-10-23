@@ -261,3 +261,12 @@ HMRC_TAX_FORM_URL = os.environ.get("HMRC_TAX_FORM_URL")
 
 IEE_GA_GTM = os.environ.get('IEE_GA_GTM')
 HELPDESK_GA_GTM = os.environ.get('HELPDESK_GA_GTM')
+
+EU_EXIT_DIT_EMAIL = os.environ.get("EU_EXIT_DIT_EMAIL")
+EU_EXIT_DIT_FULLNAME = os.environ.get("EU_EXIT_DIT_FULLNAME")
+
+EU_EXIT_EMAIL = os.environ.get("EU_EXIT_EMAIL")
+EU_EXIT_FULLNAME = os.environ.get("EU_EXIT_FULLNAME")
+
+FEEDBACK_EMAIL = os.environ.get("FEEDBACK_EMAIL")
+FEEDBACK_FULLNAME = os.environ.get("FEEDBACK_FULLNAME")

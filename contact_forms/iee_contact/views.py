@@ -94,7 +94,7 @@ class IEEContactFormWizardView(SessionWizardView):
     def process_form_data(form_list):
         form_data = [form.cleaned_data for form in form_list]
 
-        context = {"subject": "New IEE Enquiry", "service_name": "UK IEE"}
+        context = {"subject": "New IEE Enquiry", "service_name": "UK IEE", "GA_GTM": settings.IEE_GA_GTM}
 
         for form in form_data:
             """
@@ -122,18 +122,18 @@ class IEEContactFormWizardView(SessionWizardView):
 
         if context["topic"] == TOPICS[2]:
             context["type"] = "email"
-            context["recipient_email"] = "EUExitDIT@defra.gov.uk"
-            context["recipient_full_name"] = "DEFRA"
+            context["recipient_email"] = settings.EU_EXIT_DIT_EMAIL
+            context["recipient_full_name"] = settings.EU_EXIT_DIT_FULLNAME
 
         elif context["topic"] == TOPICS[3]:
             context["type"] = "Zendesk"
-            context["recipient_email"] = "euexit@trade.gov.uk"
-            context["recipient_full_name"] = "euexit"
+            context["recipient_email"] = settings.EU_EXIT_EMAIL
+            context["recipient_full_name"] = settings.EU_EXIT_FULLNAME
 
         elif context["topic"] == TOPICS[4]:
             context["type"] = "Zendesk"
-            context["recipient_email"] = "sajid.arif@digital.trade.gov.uk"
-            context["recipient_full_name"] = "Sajid Arif"
+            context["recipient_email"] = settings.FEEDBACK_EMAIL
+            context["recipient_full_name"] = settings.FEEDBACK_FULLNAME
 
         template = get_template("iee_contact/contact_message_tmpl.txt")
         context["content"] = template.render(context)
