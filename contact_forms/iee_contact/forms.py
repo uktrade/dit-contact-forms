@@ -1,7 +1,8 @@
 from directory_forms_api_client.forms import ZendeskAPIForm
 from django import forms
 
-IEE_LOCATION_CHOICES = ((1, "Exporting from the UK"), (2, "Brexit enquiries"))
+IEE_LOCATION_CHOICES = ((1, "Exporting from the UK"), (2, "Brexit enquiries"),
+                        (3, "Technical help with using the service"))
 
 IEE_TOPIC_CHOICES = (
     (
@@ -12,9 +13,7 @@ IEE_TOPIC_CHOICES = (
         2,
         "Exporting animals, plants or food, environmental regulations, sanitary & phytosanitary regulations",
     ),
-    (3, "Exporting cultural goods"),
-    (4, "Exporting any other products"),
-    (5, "Technical help with using the 'Export goods from the UK' service itself"),
+    (3, "Exporting any other goods"),
 )
 
 

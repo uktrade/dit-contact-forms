@@ -47,6 +47,7 @@
                     </p>
                 </label>
             </div>
+
             <div class="govuk-radios__item">
                 <input class="govuk-radios__input" id="id_step_two-enquiry_topic_2" required
                        name="step_two-enquiry_topic" type="radio"
@@ -54,30 +55,6 @@
                 <label class="govuk-label govuk-radios__label"
                        for="id_step_two-enquiry_topic_2">
                     {{ wizard.form.fields.enquiry_topic.choices.2.1|safe }}
-                    <p class="govuk-hint">
-                        Your enquiry will be sent to the Department for Digital, Culture, Media & Sport (DCMS)
-                    </p>
-                </label>
-            </div>
-            <div class="govuk-radios__item">
-                <input class="govuk-radios__input" id="id_step_two-enquiry_topic_3" required
-                       name="step_two-enquiry_topic" type="radio"
-                       value="{{ wizard.form.fields.enquiry_topic.choices.3.0 }}">
-                <label class="govuk-label govuk-radios__label"
-                       for="id_step_two-enquiry_topic_3">
-                    {{ wizard.form.fields.enquiry_topic.choices.3.1|safe }}
-                    <p class="govuk-hint">
-                        Your enquiry will be sent to the Department for International Trade (DIT)
-                    </p>
-                </label>
-            </div>
-            <div class="govuk-radios__item">
-                <input class="govuk-radios__input" id="id_step_two-enquiry_topic_5" required
-                       name="step_two-enquiry_topic" type="radio"
-                       value="{{ wizard.form.fields.enquiry_topic.choices.4.0 }}">
-                <label class="govuk-label govuk-radios__label"
-                       for="id_step_two-enquiry_topic_5">
-                    {{ wizard.form.fields.enquiry_topic.choices.4.1|safe }}
                     <p class="govuk-hint">
                         Your enquiry will be sent to the Department for International Trade (DIT)
                     </p>
