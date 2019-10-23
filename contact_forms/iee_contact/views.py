@@ -4,7 +4,7 @@ from directory_forms_api_client import helpers
 from django.conf import settings
 from django.core.mail import EmailMessage
 from django.http import HttpResponseRedirect
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, render
 from django.template.loader import get_template
 from formtools.wizard.views import SessionWizardView
 
@@ -32,7 +32,14 @@ TEMPLATES = {
     "step_three": "iee_contact/step_three.html",
 }
 
+
 LOCATIONS, TOPICS = (dict(IEE_LOCATION_CHOICES), dict(IEE_TOPIC_CHOICES))
+
+
+def jump_to_step_three(wizard):
+    cleaned_data = wizard.get_cleaned_data_for_step("step_one") or {}
+    print(True if cleaned_data.get('location', '2') else False)
+    return True if cleaned_data.get('location', '2') else False
 
 
 class IEEContactFormWizardView(SessionWizardView):
@@ -40,6 +47,8 @@ class IEEContactFormWizardView(SessionWizardView):
         return [TEMPLATES[self.steps.current]]
 
     form_list = FORMS
+
+    condition_dict = {"step_three": jump_to_step_three}
 
     def done(self, form_list, **kwargs):
         context = self.process_form_data(form_list)
@@ -52,6 +61,10 @@ class IEEContactFormWizardView(SessionWizardView):
         else:
             IEEContactFormWizardView.send_mail(context)
 
+        # return render(self.request, 'done.html', {
+        #     'form_data': [form.cleaned_data for form in form_list],
+        # })
+
         return render_to_response("iee_contact/done.html", {"context": context})
 
     def render_next_step(self, form, **kwargs):
@@ -62,6 +75,11 @@ class IEEContactFormWizardView(SessionWizardView):
         :param kwargs: passed keyword arguments
         :return: render to response
         """
+        if (
+            self.steps.next == "step_two"
+            and form.cleaned_data["location"] == "3"
+        ):
+            return self.render_goto_step("step_three")
         if (
             self.steps.next == "step_three"
             and form.cleaned_data["enquiry_topic"] == "1"
@@ -79,10 +97,22 @@ class IEEContactFormWizardView(SessionWizardView):
         context = {"subject": "New IEE Enquiry", "service_name": "UK IEE"}
 
         for form in form_data:
+            """
+            check and store first question response in context
+            if first response is option 3 for technical questions set context type to Zendesk
+            """
             if "location" in form.keys():
                 context["location"] = LOCATIONS[int(form["location"])]
+            if context["location"] == 3:
+                context["type"] = "Zendesk"
+            """
+            check and store the second question response in context
+            """
             if "enquiry_topic" in form.keys():
                 context["topic"] = TOPICS[int(form["enquiry_topic"])]
+            """
+            check and store the sender name, email and message in context
+            """
             if "email_address" in form.keys():
                 context["email_address"] = form["email_address"]
             if "name" in form.keys():
@@ -96,18 +126,13 @@ class IEEContactFormWizardView(SessionWizardView):
             context["recipient_full_name"] = "DEFRA"
 
         elif context["topic"] == TOPICS[3]:
-            context["type"] = "email"
-            context["recipient_email"] = "TBC"
-            context["recipient_full_name"] = "DCMS"
-
-        elif context["topic"] == TOPICS[4]:
             context["type"] = "Zendesk"
             context["recipient_email"] = "euexit@trade.gov.uk"
             context["recipient_full_name"] = "euexit"
 
-        elif context["topic"] == TOPICS[5]:
+        elif context["topic"] == TOPICS[4]:
             context["type"] = "Zendesk"
-            context["destination"] = "sajid.arif@digital.trade.gov.uk"
+            context["recipient_email"] = "sajid.arif@digital.trade.gov.uk"
             context["recipient_full_name"] = "Sajid Arif"
 
         template = get_template("iee_contact/contact_message_tmpl.txt")
