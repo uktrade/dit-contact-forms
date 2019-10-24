@@ -136,7 +136,7 @@
               </strong>
               <span class="govuk-phase-banner__text">
                 This is a new service – your
-                <a class="govuk-link" href="{% url 'contact:form-view' %}">feedback</a> will help us to improve it.
+                <a class="govuk-link" href="{% url 'contact:form-view' %}{% if request.GET.country_code %}?country_code={{ request.GET.country_code }}{% endif %}">feedback</a> will help us to improve it.
               </span>
             </p>
           </div>
@@ -164,7 +164,7 @@
                   </a>
                 </li>
                 <li class="govuk-footer__inline-list-item">
-                  <a class="govuk-footer__link" href="{% url 'contact:form-view' %}">
+                  <a class="govuk-footer__link" href="{% url 'contact:form-view' %}{% if request.GET.country_code %}?country_code={{ request.GET.country_code }}{% endif %}">
                     Contact
                   </a>
                 </li>
