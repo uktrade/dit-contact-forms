@@ -18,7 +18,6 @@ from django.contrib import admin
 from django.urls import path, re_path, include
 from admin.views import admin_login_view
 from cookies import views as cookie_views
-from iee_contact import views as iee_contact_views
 from healthcheck.views import HealthCheckView
 from index import views as index
 
@@ -30,12 +29,8 @@ urlpatterns = [
     path("", index.IndexRedirect.as_view(), name="index"),
     path("auth/", include("authbroker_client.urls", namespace="authbroker")),
     path("cookies/", cookie_views.CookiesView.as_view(), name="cookies"),
-
-    path(
-        "iee_contact/",
-        iee_contact_views.IEEContactFormWizardView.as_view(),
-        name="iee-contact-view",
-    ),
+    path("contact/",include("contact.urls", namespace="contact")),
+    path("privacy-terms-and-conditions/", include("privacy_terms_and_conditions.urls", namespace="privacy")),
     re_path(r"^check/$", HealthCheckView.as_view(), name="healthcheck"),
 
 ]

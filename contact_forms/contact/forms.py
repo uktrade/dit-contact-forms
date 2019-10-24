@@ -1,10 +1,11 @@
-from directory_forms_api_client.forms import ZendeskAPIForm
+from directory_forms_api_client.forms import ZendeskAPIForm, EmailAPIForm
 from django import forms
+from django.forms import fields
 
-IEE_LOCATION_CHOICES = ((1, "Exporting from the UK"), (2, "Brexit enquiries"),
-                        (3, "Technical help with using the service"))
+LOCATION_CHOICES = ((1, "Exporting from the UK"), (2, "Brexit enquiries"),
+                    (3, "Technical help with using the service"))
 
-IEE_TOPIC_CHOICES = (
+TOPIC_CHOICES = (
     (
         1,
         "Customs declarations and procedures, commodity codes, duties and tariff rates",
@@ -17,21 +18,22 @@ IEE_TOPIC_CHOICES = (
 )
 
 
-class IEEContactFormStepOne(forms.Form):
+class ContactFormStepOne(forms.Form):
     location = forms.ChoiceField(
-        choices=IEE_LOCATION_CHOICES, widget=forms.RadioSelect, required=True
+        choices=LOCATION_CHOICES, widget=forms.RadioSelect, required=True
     )
     location.label = "What would you like to know more about?"
+    country_code = forms.CharField(widget=forms.HiddenInput, required=True)
 
 
-class IEEContactFormStepTwo(forms.Form):
+class ContactFormStepTwo(forms.Form):
     enquiry_topic = forms.ChoiceField(
-        choices=IEE_TOPIC_CHOICES, widget=forms.RadioSelect, required=True
+        choices=TOPIC_CHOICES, widget=forms.RadioSelect, required=True
     )
     enquiry_topic.label = "What would you like to know more about?"
 
 
-class IEEContactFormStepThree(forms.Form):
+class ContactFormStepThree(forms.Form):
     name = forms.CharField(required=True)
     email_address = forms.EmailField(required=True)
     message = forms.CharField(widget=forms.Textarea, required=True)
@@ -62,8 +64,26 @@ class IEEContactFormStepThree(forms.Form):
         }
 
 
-class IEEZendeskForm(ZendeskAPIForm):
+class ZendeskForm(ZendeskAPIForm):
     # note that the base form provides `requester_email` email field
     name = forms.CharField()
     email_address = forms.EmailField()
     message = forms.CharField(widget=forms.Textarea)
+
+
+class ZendeskEmailForm(EmailAPIForm):
+    message = fields.CharField()
+
+    @property
+    def text_body(self):
+        ''' Override text_body to text templte of email body.'''
+
+        text = 'message: ' + str(self.cleaned_data['message'])
+        return text
+
+    @property
+    def html_body(self):
+        ''' Override html_body to return html template of email body.'''
+
+        cleaned_html = '<p>message: ' + str(self.cleaned_data['message']) + '</p>'
+        return cleaned_html

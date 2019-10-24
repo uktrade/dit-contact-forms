@@ -1,4 +1,4 @@
-{% extends "iee_contact/contact_form_base.html" %}
+{% extends "contact/contact_form_base.html" %}
 {% load i18n %}
 
 
@@ -9,10 +9,6 @@
 {% endblock %}
 
 {% block form_body %}
-
-{#    <div class="govuk-form-group govuk-!-width-two-thirds govuk-!-margin-bottom-0">#}
-{#        <h2> {{ wizard.form.fields.enquiry_topic.label }}</h2>#}
-{#    </div>#}
 
     <div class="govuk-form-group {% if wizard.form.errors %} govuk-form-group--error{% endif %}">
         {% if wizard.form.errors %}

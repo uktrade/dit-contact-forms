@@ -1,54 +1,56 @@
 import logging
-
 from directory_forms_api_client import helpers
 from django.conf import settings
-from django.core.mail import EmailMessage
 from django.http import HttpResponseRedirect
-from django.shortcuts import render_to_response, render
+from django.shortcuts import render, render_to_response
 from django.template.loader import get_template
 from formtools.wizard.views import SessionWizardView
 
-from iee_contact.forms import (
-    IEEContactFormStepOne,
-    IEEContactFormStepTwo,
-    IEEContactFormStepThree,
-    IEE_LOCATION_CHOICES,
-    IEE_TOPIC_CHOICES,
-    IEEZendeskForm,
-)
+from contact.forms import (
+    ContactFormStepOne,
+    ContactFormStepTwo,
+    ContactFormStepThree,
+    LOCATION_CHOICES,
+    TOPIC_CHOICES,
+    ZendeskForm,
+    ZendeskEmailForm)
 
 logger = logging.getLogger(__name__)
 
 
 FORMS = [
-    ("step_one", IEEContactFormStepOne),
-    ("step_two", IEEContactFormStepTwo),
-    ("step_three", IEEContactFormStepThree),
+    ("step_one", ContactFormStepOne),
+    ("step_two", ContactFormStepTwo),
+    ("step_three", ContactFormStepThree),
 ]
 
 TEMPLATES = {
-    "step_one": "iee_contact/step_one.html",
-    "step_two": "iee_contact/step_two.html",
-    "step_three": "iee_contact/step_three.html",
+    "step_one": "contact/step_one.html",
+    "step_two": "contact/step_two.html",
+    "step_three": "contact/step_three.html",
 }
 
 
-LOCATIONS, TOPICS = (dict(IEE_LOCATION_CHOICES), dict(IEE_TOPIC_CHOICES))
+LOCATIONS, TOPICS = (dict(LOCATION_CHOICES), dict(TOPIC_CHOICES))
 
 
 def jump_to_step_three(wizard):
     cleaned_data = wizard.get_cleaned_data_for_step("step_one") or {}
-    print(True if cleaned_data.get('location', '2') else False)
-    return True if cleaned_data.get('location', '2') else False
+    location = cleaned_data.get('location')
+    if location == '3':
+        return False
+    else:
+        return True
 
 
-class IEEContactFormWizardView(SessionWizardView):
+class ContactFormWizardView(SessionWizardView):
+
     def get_template_names(self):
         return [TEMPLATES[self.steps.current]]
 
     form_list = FORMS
 
-    condition_dict = {"step_three": jump_to_step_three}
+    condition_dict = {'step_two': jump_to_step_three}
 
     def done(self, form_list, **kwargs):
         context = self.process_form_data(form_list)
@@ -57,15 +59,15 @@ class IEEContactFormWizardView(SessionWizardView):
         # otherwise send an email
 
         if context["type"] == "Zendesk":
-            IEEContactFormWizardView.send_to_zenddesk(context)
+            ContactFormWizardView.send_to_zenddesk(context)
         else:
-            IEEContactFormWizardView.send_mail(context)
+            ContactFormWizardView.send_mail(context)
 
-        # return render(self.request, 'done.html', {
-        #     'form_data': [form.cleaned_data for form in form_list],
-        # })
+        return render(self.request, 'contact/done.html', {
+            'form_data': [form.cleaned_data for form in form_list],
+        })
 
-        return render_to_response("iee_contact/done.html", {"context": context})
+        # return render_to_response("contact/done.html", {"context": context})
 
     def render_next_step(self, form, **kwargs):
         """
@@ -75,18 +77,14 @@ class IEEContactFormWizardView(SessionWizardView):
         :param kwargs: passed keyword arguments
         :return: render to response
         """
-        if (
-            self.steps.next == "step_two"
-            and form.cleaned_data["location"] == "3"
-        ):
-            return self.render_goto_step("step_three")
-        if (
+
+        if ("enquiry_topic" in form.cleaned_data and
             self.steps.next == "step_three"
             and form.cleaned_data["enquiry_topic"] == "1"
         ):
             return HttpResponseRedirect(settings.HMRC_TAX_FORM_URL)
         else:
-            return super(IEEContactFormWizardView, self).render_next_step(
+            return super(ContactFormWizardView, self).render_next_step(
                 form, **kwargs
             )
 
@@ -97,6 +95,8 @@ class IEEContactFormWizardView(SessionWizardView):
         context = {"subject": "New IEE Enquiry", "service_name": "UK IEE", "GA_GTM": settings.IEE_GA_GTM}
 
         for form in form_data:
+            if "country_code" in form.keys():
+                context["country_code"] = form["country_code"]
             """
             check and store first question response in context
             if first response is option 3 for technical questions set context type to Zendesk
@@ -120,22 +120,22 @@ class IEEContactFormWizardView(SessionWizardView):
             if "message" in form.keys():
                 context["message"] = form["message"]
 
-        if context["topic"] == TOPICS[2]:
-            context["type"] = "email"
-            context["recipient_email"] = settings.EU_EXIT_DIT_EMAIL
-            context["recipient_full_name"] = settings.EU_EXIT_DIT_FULLNAME
+        if "topic" in context:
+            if context["topic"] == TOPICS[2]:
+                context["type"] = "Email"
+                context["recipient_email"] = settings.EU_EXIT_DIT_EMAIL
+                context["recipient_fullname"] = settings.EU_EXIT_DIT_FULLNAME
 
-        elif context["topic"] == TOPICS[3]:
-            context["type"] = "Zendesk"
-            context["recipient_email"] = settings.EU_EXIT_EMAIL
-            context["recipient_full_name"] = settings.EU_EXIT_FULLNAME
-
-        elif context["topic"] == TOPICS[4]:
+            elif context["topic"] == TOPICS[3]:
+                context["type"] = "Email"
+                context["recipient_email"] = settings.EU_EXIT_EMAIL
+                context["recipient_fullname"] = settings.EU_EXIT_FULLNAME
+        else:
             context["type"] = "Zendesk"
             context["recipient_email"] = settings.FEEDBACK_EMAIL
-            context["recipient_full_name"] = settings.FEEDBACK_FULLNAME
+            context["recipient_fullname"] = settings.FEEDBACK_FULLNAME
 
-        template = get_template("iee_contact/contact_message_tmpl.txt")
+        template = get_template("contact/contact_message_tmpl.txt")
         context["content"] = template.render(context)
 
         return context
@@ -143,25 +143,27 @@ class IEEContactFormWizardView(SessionWizardView):
     @staticmethod
     def send_mail(context):
 
-        headers = {"Reply-To": context["email_address"]}
+        email_form = ZendeskEmailForm(data={'message': context["message"]})
 
-        email = EmailMessage(
-            context["subject"],
-            context["content"],
-            context["email_address"],
-            [context["recipient_email"]],
-            headers=headers,
+        spam_control = helpers.SpamControl(contents=context["content"])
+
+        sender = helpers.Sender(country_code=context["country_code"], email_address=context["email_address"])
+
+        assert email_form.is_valid()
+
+        email_form.save(
+            recipients=[context["recipient_email"]],
+            subject=context["subject"],
+            reply_to=context["email_address"],
+            form_url="/contact/",
+            spam_control=spam_control,
+            sender=sender,
         )
-
-        try:
-            email.send()
-        except Exception as ex:
-            print(ex.args)
 
     @staticmethod
     def send_to_zenddesk(context):
 
-        zendesk_form = IEEZendeskForm(
+        zendesk_form = ZendeskForm(
             data={
                 "message": context["message"],
                 "email_address": context["email_address"],
@@ -171,7 +173,7 @@ class IEEContactFormWizardView(SessionWizardView):
 
         spam_control = helpers.SpamControl(contents=context["content"])
 
-        sender = helpers.Sender(email_address=context["email_address"])
+        sender = helpers.Sender(country_code=context["country_code"], email_address=context["email_address"])
 
         assert zendesk_form.is_valid()
 
@@ -179,8 +181,11 @@ class IEEContactFormWizardView(SessionWizardView):
 
             zendesk_form.save(
                 email_address=context["recipient_email"],
-                form_url="/iee_contact/",
+                full_name=context["recipient_fullname"],
+                form_url="/contact/",
                 service_name=context["service_name"],
                 spam_control=spam_control,
                 sender=sender,
+                subject=context["subject"]
+
             )

@@ -8,7 +8,7 @@ logging.disable(logging.NOTSET)
 logger.setLevel(logging.INFO)
 
 
-class IEEContactFormViewTestCase(TestCase):
+class ContactFormViewTestCase(TestCase):
     """
     Test Feedback View
     """
@@ -16,7 +16,7 @@ class IEEContactFormViewTestCase(TestCase):
     def setUp(self):
 
         self.client = Client()
-        self.wizard_url = "/iee_contact/"
+        self.wizard_url = "/contact/"
 
     def test_initial_form_call(self):
 

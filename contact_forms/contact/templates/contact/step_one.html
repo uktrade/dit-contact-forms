@@ -1,4 +1,4 @@
-{% extends "iee_contact/contact_form_base.html" %}
+{% extends "contact/contact_form_base.html" %}
 {% load i18n %}
 
 
@@ -11,6 +11,7 @@
 {% endblock %}
 
 {% block form_body %}
+    <input type="hidden" name="step_one-country_code" id="id_step_one-country_code" value="{{ request.GET.country_code }}">
     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
         <h2 class="govuk-fieldset__legend--m">{{ wizard.form.label_tag }}</h2>
 
@@ -47,5 +48,4 @@
             </div>
         </div>
     </div>
-
 {% endblock %}

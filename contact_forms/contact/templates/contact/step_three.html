@@ -1,4 +1,4 @@
-{% extends "iee_contact/contact_form_base.html" %}
+{% extends "contact/contact_form_base.html" %}
 {% load i18n %}
 
 
@@ -9,7 +9,6 @@
 {% endblock %}
 
 {% block form_body %}
-
     <div class="govuk-form-group govuk-!-width-two-thirds govuk-!-margin-bottom-0 {% if wizard.form.message.errors %}govuk-form-group--error{% endif %}">
         <label class="govuk-label" for="id_step_three-message">{{ wizard.form.message.label_tag }}</label>
         {% if wizard.form.message.errors %}
@@ -60,7 +59,7 @@
         <div class="govuk-checkboxes">
             <div class="govuk-checkboxes__item">
                 <input class="govuk-checkboxes__input" id="id_step_three-terms_and_conditions" name="step_three-terms_and_conditions" aria-describedby="terms_and_conditions-hint" {% if wizard.form.terms_and_conditions.data %}checked{% endif %} type="checkbox"/>
-                <label class="govuk-label govuk-checkboxes__label" for="id_step_three-terms_and_conditions">Tick this box to accept the <a href="" rel="external" target="_blank">Terms and Conditions <span class="govuk-visually-hidden">Opens in new window</span></a> for this service</label>
+                <label class="govuk-label govuk-checkboxes__label" for="id_step_three-terms_and_conditions">Tick this box to accept the <a href="{% url 'privacy:terms_and_conditions' %}" rel="external" target="_blank">Terms and Conditions <span class="govuk-visually-hidden">Opens in new window</span></a> for this service</label>
             </div>
         </div>
     </div>
