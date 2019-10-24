@@ -31,6 +31,8 @@ urlpatterns = [
     path("cookies/", cookie_views.CookiesView.as_view(), name="cookies"),
     path("contact/",include("contact.urls", namespace="contact")),
     path("privacy-terms-and-conditions/", include("privacy_terms_and_conditions.urls", namespace="privacy")),
+    path("disclaimer/", include("disclaimer.urls", namespace="disclaimer")),
+    path("accessibility/", include("accessibility.urls", namespace="accessibility")),
     re_path(r"^check/$", HealthCheckView.as_view(), name="healthcheck"),
 
 ]

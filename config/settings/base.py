@@ -55,6 +55,8 @@ INSTALLED_APPS = [
     "healthcheck",
     "privacy_terms_and_conditions",
     "directory_forms_api_client",
+    "accessibility",
+    "disclaimer",
 ]
 
 MIDDLEWARE = [

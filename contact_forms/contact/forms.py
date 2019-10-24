@@ -22,7 +22,7 @@ class ContactFormStepOne(forms.Form):
     location = forms.ChoiceField(
         choices=LOCATION_CHOICES, widget=forms.RadioSelect, required=True
     )
-    location.label = "What would you like to know more about?"
+    location.label = "What would you like to ask us about or give feedback on?"
     country_code = forms.CharField(widget=forms.HiddenInput, required=True)
 
 
@@ -30,7 +30,7 @@ class ContactFormStepTwo(forms.Form):
     enquiry_topic = forms.ChoiceField(
         choices=TOPIC_CHOICES, widget=forms.RadioSelect, required=True
     )
-    enquiry_topic.label = "What would you like to know more about?"
+    enquiry_topic.label = "What would you like to ask us about or give feedback on?"
 
 
 class ContactFormStepThree(forms.Form):
