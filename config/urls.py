@@ -16,14 +16,11 @@ Including another URLconf
 from django.conf import settings
 from django.contrib import admin
 from django.urls import path, re_path, include
-
 from admin.views import admin_login_view
 from cookies import views as cookie_views
-from countries import views as country_views
 from iee_contact import views as iee_contact_views
 from healthcheck.views import HealthCheckView
 from index import views as index
-
 
 handler404 = "core.views.error404handler"
 handler500 = "core.views.error500handler"
@@ -42,7 +39,6 @@ urlpatterns = [
     re_path(r"^check/$", HealthCheckView.as_view(), name="healthcheck"),
 
 ]
-
 
 if settings.ADMIN_ENABLED:
     urlpatterns += [
