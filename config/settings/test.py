@@ -126,3 +126,4 @@ logging.config.dictConfig(
 
 TEST_COUNTRY_CODE = "AU"
 TEST_COUNTRY_NAME = "Australia"
+COUNTRIES_DATA = APPS_DIR + "/countries/fixtures/countries_data.json"

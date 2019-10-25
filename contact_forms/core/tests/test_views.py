@@ -15,6 +15,6 @@ class CoreViewsTestCase(TestCase):
         self.assertEqual(resp.status_code, 404)
 
     def test_500_error(self):
-        req = RequestFactory().get("/")
+        req = RequestFactory().get("/contact/")
         resp = error500handler(req)
         self.assertEqual(resp.status_code, 500)

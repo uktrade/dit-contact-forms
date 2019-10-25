@@ -40,7 +40,7 @@ class AdminIPMiddlewareTestCase(TestCase):
     @override_settings(RESTRICT_ADMIN=True)
     def test_ip_restriction_applies_to_admin_only(self):
 
-        request = self.rf.get("/choose-country/")
+        request = self.rf.get("/contact/")
 
         self.assertEqual(
             AdminIpRestrictionMiddleware(lambda _: HttpResponse(status=200))(
