@@ -2,9 +2,10 @@ import logging
 from directory_forms_api_client import helpers
 from django.conf import settings
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render
 from django.template.loader import get_template
 from formtools.wizard.views import SessionWizardView
+
 
 from contact.forms import (
     ContactFormStepOne,
@@ -59,12 +60,14 @@ class ContactFormWizardView(SessionWizardView):
         # otherwise send an email
 
         if context["type"] == "Zendesk":
-            ContactFormWizardView.send_to_zenddesk(context)
+            resp = ContactFormWizardView.send_to_zendesk(context)
         else:
-            ContactFormWizardView.send_mail(context)
+            resp = ContactFormWizardView.send_mail(context)
+
+        logger.info("FORM Submittion response: ", resp)
 
         return render(self.request, 'contact/done.html', {
-            'form_data': [form.cleaned_data for form in form_list],
+            'form_data': [form.cleaned_data for form in form_list].append(["resp", resp]),
         })
 
         # return render_to_response("contact/done.html", {"context": context})
@@ -138,6 +141,12 @@ class ContactFormWizardView(SessionWizardView):
         template = get_template("contact/contact_message_tmpl.txt")
         context["content"] = template.render(context)
 
+        context["spam_control"] = helpers.SpamControl(contents=context["content"])
+
+        context["sender"] = helpers.Sender(country_code=context["country_code"], email_address=context["email_address"])
+
+        context["form_url"] = "/contact/"
+
         return context
 
     @staticmethod
@@ -151,7 +160,7 @@ class ContactFormWizardView(SessionWizardView):
 
         assert email_form.is_valid()
 
-        email_form.save(
+        resp = email_form.save(
             recipients=[context["recipient_email"]],
             subject=context["subject"],
             reply_to=context["email_address"],
@@ -160,8 +169,10 @@ class ContactFormWizardView(SessionWizardView):
             sender=sender,
         )
 
+        return resp
+
     @staticmethod
-    def send_to_zenddesk(context):
+    def send_to_zendesk(context):
 
         zendesk_form = ZendeskForm(
             data={
@@ -171,21 +182,15 @@ class ContactFormWizardView(SessionWizardView):
             }
         )
 
-        spam_control = helpers.SpamControl(contents=context["content"])
-
-        sender = helpers.Sender(country_code=context["country_code"], email_address=context["email_address"])
-
         assert zendesk_form.is_valid()
 
-        if settings.DIRECTORY_FORMS_API_BASE_URL:
-
-            zendesk_form.save(
+        resp = zendesk_form.save(
                 email_address=context["recipient_email"],
                 full_name=context["recipient_fullname"],
-                form_url="/contact/",
+                form_url=context["form_url"],
                 service_name=context["service_name"],
-                spam_control=spam_control,
-                sender=sender,
-                subject=context["subject"]
+                spam_control=context["spam_control"],
+                sender=context["sender"],
+                subject=context["subject"])
 
-            )
+        return resp
