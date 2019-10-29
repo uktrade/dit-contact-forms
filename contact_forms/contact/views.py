@@ -64,10 +64,14 @@ class ContactFormWizardView(SessionWizardView):
         else:
             resp = ContactFormWizardView.send_mail(context)
 
-        logger.info("FORM Submittion response: ", resp)
+        logger.info("FORM Submittion response: ", resp.json())
+
+        data = [form.cleaned_data for form in form_list]
+
+        data.append({"response": resp.json()})
 
         return render(self.request, 'contact/done.html', {
-            'form_data': [form.cleaned_data for form in form_list].append(["resp", resp]),
+            'form_data': data,
         })
 
         # return render_to_response("contact/done.html", {"context": context})
@@ -151,29 +155,20 @@ class ContactFormWizardView(SessionWizardView):
 
     @staticmethod
     def send_mail(context):
-
         email_form = ZendeskEmailForm(data={'message': context["message"]})
-
-        spam_control = helpers.SpamControl(contents=context["content"])
-
-        sender = helpers.Sender(country_code=context["country_code"], email_address=context["email_address"])
-
         assert email_form.is_valid()
-
         resp = email_form.save(
             recipients=[context["recipient_email"]],
             subject=context["subject"],
-            reply_to=context["email_address"],
+            reply_to=[context["email_address"],],
             form_url="/contact/",
-            spam_control=spam_control,
-            sender=sender,
+            spam_control=context["spam_control"],
+            sender=context["sender"],
         )
-
         return resp
 
     @staticmethod
     def send_to_zendesk(context):
-
         zendesk_form = ZendeskForm(
             data={
                 "message": context["message"],
@@ -181,9 +176,7 @@ class ContactFormWizardView(SessionWizardView):
                 "name": context["name"],
             }
         )
-
         assert zendesk_form.is_valid()
-
         resp = zendesk_form.save(
                 email_address=context["recipient_email"],
                 full_name=context["recipient_fullname"],
@@ -192,5 +185,4 @@ class ContactFormWizardView(SessionWizardView):
                 spam_control=context["spam_control"],
                 sender=context["sender"],
                 subject=context["subject"])
-
         return resp
