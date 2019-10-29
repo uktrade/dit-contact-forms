@@ -149,7 +149,7 @@ class ContactFormWizardView(SessionWizardView):
 
         context["sender"] = helpers.Sender(country_code=context["country_code"], email_address=context["email_address"])
 
-        context["form_url"] = "/contact/"
+        context["form_url"] = "/"
 
         return context
 
@@ -161,7 +161,7 @@ class ContactFormWizardView(SessionWizardView):
             recipients=[context["recipient_email"]],
             subject=context["subject"],
             reply_to=[context["email_address"],],
-            form_url="/contact/",
+            form_url="/",
             spam_control=context["spam_control"],
             sender=context["sender"],
         )
