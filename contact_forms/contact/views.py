@@ -64,11 +64,12 @@ class ContactFormWizardView(SessionWizardView):
         else:
             resp = ContactFormWizardView.send_mail(context)
 
-        logger.info("FORM Submittion response: ", resp.json())
+        logger.info("FORM Submittion response: {} ".format(resp))
+        logger.info("FORM Submittion response json: {} ".format(resp.json()))
 
         data = [form.cleaned_data for form in form_list]
 
-        data.append({"response": resp.json()})
+        logger.info("FORM Data: ", data)
 
         return render(self.request, 'contact/done.html', {
             'form_data': data,
