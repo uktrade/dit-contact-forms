@@ -47,13 +47,16 @@ INSTALLED_APPS = [
     "core",
     "cookies",
     "countries",
-    "iee_contact",
+    "contact",
     "index",
     "django_extensions",
     "authbroker_client",
     "user",
     "healthcheck",
+    "privacy_terms_and_conditions",
     "directory_forms_api_client",
+    "accessibility",
+    "disclaimer",
 ]
 
 MIDDLEWARE = [

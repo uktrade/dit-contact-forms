@@ -7,7 +7,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     {% block  ga_gta_head %}{% endblock ga_gta_head %}
 
-    <title>{% block title %}{% endblock %} - Trade with the UK: look up tariffs, taxes and rules</title>
+    <title>{% block title %}{% endblock %} - Check how to export goods</title>
     <link rel="shortcut icon" sizes="16x16 32x32 48x48" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
     <meta name="twitter:dnt" content="on">
     <meta name="format-detection" content="telephone=no">
@@ -122,7 +122,7 @@
         </div>
         <div class="govuk-header__content">
           <a href="" class="govuk-header__link govuk-header__link--service-name">
-            Trade with the UK: look up tariffs, taxes and rules
+            Check how to export goods
           </a>
         </div>
       </div>
@@ -136,7 +136,7 @@
               </strong>
               <span class="govuk-phase-banner__text">
                 This is a new service – your
-                <a class="govuk-link" href="{% url 'iee-contact-view' %}">feedback</a> will help us to improve it.
+                <a class="govuk-link" href="{% url 'contact:form-view' %}{% if request.GET.country_code %}?country_code={{ request.GET.country_code }}{% endif %}">feedback</a> will help us to improve it.
               </span>
             </p>
           </div>
@@ -154,18 +154,28 @@
               <h2 class="govuk-visually-hidden">Support links</h2>
               <ul class="govuk-footer__inline-list">
                 <li class="govuk-footer__inline-list-item">
+                  <a class="govuk-footer__link" href="{% url 'contact:form-view' %}{% if request.GET.country_code %}?country_code={{ request.GET.country_code }}{% endif %}">
+                    Contact
+                  </a>
+                </li>
+                <li class="govuk-footer__inline-list-item">
+                  <a class="govuk-footer__link" href="{% url 'disclaimer:disclaimer' %}">
+                    Disclaimer
+                  </a>
+                </li>
+                <li class="govuk-footer__inline-list-item">
+                  <a class="govuk-footer__link" href="{% url 'accessibility:accessibility' %}">
+                    Accessibility
+                  </a>
+                </li>
+                <li class="govuk-footer__inline-list-item">
+                  <a class="govuk-footer__link" href="{% url 'privacy:terms_and_conditions' %}">
+                    Privacy Notice
+                  </a>
+                </li>
+                <li class="govuk-footer__inline-list-item">
                   <a class="govuk-footer__link" href="{% url 'cookies' %}">
                     Cookies
-                  </a>
-                </li>
-                <li class="govuk-footer__inline-list-item">
-                  <a class="govuk-footer__link" href="">
-                    Privacy, terms and conditions
-                  </a>
-                </li>
-                <li class="govuk-footer__inline-list-item">
-                  <a class="govuk-footer__link" href="{% url 'iee-contact-view' %}">
-                    Contact
                   </a>
                 </li>
               </ul>

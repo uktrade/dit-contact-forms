@@ -16,33 +16,25 @@ Including another URLconf
 from django.conf import settings
 from django.contrib import admin
 from django.urls import path, re_path, include
-
 from admin.views import admin_login_view
 from cookies import views as cookie_views
-from countries import views as country_views
-from iee_contact import views as iee_contact_views
 from healthcheck.views import HealthCheckView
 from index import views as index
-
 
 handler404 = "core.views.error404handler"
 handler500 = "core.views.error500handler"
 
 urlpatterns = [
     # redirects to start page
-    path("", index.IndexRedirect.as_view(), name="index"),
     path("auth/", include("authbroker_client.urls", namespace="authbroker")),
     path("cookies/", cookie_views.CookiesView.as_view(), name="cookies"),
-
-    path(
-        "iee_contact/",
-        iee_contact_views.IEEContactFormWizardView.as_view(),
-        name="iee-contact-view",
-    ),
+    path("",include("contact.urls", namespace="contact")),
+    path("privacy-terms-and-conditions/", include("privacy_terms_and_conditions.urls", namespace="privacy")),
+    path("disclaimer/", include("disclaimer.urls", namespace="disclaimer")),
+    path("accessibility/", include("accessibility.urls", namespace="accessibility")),
     re_path(r"^check/$", HealthCheckView.as_view(), name="healthcheck"),
 
 ]
-
 
 if settings.ADMIN_ENABLED:
     urlpatterns += [
