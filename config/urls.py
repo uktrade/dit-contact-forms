@@ -26,14 +26,13 @@ handler500 = "core.views.error500handler"
 
 urlpatterns = [
     # redirects to start page
-    path("",include("contact.urls", namespace="contact")),
     path("auth/", include("authbroker_client.urls", namespace="authbroker")),
     path("cookies/", cookie_views.CookiesView.as_view(), name="cookies"),
     path("privacy-terms-and-conditions/", include("privacy_terms_and_conditions.urls", namespace="privacy")),
     path("disclaimer/", include("disclaimer.urls", namespace="disclaimer")),
     path("accessibility/", include("accessibility.urls", namespace="accessibility")),
     re_path(r"^check/$", HealthCheckView.as_view(), name="healthcheck"),
-
+    path("",include("contact.urls", namespace="contact")),
 ]
 
 if settings.ADMIN_ENABLED:
