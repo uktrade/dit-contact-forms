@@ -148,7 +148,7 @@ class ContactFormWizardView(SessionWizardView):
 
         context["spam_control"] = helpers.SpamControl(contents=context["content"])
 
-        context["sender"] = helpers.Sender(country_code=context["country_code"], email_address=context["email_address"])
+        context["sender"] = helpers.Sender(country_code=context["country_code"], email_address=[context["email_address"]])
 
         context["form_url"] = "/"
 
@@ -156,15 +156,13 @@ class ContactFormWizardView(SessionWizardView):
 
     @staticmethod
     def send_mail(context):
-        email_form = ZendeskEmailForm(data={'message': context["message"]})
+        email_form = ZendeskEmailForm(data={'message': context["content"]})
         assert email_form.is_valid()
         resp = email_form.save(
             recipients=[context["recipient_email"]],
             subject=context["subject"],
             reply_to=[context["email_address"],],
             form_url="/",
-            spam_control=context["spam_control"],
-            sender=context["sender"],
         )
         return resp
 
@@ -172,7 +170,7 @@ class ContactFormWizardView(SessionWizardView):
     def send_to_zendesk(context):
         zendesk_form = ZendeskForm(
             data={
-                "message": context["message"],
+                "message": context["content"],
                 "email_address": context["email_address"],
                 "name": context["name"],
             }
