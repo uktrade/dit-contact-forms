@@ -159,7 +159,7 @@ class ContactFormWizardView(SessionWizardView):
         email_form = ZendeskEmailForm(data={'message': context["content"]})
         assert email_form.is_valid()
         resp = email_form.save(
-            recipients=["glen.lavery@digital.trade.gov.uk"],
+            recipients=[context["recipient_email"]],
             subject=context["subject"],
             reply_to=[context["email_address"],],
             form_url="/",
