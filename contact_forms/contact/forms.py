@@ -84,6 +84,6 @@ class ZendeskEmailForm(EmailAPIForm):
     @property
     def html_body(self):
         ''' Override html_body to return html template of email body.'''
-
-        cleaned_html = '<p>message: ' + str(self.cleaned_data['message']) + '</p>'
+        cleaned = str(self.cleaned_data['message']).replace("\n", "<br />")
+        cleaned_html = '<p>message: ' + cleaned + '</p>'
         return cleaned_html
