@@ -177,8 +177,8 @@ class ContactFormWizardView(SessionWizardView):
         )
         assert zendesk_form.is_valid()
         resp = zendesk_form.save(
-                email_address=context["recipient_email"],
-                full_name=context["recipient_fullname"],
+                email_address=context["email_address"],
+                full_name=context["name"],
                 form_url=context["form_url"],
                 service_name=context["service_name"],
                 #spam_control=context["spam_control"],
