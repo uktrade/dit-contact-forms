@@ -150,7 +150,7 @@ class ContactFormWizardView(SessionWizardView):
 
         context["sender"] = helpers.Sender(country_code=context["country_code"], email_address=[context["email_address"]])
 
-        context["form_url"] = "/"
+        context["form_url"] = "http://contact.check-duties-customs-exporting-goods.service.gov.uk/"
 
         return context
 
@@ -162,7 +162,7 @@ class ContactFormWizardView(SessionWizardView):
             recipients=[context["recipient_email"]],
             subject=context["subject"],
             reply_to=[context["email_address"],],
-            form_url="/",
+            form_url=context["form_url"],
         )
         return resp
 
@@ -181,7 +181,7 @@ class ContactFormWizardView(SessionWizardView):
                 full_name=context["recipient_fullname"],
                 form_url=context["form_url"],
                 service_name=context["service_name"],
-                spam_control=context["spam_control"],
-                sender=context["sender"],
+                #spam_control=context["spam_control"],
+                #sender=context["sender"],
                 subject=context["subject"])
         return resp
