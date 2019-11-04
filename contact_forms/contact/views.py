@@ -181,7 +181,7 @@ class ContactFormWizardView(SessionWizardView):
                 full_name=context["name"],
                 form_url=context["form_url"],
                 service_name=context["service_name"],
-                #spam_control=context["spam_control"],
-                #sender=context["sender"],
+                spam_control=context["spam_control"],
+                sender=context["sender"],
                 subject=context["subject"])
         return resp
