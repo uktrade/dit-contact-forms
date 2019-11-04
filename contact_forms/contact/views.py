@@ -133,11 +133,13 @@ class ContactFormWizardView(SessionWizardView):
                 context["type"] = "Email"
                 context["recipient_email"] = settings.EU_EXIT_DIT_EMAIL
                 context["recipient_fullname"] = settings.EU_EXIT_DIT_FULLNAME
+                context["subdomain"] = "dit"
 
             elif context["topic"] == TOPICS[3]:
                 context["type"] = "Email"
                 context["recipient_email"] = settings.EU_EXIT_EMAIL
                 context["recipient_fullname"] = settings.EU_EXIT_FULLNAME
+                context["subdomain"] = "euexit"
         else:
             context["type"] = "Zendesk"
             context["recipient_email"] = settings.FEEDBACK_EMAIL
