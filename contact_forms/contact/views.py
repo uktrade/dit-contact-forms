@@ -142,6 +142,7 @@ class ContactFormWizardView(SessionWizardView):
             context["type"] = "Zendesk"
             context["recipient_email"] = settings.FEEDBACK_EMAIL
             context["recipient_fullname"] = settings.FEEDBACK_FULLNAME
+            context["subdomain"] = "dit"
 
         template = get_template("contact/contact_message_tmpl.txt")
         context["content"] = template.render(context)
@@ -183,5 +184,6 @@ class ContactFormWizardView(SessionWizardView):
                 service_name=context["service_name"],
                 spam_control=context["spam_control"],
                 sender=context["sender"],
-                subject=context["subject"])
+                subject=context["subject"],
+                subdomain=context["subdomain"])
         return resp
