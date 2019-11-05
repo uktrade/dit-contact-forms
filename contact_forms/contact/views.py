@@ -144,6 +144,7 @@ class ContactFormWizardView(SessionWizardView):
             context["recipient_email"] = settings.FEEDBACK_EMAIL
             context["recipient_fullname"] = settings.FEEDBACK_FULLNAME
             context["subdomain"] = "dit"
+            context["service_name"] = "Check Export Duties"
 
         template = get_template("contact/contact_message_tmpl.txt")
         context["content"] = template.render(context)
