@@ -100,7 +100,7 @@ class ContactFormWizardView(SessionWizardView):
     def process_form_data(form_list):
         form_data = [form.cleaned_data for form in form_list]
 
-        context = {"subject": "New IEE Enquiry", "service_name": "UK IEE", "GA_GTM": settings.IEE_GA_GTM}
+        context = {"subject": "New IEE Enquiry", "service_name": "EU Exit", "GA_GTM": settings.IEE_GA_GTM}
 
         for form in form_data:
             if "country_code" in form.keys():
