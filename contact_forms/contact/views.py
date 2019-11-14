@@ -100,7 +100,7 @@ class ContactFormWizardView(SessionWizardView):
     def process_form_data(form_list):
         form_data = [form.cleaned_data for form in form_list]
 
-        context = {"subject": "New IEE Enquiry", "service_name": "EU Exit", "GA_GTM": settings.IEE_GA_GTM}
+        context = {"subject": "New IEE Enquiry", "subdomain": "dit", "GA_GTM": settings.IEE_GA_GTM}
 
         for form in form_data:
             if "country_code" in form.keys():
@@ -130,20 +130,21 @@ class ContactFormWizardView(SessionWizardView):
 
         if "topic" in context:
             if context["topic"] == TOPICS[2]:
-                context["type"] = "Email"
+                context["type"] = "Zendesk"
                 context["recipient_email"] = settings.EU_EXIT_DIT_EMAIL
                 context["recipient_fullname"] = settings.EU_EXIT_DIT_FULLNAME
+                context["service_name"] = "EU Exit"
 
             elif context["topic"] == TOPICS[3]:
-                context["type"] = "Email"
+                context["type"] = "Zendesk"
                 context["recipient_email"] = settings.EU_EXIT_EMAIL
                 context["recipient_fullname"] = settings.EU_EXIT_FULLNAME
+                context["service_name"] = "EU Exit"
 
         else:
             context["type"] = "Zendesk"
             context["recipient_email"] = settings.FEEDBACK_EMAIL
             context["recipient_fullname"] = settings.FEEDBACK_FULLNAME
-            context["subdomain"] = "dit"
             context["service_name"] = "Check Export Duties"
 
         template = get_template("contact/contact_message_tmpl.txt")
