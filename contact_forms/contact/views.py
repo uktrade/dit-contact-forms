@@ -75,8 +75,6 @@ class ContactFormWizardView(SessionWizardView):
             'form_data': data,
         })
 
-        # return render_to_response("contact/done.html", {"context": context})
-
     def render_next_step(self, form, **kwargs):
         """
         override next steps for step five if enquiry_topic is
@@ -100,11 +98,10 @@ class ContactFormWizardView(SessionWizardView):
     def process_form_data(form_list):
         form_data = [form.cleaned_data for form in form_list]
 
-        context = {"subject": "New IEE Enquiry", "subdomain": "dit", "GA_GTM": settings.IEE_GA_GTM}
+        context = {"subject": "New IEE Enquiry", "subdomain": "dit", "IEE_GA_GTM": settings.IEE_GA_GTM}
 
         for form in form_data:
-            if "country_code" in form.keys():
-                context["country_code"] = form["country_code"]
+
             """
             check and store first question response in context
             if first response is option 3 for technical questions set context type to Zendesk
@@ -152,7 +149,7 @@ class ContactFormWizardView(SessionWizardView):
 
         context["spam_control"] = helpers.SpamControl(contents=context["content"])
 
-        context["sender"] = helpers.Sender(country_code=context["country_code"], email_address=[context["email_address"]])
+        context["sender"] = helpers.Sender("", email_address=[context["email_address"]])
 
         context["form_url"] = "http://contact.check-duties-customs-exporting-goods.service.gov.uk/"
 
