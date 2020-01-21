@@ -273,3 +273,4 @@ EU_EXIT_FULLNAME = os.environ.get("EU_EXIT_FULLNAME")
 
 FEEDBACK_EMAIL = os.environ.get("FEEDBACK_EMAIL")
 FEEDBACK_FULLNAME = os.environ.get("FEEDBACK_FULLNAME")
+BASE_SITE_URL = os.environ.get("BASE_SITE_URL")
