@@ -85,7 +85,7 @@
           j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl
           f.parentNode.insertBefore(j,f)
 
-        })(window, document, 'script', 'dataLayer', {{ IEE_GA_GTM }})
+        })(window, document, 'script', 'dataLayer', '{{ IEE_GA_GTM }}')
       }
     </script>
   </head>
@@ -124,7 +124,7 @@
           </a>
         </div>
         <div class="govuk-header__content">
-          <a href="https://www.check-duties-customs-exporting-goods.service.gov.uk" class="govuk-header__link govuk-header__link--service-name">
+          <a href="{{ BASE_SITE_URL }}" class="govuk-header__link govuk-header__link--service-name">
             Check how to export goods
           </a>
         </div>

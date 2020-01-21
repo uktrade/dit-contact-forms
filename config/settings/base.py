@@ -89,6 +89,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "core.context_processors.ga_gtm_processor",
             ],
         },
     }
@@ -272,3 +273,4 @@ EU_EXIT_FULLNAME = os.environ.get("EU_EXIT_FULLNAME")
 
 FEEDBACK_EMAIL = os.environ.get("FEEDBACK_EMAIL")
 FEEDBACK_FULLNAME = os.environ.get("FEEDBACK_FULLNAME")
+BASE_SITE_URL = os.environ.get("BASE_SITE_URL")
