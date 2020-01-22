@@ -130,3 +130,7 @@ if ($modals) {
     new Modal($modal).start()
   })
 }
+
+module.exports = {
+  bindCookiePolicyForm: function() { console.log('bind me')}
+}
