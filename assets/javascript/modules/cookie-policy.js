@@ -1,13 +1,13 @@
 'use strict'
 
-function CookieBanner () {
+function CookieBanner() {
   var cookiePreferencesName = 'cookie_preferences_set'
   var cookiePreferencesDurationDays = 31
 
   var cookiesPolicyName = 'cookies_policy'
   var cookiesPolicyDurationDays = 365
 
-  function setCookie (name, value, options) {
+  function setCookie(name, value, options) {
     if (typeof options === 'undefined') {
       options = {}
     }
@@ -23,7 +23,7 @@ function CookieBanner () {
     document.cookie = cookieString
   }
 
-  function getCookie (name) {
+  function getCookie(name) {
     var nameEQ = name + '='
     var cookies = document.cookie.split(';')
     for (var i = 0, len = cookies.length; i < len; i++) {
@@ -38,7 +38,7 @@ function CookieBanner () {
     return null
   }
 
-  function getDefaultPolicy () {
+  function getDefaultPolicy() {
     return {
       essential: true,
       settings: true,
@@ -47,7 +47,7 @@ function CookieBanner () {
     }
   }
 
-  function getPolicyOrDefault () {
+  function getPolicyOrDefault() {
     var cookie = getCookie(cookiesPolicyName)
     var policy = getDefaultPolicy()
     if (!cookie) return policy
@@ -67,22 +67,22 @@ function CookieBanner () {
 
   }
 
-  function createPoliciesCookie (settings, usage, campaigns) {
+  function createPoliciesCookie(settings, usage, campaigns) {
     var policy = getDefaultPolicy()
     policy.settings = settings || false
     policy.usage = usage || false
     policy.campaigns = campaigns || false
     var json = JSON.stringify(policy)
-    setCookie(cookiesPolicyName, json, { days: cookiesPolicyDurationDays })
+    setCookie(cookiesPolicyName, json, {days: cookiesPolicyDurationDays})
     return policy
   }
 
-  function hideCookieBanner (className) {
+  function hideCookieBanner(className) {
     var banner = document.querySelector(className)
     banner.className = banner.className.replace(/app-cookie-banner--show/, '')
   }
 
-  function displayCookieBannerAcceptAll (cookieBannerClassName) {
+  function displayCookieBannerAcceptAll(cookieBannerClassName) {
     var banner = document.querySelector(cookieBannerClassName)
     banner.className = banner.className + ' app-cookie-banner--show__accepted-all'
 
@@ -92,14 +92,16 @@ function CookieBanner () {
         hideCookieBanner(cookieBannerClassName)
       })
     } else {
-      hideButton.addEventListener('click', function () {
+      hideButton.addEventListener('click', function (e) {
         hideCookieBanner(cookieBannerClassName)
+        e.preventDefault()
+        return false;
       }, false)
     }
 
   }
 
-  function displayCookieBanner (className) {
+  function displayCookieBanner(className) {
     var banner = document.querySelector(className)
 
     banner.className = banner.className.replace(
@@ -108,7 +110,7 @@ function CookieBanner () {
     )
   }
 
-  function bindAcceptAllCookiesButton (className, onClickFunction) {
+  function bindAcceptAllCookiesButton(className, onClickFunction) {
     var button = document.querySelector(className)
     if (button.attachEvent) {
       button.attachEvent('onclick', onClickFunction)
@@ -117,11 +119,11 @@ function CookieBanner () {
     }
   }
 
-  function setPreferencesCookie () {
-    setCookie(cookiePreferencesName, 'true', { days: cookiePreferencesDurationDays })
+  function setPreferencesCookie() {
+    setCookie(cookiePreferencesName, 'true', {days: cookiePreferencesDurationDays})
   }
 
-  function enableCookieBanner (bannerClassName, acceptButtonClassName) {
+  function enableCookieBanner(bannerClassName, acceptButtonClassName) {
     displayCookieBanner(bannerClassName)
     bindAcceptAllCookiesButton(acceptButtonClassName, function () {
       createPoliciesCookie(true, true, true)
@@ -134,7 +136,7 @@ function CookieBanner () {
 
   }
 
-  function init (bannerClassName, acceptButtonClassName, cookiesPolicyUrl) {
+  function init(bannerClassName, acceptButtonClassName, cookiesPolicyUrl) {
     if (!bannerClassName) {
       throw 'Expected bannerClassName'
     }
@@ -147,7 +149,7 @@ function CookieBanner () {
     }
   }
 
-  function bindCookiePolicyForm (formSelector, confirmationSelector, radioButtons) {
+  function bindCookiePolicyForm(formSelector, confirmationSelector, radioButtons) {
     if (typeof radioButtons !== 'object') {
       throw 'expected an object with radio button selectors'
     }

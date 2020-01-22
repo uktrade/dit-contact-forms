@@ -32,7 +32,7 @@ const paths = {
     watch: './assets/scss/**/*.scss',
     source: './assets/scss/global.scss',
     oldie: './assets/scss/oldie.scss',
-    destination: './contact_forms/static_collected/css/'
+    destination: './contact_forms/static/css/'
   },
   javascripts: {
     watch: './assets/javascript/**/*.js',
