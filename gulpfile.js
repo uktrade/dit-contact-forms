@@ -41,7 +41,7 @@ const paths = {
     destination: './contact_forms/static_collected/js/'
   },
   govukFrontendAssets: {
-    source: './node_modules/govuk-frontend/assets/**/*.*',
+    source: './node_modules/govuk-frontend/govuk/assets/**/*.*',
     destination: './contact_forms/static_collected/'
   },
   manifest: './manifest'
