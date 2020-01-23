@@ -6,8 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    {% block  ga_gta_head %}{% endblock ga_gta_head %}
-
+    {% google_tag_manager %}
     <title>{% block title %}{% endblock %} - Check how to export goods</title>
     <link rel="shortcut icon" sizes="16x16 32x32 48x48" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
     <meta name="twitter:dnt" content="on">
@@ -59,12 +58,13 @@
       <link rel="stylesheet" media="all" href="{% static 'css/global.min.css' %}">
     <!--<![endif]-->
     {% block extra_styles %}{% endblock extra_styles %}
-    
+
   </head>
   <body class="govuk-template__body">
     <script>
       document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled')
     </script>
+    {% google_tag_manager_noscript %}
     <a href="/#main-content" class="govuk-skip-link">Skip to main content</a>
     {% cookie_banner %}
     <header class="govuk-header " role="banner" data-module="header">

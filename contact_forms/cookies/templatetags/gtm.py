@@ -9,25 +9,25 @@ def cookie_banner():
     return {}
 
 
-def render_gtm_template(template_filename):
+def render_gtm_template(template_filename, gtm_container_id):
     t = loader.get_template(template_filename)
 
     return t.render({
-        'HELPDESK_GA_GTM': settings.HELPDESK_GA_GTM
+        'GTM_CONTAINER_ID': gtm_container_id
     })
 
 
 @register.simple_tag()
 def google_tag_manager():
-    if not settings.HELPDESK_GA_GTM:
+    if not settings.IEE_GA_GTM:
         return mark_safe("<!-- missing GTM container id -->")
 
-    return render_gtm_template("gtm.html")
+    return render_gtm_template("gtm.html", settings.IEE_GA_GTM)
 
 
 @register.simple_tag()
 def google_tag_manager_noscript():
-    if not settings.HELPDESK_GA_GTM:
+    if not settings.IEE_GA_GTM:
         return mark_safe("<!-- missing GTM container id -->")
 
-    return render_gtm_template("gtm_noscript.html")
+    return render_gtm_template("gtm_noscript.html",settings.IEE_GA_GTM)
