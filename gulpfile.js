@@ -32,7 +32,7 @@ const paths = {
     watch: './assets/scss/**/*.scss',
     source: './assets/scss/global.scss',
     oldie: './assets/scss/oldie.scss',
-    destination: './contact_forms/static/css/'
+    destination: './contact_forms/static_collected/css/'
   },
   javascripts: {
     watch: './assets/javascript/**/*.js',
@@ -108,9 +108,9 @@ const compileGovukFrontend = () => {
   return b.bundle()
     .pipe(source('global.js'))
     .pipe(buffer())
-    .pipe(sourcemaps.init({loadMaps: true}))
+    .pipe(sourcemaps.init({ loadMaps: true }))
     // Add transformation tasks to the pipeline here.
-    .pipe(uglify({ie8:true}))
+    .pipe(uglify({ ie8: true }))
     .on('error', log.error)
     .pipe(gulp.dest(paths.javascripts.destination))
 }
