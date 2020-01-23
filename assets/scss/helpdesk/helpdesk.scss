@@ -121,9 +121,9 @@ abbr {
     content: ' \279E';
 }
 
-.govuk-hint {
-  color: $govuk-text-colour;
-}
+//.govuk-hint {
+//  color: $govuk-text-colour;
+//}
 
 .app-select--inline {
     @include mq ($from: tablet) {
