@@ -149,7 +149,7 @@ class ContactFormWizardView(SessionWizardView):
 
         context["spam_control"] = helpers.SpamControl(contents=context["content"])
 
-        context["sender"] = helpers.Sender("", email_address=[context["email_address"]])
+        context["sender"] = helpers.Sender(country_code="", email_address=[context["email_address"]])
 
         context["form_url"] = "http://contact.check-duties-customs-exporting-goods.service.gov.uk/"
 
