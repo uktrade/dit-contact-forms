@@ -32,17 +32,17 @@ const paths = {
     watch: './assets/scss/**/*.scss',
     source: './assets/scss/global.scss',
     oldie: './assets/scss/oldie.scss',
-    destination: './dit_helpdesk/static_collected/css/'
+    destination: './contact_forms/static_collected/css/'
   },
   javascripts: {
     watch: './assets/javascript/**/*.js',
     source: './assets/javascript/**/*.js',
     accessibleAutocomplete: './node_modules/govuk-country-and-territory-autocomplete/dist/*.(js|js.map)',
-    destination: './dit_helpdesk/static_collected/js/'
+    destination: './contact_forms/static_collected/js/'
   },
   govukFrontendAssets: {
-    source: './node_modules/govuk-frontend/assets/**/*.*',
-    destination: './dit_helpdesk/static_collected/'
+    source: './node_modules/govuk-frontend/govuk/assets/**/*.*',
+    destination: './contact_forms/static_collected/'
   },
   manifest: './manifest'
 }
@@ -101,19 +101,17 @@ const compileGovukFrontend = () => {
     entries: [
       './assets/javascript/global.js'
     ],
-    debug: true
+    debug: true,
+    standalone: 'DITGlobals'
   });
 
   return b.bundle()
     .pipe(source('global.js'))
     .pipe(buffer())
-    .pipe(sourcemaps.init({loadMaps: true}))
+    .pipe(sourcemaps.init({ loadMaps: true }))
     // Add transformation tasks to the pipeline here.
-    .pipe(uglify({ie8:true}))
+    .pipe(uglify({ ie8: true }))
     .on('error', log.error)
-    .pipe(rename({
-      extname: '.min.js'
-    }))
     .pipe(gulp.dest(paths.javascripts.destination))
 }
 
