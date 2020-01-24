@@ -11,13 +11,14 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 import logging
 import os
-
-from os.path import join as join_path
-
+import sys
 import dj_database_url
+import sentry_sdk
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-from django.utils.log import DEFAULT_LOGGING
+from os.path import join as join_path
+
+from sentry_sdk.integrations.django import DjangoIntegration
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 APPS_DIR = os.path.join(BASE_DIR, "contact_forms")
@@ -42,7 +43,6 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "raven.contrib.django.raven_compat",
     "formtools",
     "core",
     "cookies",
@@ -198,53 +198,30 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_COOKIE_SAMESITE = "Strict"
 CSRF_COOKIE_SECURE = True
 
-#os.environ.get("SENTRY_DSN")
-
 LOGGING_CONFIG = None
 
-LOGLEVEL = os.environ.get("LOGLEVEL", "info").upper()
+LOG_LEVEL = os.environ.get("LOGLEVEL", "info").upper()
 
-logging.config.dictConfig(
-    {
-        "version": 1,
-        "disable_existing_loggers": False,
-        "formatters": {
-            "default": {
-                # exact format is not important, this is the minimum information
-                "format": "%(asctime)s %(name)-12s %(levelname)-8s %(message)s"
-            },
-            "django.server": DEFAULT_LOGGING["formatters"]["django.server"],
-        },
-        "handlers": {
-            # console logs to stderr
-            "console": {"class": "logging.StreamHandler", "formatter": "default"},
-            # Add Handler for Sentry for `warning` and above
-            "sentry": {
-                "level": "WARNING",
-                "class": "raven.contrib.django.raven_compat.handlers.SentryHandler",
-            },
-            "django.server": DEFAULT_LOGGING["handlers"]["django.server"],
-        },
-        "loggers": {
-            # default for all undefined Python modules
-            "": {"level": "WARNING", "handlers": ["console", "sentry"]},
-            # Our application code
-            "app": {
-                "level": LOGLEVEL,
-                "handlers": ["console", "sentry"],
-                # Avoid double logging because of root logger
-                "propagate": False,
-            },
-            # Prevent noisy modules from logging to Sentry
-            "noisy_module": {
-                "level": "ERROR",
-                "handlers": ["console"],
-                "propagate": False,
-            },
-            # Default runserver request logging
-            "django.server": DEFAULT_LOGGING["loggers"]["django.server"],
-        },
-    }
+LOGGING = {
+    'version': 1,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'stream': sys.stdout,
+        }
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': LOG_LEVEL,
+    },
+}
+
+sentry_sdk.init(
+    os.environ.get("SENTRY_DSN"),
+    environment=os.environ.get('SENTRY_ENVIRONMENT'),
+    integrations=[
+        DjangoIntegration(),
+    ]
 )
 
 DIRECTORY_FORMS_API_BASE_URL = os.environ.get("DIRECTORY_FORMS_API_BASE_URL")
