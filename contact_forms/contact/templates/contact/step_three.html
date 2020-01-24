@@ -51,7 +51,7 @@
     <div class="govuk-form-group govuk-!-width-two-thirds {% if wizard.form.terms_and_conditions.errors %}govuk-form-group--error{% endif %}">
         {% if wizard.form.terms_and_conditions.errors %}
             {% for error in wizard.form.terms_and_conditions.errors %}
-                <span id="message-error" class="govuk-error-message">{{ error | escape }}</span>
+                <span id="terms-error" class="govuk-error-message">{{ error | escape }}</span>
             {% endfor %}
         {% endif %}
         <div class="govuk-checkboxes">
