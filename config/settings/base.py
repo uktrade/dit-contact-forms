@@ -269,6 +269,10 @@ IEE_GA_GTM = os.environ.get('IEE_GA_GTM')
 EU_EXIT_DIT_EMAIL = os.environ.get("EU_EXIT_DIT_EMAIL")
 EU_EXIT_DIT_FULLNAME = os.environ.get("EU_EXIT_DIT_FULLNAME")
 
+# Zendesk service names
+ZENDESK_EU_EXIT_SERVICE_NAME = os.environ.get("ZENDESK_EU_EXIT_SERVICE_NAME")
+ZENDESK_CHEG_SERVICE_NAME = os.environ.get("ZENDESK_CHEG_SERVICE_NAME")
+
 EU_EXIT_EMAIL = os.environ.get("EU_EXIT_EMAIL")
 EU_EXIT_FULLNAME = os.environ.get("EU_EXIT_FULLNAME")
 
