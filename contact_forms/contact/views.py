@@ -127,7 +127,7 @@ class ContactFormWizardView(SessionWizardView):
 
         if "topic" in context:
             if context["topic"] == TOPICS[2]:
-                context["type"] = "Zendesk"
+                context["type"] = "email"
                 context["recipient_email"] = settings.EU_EXIT_DIT_EMAIL
                 context["recipient_fullname"] = settings.EU_EXIT_DIT_FULLNAME
                 context["service_name"] =settings.ZENDESK_EU_EXIT_SERVICE_NAME
