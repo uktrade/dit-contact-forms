@@ -18,7 +18,6 @@ jobs:
           DJANGO_POSTGRES_USER: DJANGO_POSTGRES_USER
           DJANGO_POSTGRES_PASSWORD: DJANGO_POSTGRES_PASSWORD
           DJANGO_POSTGRES_PORT: DJANGO_POSTGRES_PORT
-          #SENTRY_DSN: https://ad61c1d8e7e7426d820e56381fb09f98@sentry.ci.uktrade.io/150
       - image: circleci/postgres:10
         name: postgres
         environment:

@@ -1,0 +1,1 @@
+BASE_URL = 'https://contact.check-duties-customs-exporting-goods.service.gov.uk/'
