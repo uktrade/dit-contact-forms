@@ -71,8 +71,6 @@ jobs:
           name: Start app
           command: | 
             . venv/bin/activate
-            npm install
-            npm run build
-            python manage.py runserver_plus 0.0.0.0:8000
+            ./compose/automation/django/start.sh
           background: true
       - *wait_for_backend
