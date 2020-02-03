@@ -3,7 +3,6 @@ version: 2
 aliases:
   - &redis_version              redis:3.2.10
   - &postgres_version           circleci/postgres:10
-  - &python_version             circleci/python:3.6
 
   - &app_base_envs
     ADMIN_ENABLED: True
@@ -32,11 +31,11 @@ aliases:
     image: *postgres_version
     name: postgres
     environment:
-      POSTGRES_DB: helpdesk
+      POSTGRES_DB: contact_forms
 
   # Python container
-  - &docker_python
-    image: *python_version
+  - &docker_contact_forms
+    image: ukti/dit-contact-forms:1.0.0
 
   # Step for ui test* jobs
   - &wait_for_backend
@@ -47,7 +46,7 @@ aliases:
 jobs:
   build:
     docker:
-      - <<: *docker_python
+      - <<: *docker_contact_forms
         environment: *app_base_envs
       - *docker_postgres
       - *docker_redis
