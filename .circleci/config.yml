@@ -44,7 +44,45 @@ aliases:
       command: dockerize -wait http://localhost:8000 -timeout 300s
 
 jobs:
-  build:
+  unit_tests:
+    docker:
+      - <<: *docker_contact_forms
+        environment: *app_base_envs
+      - *docker_postgres
+      - *docker_redis
+    working_directory: ~/app
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            # when lock file changes, use increasingly general patterns to restore cache
+            - v1-dependencies-{{ .Branch }}-{{ checksum "requirements/test.txt" }}
+      - run:
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r requirements/development.txt
+      - save_cache:
+          key: v1-dependencies-{{ .Branch }}-{{ checksum "requirements/test.txt" }}
+          paths:
+            - "venv"
+      - run:
+          name: Running tests
+          command: |
+            . venv/bin/activate
+            coverage run manage.py test core.tests.test_admin_ip_middleware.AdminIPMiddlewareTestCase.test_ip_restriction_valid_ip --settings=config.settings.test
+      - run:
+          name: Generate coverage
+          command: |
+            coverage report
+            coverage xml -o test-reports/coverage.xml
+            coverage html -d test-reports/coverage_html
+      - store_test_results:
+          path: test-reports
+      - store_artifacts:
+          path: test-reports
+
+  ui_tests:
     docker:
       - <<: *docker_contact_forms
         environment: *app_base_envs
@@ -74,3 +112,12 @@ jobs:
             ./compose/automation/django/start.sh
           background: true
       - *wait_for_backend
+
+
+# CircleCI workflows
+workflows:
+  version: 2
+  helpdesk:
+    jobs:
+      - unit_tests
+      - ui_tests
