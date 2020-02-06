@@ -1,6 +1,6 @@
 #!/bin/bash -xe
 
-coverage run manage.py test dit_helpdesk --settings=config.settings.test --noinput
+coverage run manage.py test contact_forms --settings=config.settings.test --noinput
 coverage report -m
 coverage xml
 coverage html -d $TEST_OUTPUT_DIR/coverage_html
