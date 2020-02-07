@@ -1,1 +1,1 @@
-BASE_URL = 'https://contact.check-duties-customs-exporting-goods.service.gov.uk/'
+BASE_URL = 'http://localhost:8000/'
