@@ -90,7 +90,7 @@ jobs:
 
   ui_tests:
     docker:
-      - <<: *docker_contact_forms
+      - <<: *docker_contact_forms_test
         environment: *app_base_envs
       - *docker_postgres
       - *docker_redis
@@ -112,20 +112,20 @@ jobs:
           paths:
             - "venv"
       - run:
-        name: Start app
-        command: | 
-          . venv/bin/activate
-          ./compose/automation/django/start.sh
-        background: true
-    - *wait_for_backend
-    - run:
-        name: Run tests
-        command: |
-          . venv/bin/activate
-          export PATH=$PATH:$HOME/bin
-          pytest ui_test/specs
-    - store_artifacts:
-        path: screenshots
+          name: Start app
+          command: | 
+            . venv/bin/activate
+            ./compose/automation/django/start.sh
+          background: true
+      - *wait_for_backend
+      - run:
+          name: Run tests
+          command: |
+            . venv/bin/activate
+            export PATH=$PATH:$HOME/bin
+            pytest ui_test/specs
+      - store_artifacts:
+          path: screenshots
 
 # CircleCI workflows
 workflows:
