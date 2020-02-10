@@ -1,10 +1,10 @@
 
 To {{ recipient_fullname }}
 
-I would you like to know more about {{ location }}
+I would like to know more about {{ location }}
 
 {% if topic %}
-I would you like to know more about {{ topic }}
+I would like to know more about {{ topic }}
 {% endif %}
 
 {{ message }}
