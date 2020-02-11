@@ -20,7 +20,7 @@ services:
 
   postgres:
     image: postgres:10
-    restart: always
+    restart: unless-stopped
     ports:
       - "5432:5432"
     environment:
@@ -28,7 +28,7 @@ services:
 
   redis:
     image: redis:3.2
-    restart: always
+    restart: unless-stopped
     ports:
       - "6379:6379"
 
