@@ -257,10 +257,3 @@ FEEDBACK_EMAIL = os.environ.get("FEEDBACK_EMAIL")
 FEEDBACK_FULLNAME = os.environ.get("FEEDBACK_FULLNAME")
 BASE_SITE_URL = os.environ.get("BASE_SITE_URL")
 
-
-sentry_sdk.init(
-    dsn=os.environ.get('SENTRY_DSN'),
-    integrations=[
-        DjangoIntegration(),
-    ],
-)
