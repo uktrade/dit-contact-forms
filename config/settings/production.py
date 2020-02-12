@@ -1,7 +1,7 @@
 from .base import *
 import json
 
-ADMIN_ENABLED = False
+assert not ADMIN_ENABLED and os.environ.get("DJANGO_SETTINGS_MODULE") == 'config.settings.production'
 
 VCAP_SERVICES = json.loads(os.environ.get("VCAP_SERVICES", {}))
 
