@@ -3,6 +3,7 @@ version: 2
 aliases:
   - &redis_version              redis:3.2.10
   - &postgres_version           circleci/postgres:10
+  - &python_version             circleci/python:3.6
 
   - &app_base_envs
     ADMIN_ENABLED: True
@@ -34,8 +35,12 @@ aliases:
       POSTGRES_DB: contact_forms
 
   # Python container
-  - &docker_contact_forms
-    image: ukti/dit-contact-forms:1.0.0
+  - &docker_python
+    image: *python_version
+
+  # Contact forms test container
+  - &docker_contact_forms_test
+    image: ukti/dit-contact-forms-test:1.0.0
 
   # Step for ui test* jobs
   - &wait_for_backend
@@ -46,7 +51,7 @@ aliases:
 jobs:
   unit_tests:
     docker:
-      - <<: *docker_contact_forms
+      - <<: *docker_python
         environment: *app_base_envs
       - *docker_postgres
       - *docker_redis
@@ -85,7 +90,7 @@ jobs:
 
   ui_tests:
     docker:
-      - <<: *docker_contact_forms
+      - <<: *docker_contact_forms_test
         environment: *app_base_envs
       - *docker_postgres
       - *docker_redis
@@ -113,7 +118,14 @@ jobs:
             ./compose/automation/django/start.sh
           background: true
       - *wait_for_backend
-
+      - run:
+          name: Run tests
+          command: |
+            . venv/bin/activate
+            export PATH=$PATH:$HOME/bin
+            pytest ui_test/specs
+      - store_artifacts:
+          path: screenshots
 
 # CircleCI workflows
 workflows:
