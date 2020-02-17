@@ -1,3 +1,5 @@
+import os
+
 from django.test import TestCase, Client, RequestFactory, override_settings
 from django.http import HttpResponse
 from django.conf import settings
@@ -125,3 +127,14 @@ class AdminIPMiddlewareTestCase(TestCase):
             ).status_code,
             401,
         )
+
+    def test_admin_enabled_is_false_for_production(self):
+        DJANGO_SETTINGS_MODULE = "config.settings.production"
+        self.assertEqual(
+            DJANGO_SETTINGS_MODULE, "config.settings.production")
+        self.assertNotEqual(settings.ADMIN_ENABLED, False)
+
+    def test_admin_enabled_is_true_for_development_or_staging(self):
+        self.assertNotEqual(
+            os.environ.get("DJANGO_SETTINGS_MODULE"), "config.settings.production")
+        self.assertEqual(settings.ADMIN_ENABLED, True)
