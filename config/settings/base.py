@@ -33,7 +33,6 @@ env = environ.Env(
 )
 
 env.read_env()
-print(dir(env), env.bool("DEBUG"))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG")
