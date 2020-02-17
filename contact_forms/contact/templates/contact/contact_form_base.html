@@ -38,7 +38,6 @@
                     {% endif %}
 
                     <h2 class="govuk-heading-l">
-                        <span class="govuk-caption-l">Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</span>
                         {% block form_page_title %}{% endblock %}
                     </h2>
 
@@ -76,12 +75,10 @@
                             {{ hidden_field }}
                         {% endfor %}
 
-                        <fieldset class="govuk-fieldset">
-
+                        <fieldset class="govuk-fieldset" aria-labelledby="none">
+                        <legend class="govuk-fieldset__legend">Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</legend>
                             {{ wizard.management_form }}
-
                             {% block form_body %}{% endblock %}
-
                         </fieldset>
 
                         <button type="submit" class="govuk-button govuk-!-padding-left-8 govuk-!-padding-right-8">Continue
