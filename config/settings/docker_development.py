@@ -5,11 +5,11 @@ RESTRICT_ADMIN = False
 DATABASES = {
     "default": {
         "ENGINE": "psqlextra.backend",  # 'django.db.backends.postgresql_psycopg2',
-        "NAME": os.environ.get("DJANGO_POSTGRES_DATABASE"),
-        "USER": os.environ.get("DJANGO_POSTGRES_USER"),
-        "PASSWORD": os.environ.get("DJANGO_POSTGRES_PASSWORD"),
-        "HOST": os.environ.get("DJANGO_POSTGRES_HOST"),
-        "PORT": os.environ.get("DJANGO_POSTGRES_PORT"),
+        "NAME": env.str("DJANGO_POSTGRES_DATABASE"),
+        "USER": env.str("DJANGO_POSTGRES_USER"),
+        "PASSWORD": env.str("DJANGO_POSTGRES_PASSWORD"),
+        "HOST": env.str("DJANGO_POSTGRES_HOST"),
+        "PORT": env.str("DJANGO_POSTGRES_PORT"),
     }
 }
 
@@ -39,4 +39,4 @@ ELASTICSEARCH_DSL = {"default": {"hosts": ES_URL}}
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = BASE_DIR + "/app-messages"
 
-FEEDBACK_DESTINATION_EMAIL = os.environ.get("FEEDBACK_DESTINATION_EMAIL")
+FEEDBACK_DESTINATION_EMAIL = env.str("FEEDBACK_DESTINATION_EMAIL")

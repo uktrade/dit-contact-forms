@@ -3,15 +3,15 @@ from .base import *
 DATABASES = {
     "default": {
         "ENGINE": "psqlextra.backend",  # 'django.db.backends.postgresql_psycopg2',
-        "NAME": os.environ.get("DJANGO_POSTGRES_DATABASE"),
-        "USER": os.environ.get("DJANGO_POSTGRES_USER"),
-        "PASSWORD": os.environ.get("DJANGO_POSTGRES_PASSWORD"),
-        "HOST": os.environ.get("DJANGO_POSTGRES_HOST"),
-        "PORT": os.environ.get("DJANGO_POSTGRES_PORT"),
+        "NAME": env.str("DJANGO_POSTGRES_DATABASE"),
+        "USER": env.str("DJANGO_POSTGRES_USER"),
+        "PASSWORD": env.str("DJANGO_POSTGRES_PASSWORD"),
+        "HOST": env.str("DJANGO_POSTGRES_HOST"),
+        "PORT": env.str("DJANGO_POSTGRES_PORT"),
     }
 }
 
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "a-secret-key")
+SECRET_KEY = env.str("DJANGO_SECRET_KEY")
 RESTRICT_ADMIN = False
 DEBUG = True
 

@@ -14,6 +14,7 @@ import os
 import sys
 import sentry_sdk
 import dj_database_url
+import environ
 from sentry_sdk.integrations.django import DjangoIntegration
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -26,14 +27,22 @@ APPS_DIR = os.path.join(BASE_DIR, "contact_forms")
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
+
+env.read_env()
+print(dir(env), env.bool("DEBUG"))
+
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG", "False") == "True"
+DEBUG = env.bool("DEBUG")
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "localhost").split(",")
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
 
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "a-secret-key")
+SECRET_KEY = env.str("DJANGO_SECRET_KEY")
 
-ADMIN_ENABLED = os.environ.get("ADMIN_ENABLED") == "True"
+ADMIN_ENABLED = env.bool("ADMIN_ENABLED")
 
 # Application definition
 
@@ -170,23 +179,21 @@ STATICFILES_STORAGE = (
 
 # The correct index of the client IP in the X-Forwarded-For header.  It should be set to
 # -2 if accessing the private domain and -3 if accessing the site via the public URL.
-IP_SAFELIST_XFF_INDEX = int(os.environ.get("IP_SAFELIST_XFF_INDEX", "-2"))
+IP_SAFELIST_XFF_INDEX = env.int("IP_SAFELIST_XFF_INDEX")
 
 
-RESTRICT_ADMIN = os.environ.get("RESTRICT_ADMIN", "True") == "True"
-ALLOWED_ADMIN_IPS = os.environ.get("ALLOWED_ADMIN_IPS", "127.0.0.1").split(",")
-ALLOWED_ADMIN_IP_RANGES = os.environ.get(
-    "ALLOWED_ADMIN_IP_RANGES", "127.0.0.1/32"
-).split(",")
+RESTRICT_ADMIN = env.bool("RESTRICT_ADMIN")
+ALLOWED_ADMIN_IPS = env.list("ALLOWED_ADMIN_IPS")
+ALLOWED_ADMIN_IP_RANGES = env.list("ALLOWED_ADMIN_IP_RANGES")
 
 # authbroker config
-AUTHBROKER_URL = os.environ.get("AUTHBROKER_URL", "")
-AUTHBROKER_CLIENT_ID = os.environ.get("AUTHBROKER_CLIENT_ID", "")
-AUTHBROKER_CLIENT_SECRET = os.environ.get("AUTHBROKER_CLIENT_SECRET", "")
+AUTHBROKER_URL = env.str("AUTHBROKER_URL")
+AUTHBROKER_CLIENT_ID = env.str("AUTHBROKER_CLIENT_ID")
+AUTHBROKER_CLIENT_SECRET = env.str("AUTHBROKER_CLIENT_SECRET")
 
-LOGIN_URL = os.environ.get("LOGIN_URL")
+LOGIN_URL = env.str("LOGIN_URL")
 
-LOGIN_REDIRECT_URL = os.environ.get("LOGIN_REDIRECT_URL")
+LOGIN_REDIRECT_URL = env.str("LOGIN_REDIRECT_URL")
 
 AUTH_USER_MODEL = "user.User"
 
@@ -201,7 +208,7 @@ SESSION_COOKIE_SAMESITE = "Strict"
 CSRF_COOKIE_SECURE = True
 CSRF_COOKIE_HTTPONLY = True
 
-LOG_LEVEL = os.environ.get("LOGLEVEL", "info").upper()
+LOG_LEVEL = env.str("LOGLEVEL")
 
 LOGGING = {
     'version': 1,
@@ -218,42 +225,41 @@ LOGGING = {
 }
 
 sentry_sdk.init(
-    os.environ.get("SENTRY_DSN"),
-    environment=os.environ.get('SENTRY_ENVIRONMENT'),
+    env.str("SENTRY_DSN"),
+    environment=env.str('SENTRY_ENVIRONMENT'),
     integrations=[
         DjangoIntegration(),
     ]
 )
 
-DIRECTORY_FORMS_API_BASE_URL = os.environ.get("DIRECTORY_FORMS_API_BASE_URL")
-DIRECTORY_FORMS_API_API_KEY = os.environ.get("DIRECTORY_FORMS_API_API_KEY")
-DIRECTORY_FORMS_API_SENDER_ID = os.environ.get("DIRECTORY_FORMS_API_SENDER_ID")
-DIRECTORY_CLIENT_CORE_CACHE_EXPIRE_SECONDS = os.environ.get(
-    "DIRECTORY_CLIENT_CORE_CACHE_EXPIRE_SECONDS", 0
+DIRECTORY_FORMS_API_BASE_URL = env.str("DIRECTORY_FORMS_API_BASE_URL")
+DIRECTORY_FORMS_API_API_KEY = env.str("DIRECTORY_FORMS_API_API_KEY")
+DIRECTORY_FORMS_API_SENDER_ID = env.str("DIRECTORY_FORMS_API_SENDER_ID")
+DIRECTORY_CLIENT_CORE_CACHE_EXPIRE_SECONDS = env.int(
+    "DIRECTORY_CLIENT_CORE_CACHE_EXPIRE_SECONDS"
 )
-DIRECTORY_CLIENT_CORE_CACHE_LOG_THROTTLING_SECONDS = os.environ.get(
-    "DIRECTORY_CLIENT_CORE_CACHE_LOG_THROTTLING_SECONDS", 0
+DIRECTORY_CLIENT_CORE_CACHE_LOG_THROTTLING_SECONDS = env.int(
+    "DIRECTORY_CLIENT_CORE_CACHE_LOG_THROTTLING_SECONDS"
 )
 DIRECTORY_FORMS_API_DEFAULT_TIMEOUT = 10
 
-APP_START_DOMAIN = os.environ.get("APP_START_DOMAIN")
-FEEDBACK_DESTINATION_EMAIL = os.environ.get("FEEDBACK_DESTINATION_EMAIL")
+APP_START_DOMAIN = env.str("APP_START_DOMAIN")
+FEEDBACK_DESTINATION_EMAIL = env.str("FEEDBACK_DESTINATION_EMAIL")
 
-HMRC_TAX_FORM_URL = os.environ.get("HMRC_TAX_FORM_URL")
+HMRC_TAX_FORM_URL = env.str("HMRC_TAX_FORM_URL")
 
-IEE_GA_GTM = os.environ.get('IEE_GA_GTM')
+IEE_GA_GTM = env.str('IEE_GA_GTM')
 
-EU_EXIT_DIT_EMAIL = os.environ.get("EU_EXIT_DIT_EMAIL")
-EU_EXIT_DIT_FULLNAME = os.environ.get("EU_EXIT_DIT_FULLNAME")
+EU_EXIT_DIT_EMAIL = env.str("EU_EXIT_DIT_EMAIL")
+EU_EXIT_DIT_FULLNAME = env.str("EU_EXIT_DIT_FULLNAME")
 
 # Zendesk service names
-ZENDESK_EU_EXIT_SERVICE_NAME = os.environ.get("ZENDESK_EU_EXIT_SERVICE_NAME")
-ZENDESK_CHEG_SERVICE_NAME = os.environ.get("ZENDESK_CHEG_SERVICE_NAME")
+ZENDESK_EU_EXIT_SERVICE_NAME = env.str("ZENDESK_EU_EXIT_SERVICE_NAME")
+ZENDESK_CHEG_SERVICE_NAME = env.str("ZENDESK_CHEG_SERVICE_NAME")
+EU_EXIT_EMAIL = env.str("EU_EXIT_EMAIL")
+EU_EXIT_FULLNAME = env.str("EU_EXIT_FULLNAME")
 
-EU_EXIT_EMAIL = os.environ.get("EU_EXIT_EMAIL")
-EU_EXIT_FULLNAME = os.environ.get("EU_EXIT_FULLNAME")
-
-FEEDBACK_EMAIL = os.environ.get("FEEDBACK_EMAIL")
-FEEDBACK_FULLNAME = os.environ.get("FEEDBACK_FULLNAME")
-BASE_SITE_URL = os.environ.get("BASE_SITE_URL")
+FEEDBACK_EMAIL = env.str("FEEDBACK_EMAIL")
+FEEDBACK_FULLNAME = env.str("FEEDBACK_FULLNAME")
+BASE_SITE_URL = env.str("BASE_SITE_URL")
 
