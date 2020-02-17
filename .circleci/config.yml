@@ -31,9 +31,9 @@ aliases:
   - &docker_postgres
     image: *postgres_version
     name: postgres
-    password: test_db_password
     environment:
       POSTGRES_DB: contact_forms
+      POSTGRES_HOST_AUTH_METHOD: trust
 
   # Python container
   - &docker_python
