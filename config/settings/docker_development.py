@@ -18,7 +18,7 @@ SESSION_COOKIE_SECURE = False
 SESSION_COOKIE_HTTPONLY = False
 CSRF_COOKIE_SECURE = False
 
-STATIC_ROOT = "contact_form/static"
+STATIC_ROOT = "contact_forms/static"
 INTERNAL_IPS = ["127.0.0.1", "0.0.0.0", "localhost"]
 
 INSTALLED_APPS += ["debug_toolbar"]

@@ -36,19 +36,7 @@ SESSION_COOKIE_SECURE = False
 SESSION_COOKIE_HTTPONLY = False
 CSRF_COOKIE_SECURE = False
 
-STATIC_ROOT = "contact_form/static"
-# INTERNAL_IPS = ["127.0.0.1", "0.0.0.0", "localhost"]
-
-# INSTALLED_APPS += ["debug_toolbar"]
-
-# MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware"]
-
-#
-# def show_toolbar(request):
-#     return True
-
-
-# DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": show_toolbar}
+STATIC_ROOT = "contact_forms/static"
 
 ES_URL = "http://es:9200"
 
