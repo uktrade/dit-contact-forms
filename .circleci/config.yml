@@ -33,6 +33,7 @@ aliases:
     name: postgres
     environment:
       POSTGRES_DB: contact_forms
+      POSTGRES_HOST_AUTH_METHOD: trust
 
   # Python container
   - &docker_python
