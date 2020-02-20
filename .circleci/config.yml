@@ -41,7 +41,7 @@ aliases:
 
   # Contact forms test container
   - &docker_contact_forms_test
-    image: ukti/dit-contact-forms-test:1.0.0
+    image: ukti/dit-contact-forms-test:latest
 
   # Step for ui test* jobs
   - &wait_for_backend
