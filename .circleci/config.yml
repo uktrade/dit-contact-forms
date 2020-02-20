@@ -33,6 +33,7 @@ aliases:
     name: postgres
     environment:
       POSTGRES_DB: contact_forms
+      POSTGRES_HOST_AUTH_METHOD: trust
 
   # Python container
   - &docker_python
@@ -61,14 +62,14 @@ jobs:
       - restore_cache:
           keys:
             # when lock file changes, use increasingly general patterns to restore cache
-            - v1-dependencies-{{ .Branch }}-{{ checksum "requirements/test.txt" }}
+            - v1-dependencies-{{ .Branch }}-{{ checksum "requirements/development.txt" }}
       - run:
           command: |
             python3 -m venv venv
             . venv/bin/activate
             pip install -r requirements/development.txt
       - save_cache:
-          key: v1-dependencies-{{ .Branch }}-{{ checksum "requirements/test.txt" }}
+          key: v1-dependencies-{{ .Branch }}-{{ checksum "requirements/development.txt" }}
           paths:
             - "venv"
       - run:
