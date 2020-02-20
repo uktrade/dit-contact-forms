@@ -62,14 +62,14 @@ jobs:
       - restore_cache:
           keys:
             # when lock file changes, use increasingly general patterns to restore cache
-            - v1-dependencies-{{ .Branch }}-{{ checksum "requirements/development.txt" }}
+            - v1-dependencies-{{ .Branch }}-{{ checksum "requirements/test.txt" }}
       - run:
           command: |
             python3 -m venv venv
             . venv/bin/activate
             pip install -r requirements/development.txt
       - save_cache:
-          key: v1-dependencies-{{ .Branch }}-{{ checksum "requirements/development.txt" }}
+          key: v1-dependencies-{{ .Branch }}-{{ checksum "requirements/test.txt" }}
           paths:
             - "venv"
       - run:
