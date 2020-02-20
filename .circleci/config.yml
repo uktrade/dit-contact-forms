@@ -71,7 +71,7 @@ jobs:
       - save_cache:
           key: v1-dependencies-{{ .Branch }}-{{ checksum "requirements/development.txt" }}
           paths:
-            - "venv"
+            - venv
       - run:
           name: Running tests
           command: |
@@ -111,7 +111,7 @@ jobs:
       - save_cache:
           key: v1-dependencies-{{ .Branch }}-{{ checksum "requirements/development.txt" }}
           paths:
-            - "venv"
+            - venv
       - run:
           name: Start app
           command: | 
