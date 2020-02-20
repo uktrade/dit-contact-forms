@@ -101,6 +101,8 @@ jobs:
       - restore_cache:
           keys:
             - v1-dependencies-{{ .Branch }}-{{ checksum "requirements/development.txt" }}
+            - v1-dependencies-{{ .Branch }}-
+            - v1-dependencies-
       - run:
           command: |
             python3 -m venv venv
