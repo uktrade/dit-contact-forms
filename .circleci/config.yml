@@ -106,12 +106,12 @@ jobs:
             pipenv install --system --dev --deploy
       - save_cache:
           key: v1-dependencies-{{ .Branch }}-{{ checksum "requirements/development.txt" }}
-#          paths:
-#            - "venv"
+            # paths:
+            #  - "venv"
       - run:
           name: Start app
           command:
-#            . venv/bin/activate
+            # . venv/bin/activate
             ./compose/automation/django/start.sh
           background: true
       - *wait_for_backend
