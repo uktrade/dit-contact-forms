@@ -110,14 +110,14 @@ jobs:
 #            - "venv"
       - run:
           name: Start app
-          command: | 
+          command:
 #            . venv/bin/activate
             ./compose/automation/django/start.sh
           background: true
       - *wait_for_backend
       - run:
           name: Run tests
-          command: |
+          command:
 #            . venv/bin/activate
             export PATH=$PATH:$HOME/bin
             pytest ui_test/specs
