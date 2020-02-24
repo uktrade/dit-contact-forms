@@ -24,4 +24,6 @@ RUN wget https://chromedriver.storage.googleapis.com/79.0.3945.36/chromedriver_l
   && mkdir -p $HOME/bin \
   && mv chromedriver $HOME/bin
 
+RUN pip3 install pipenv
+
 RUN export PATH=$PATH:$HOME/bin
