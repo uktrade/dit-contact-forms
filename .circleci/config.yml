@@ -67,8 +67,8 @@ jobs:
           command: pipenv install --system --dev --deploy
       - save_cache:
           key: v1-dependencies-{{ .Branch }}-{{ checksum "requirements/development.txt" }}
-#          paths:
-#            - "venv"
+          paths:
+            - "."
       - run:
           name: Running tests
           command:
