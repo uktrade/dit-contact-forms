@@ -65,22 +65,20 @@ jobs:
             - v1-dependencies-{{ .Branch }}-{{ checksum "requirements/development.txt" }}
       - run:
           command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            pip install -r requirements/development.txt
+            pipenv install --system --dev --deploy
       - save_cache:
           key: v1-dependencies-{{ .Branch }}-{{ checksum "requirements/development.txt" }}
-          paths:
-            - "venv"
+#          paths:
+#            - "venv"
       - run:
           name: Running tests
           command: |
-            . venv/bin/activate
+#            . venv/bin/activate
             coverage run manage.py test core.tests.test_admin_ip_middleware:AdminIPMiddlewareTestCase.test_ip_restriction_valid_ip --settings=config.settings.test
       - run:
           name: Generate coverage
           command: |
-            . venv/bin/activate
+#            . venv/bin/activate
             coverage report
             coverage xml -o test-reports/coverage.xml
             coverage html -d test-reports/coverage_html
@@ -101,28 +99,26 @@ jobs:
       - restore_cache:
           keys:
             - v1-dependencies-{{ .Branch }}-{{ checksum "requirements/development.txt" }}
-            - v1-dependencies-{{ .Branch }}-
-            - v1-dependencies-
+#            - v1-dependencies-{{ .Branch }}-
+#            - v1-dependencies-
       - run:
           command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            pip install -r requirements/development.txt
+            pipenv install --system --dev --deploy
       - save_cache:
           key: v1-dependencies-{{ .Branch }}-{{ checksum "requirements/development.txt" }}
-          paths:
-            - "venv"
+#          paths:
+#            - "venv"
       - run:
           name: Start app
           command: | 
-            . venv/bin/activate
+#            . venv/bin/activate
             ./compose/automation/django/start.sh
           background: true
       - *wait_for_backend
       - run:
           name: Run tests
           command: |
-            . venv/bin/activate
+#            . venv/bin/activate
             export PATH=$PATH:$HOME/bin
             pytest ui_test/specs
       - store_artifacts:
