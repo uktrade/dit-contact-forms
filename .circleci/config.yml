@@ -104,7 +104,7 @@ jobs:
           command: pipenv install --system --dev --deploy
       - save_cache:
           key: v1-dependencies-{{ .Branch }}-{{ checksum "requirements/development.txt" }}
-             paths:
+             path:
               - "."
       - run:
           name: Start app
