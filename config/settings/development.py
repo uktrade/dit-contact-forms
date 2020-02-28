@@ -1,60 +1,19 @@
 from .base import *
+import json
 
-import sys
+VCAP_SERVICES = json.loads(env.str("VCAP_SERVICES"))
 
-# TEMPLATES
-# ------------------------------------------------------------------------------
-# https://docs.djangoproject.com/en/dev/ref/settings/#templates
-TEMPLATES[0]["OPTIONS"]["debug"] = True  # noqa F405
-TEMPLATES[0]["APP_DIRS"]: False
-TEMPLATES[0]["OPTIONS"]["loaders"] = [  # noqa F405
-    (
-        "django.template.loaders.cached.Loader",
-        [
-            "django.template.loaders.filesystem.Loader",
-            "django.template.loaders.app_directories.Loader",
-        ],
-    )
-]
+REDIS_URL = VCAP_SERVICES["redis"][0]["credentials"]["uri"]
 
-DATABASES = {
-    "default": {
-        "ENGINE": "psqlextra.backend",  # 'django.db.backends.postgresql_psycopg2',
-        "NAME": env.str("DJANGO_POSTGRES_DATABASE"),
-        "USER": env.str("DJANGO_POSTGRES_USER"),
-        "PASSWORD": env.str("DJANGO_POSTGRES_PASSWORD"),
-        "HOST": env.str("DJANGO_POSTGRES_HOST"),
-        "PORT": env.str("DJANGO_POSTGRES_PORT"),
-    }
+CACHES = {
+    "default": {"BACKEND": "django_redis.cache.RedisCache", "LOCATION": REDIS_URL}
 }
 
-DEBUG = True
-RESTRICT_ADMIN = False
+if DEBUG:
+    INSTALLED_APPS += ["debug_toolbar"]
+    MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware"]
 
-# Secure cookie settings.
-SESSION_COOKIE_SECURE = False
-SESSION_COOKIE_HTTPONLY = False
-CSRF_COOKIE_SECURE = False
+    def show_toolbar(request):
+        return True
 
-STATIC_ROOT = "contact_forms/static"
-INTERNAL_IPS = ["127.0.0.1", "0.0.0.0", "localhost"]
-
-INSTALLED_APPS += ["debug_toolbar"]
-
-MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware"]
-
-
-def show_toolbar(request):
-    return True
-
-
-DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": show_toolbar}
-
-ES_URL = "http://es:9200"
-
-ELASTICSEARCH_DSL = {"default": {"hosts": ES_URL}}
-
-EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
-EMAIL_FILE_PATH = BASE_DIR + "/app-messages"
-
-FEEDBACK_DESTINATION_EMAIL = env.str("FEEDBACK_DESTINATION_EMAIL")
+    DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": show_toolbar}
