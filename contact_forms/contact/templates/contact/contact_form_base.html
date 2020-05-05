@@ -20,31 +20,36 @@
         <form action="" method="post">
             <div class="govuk-grid-row govuk-!-padding-bottom-9">
                 <div class="govuk-grid-column-full">
-
-                    {% if is_error %}
-                        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1"
-                             data-module="error-summary">
-                            <h2 class="govuk-error-summary__title" id="error-summary-title">
-                                There is a problem
-                            </h2>
-                            <div class="govuk-error-summary__body">
-                                <ul class="govuk-list govuk-error-summary__list">
-                                    <li>
-                                        <a href="#commodity-code-error">{{ error_summary_message | safe }}</a>
-                                    </li>
-                                </ul>
-                            </div>
+                    {% if wizard.steps.prev %}
+                        <div class="govuk-form-group govuk-!-width-two-thirds govuk-!-margin-bottom-0">
+                            <a href="{{ wizard.steps.prev }}" class="govuk-back-link" name="wizard_goto_step" type="submit">Back</a>
                         </div>
                     {% endif %}
+                    <fieldset class="govuk-fieldset" aria-describedby="none">
+                        {% if is_error %}
+                            <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1"
+                                 data-module="error-summary">
+                                <h2 class="govuk-error-summary__title" id="error-summary-title">
+                                    There is a problem
+                                </h2>
+                                <div class="govuk-error-summary__body">
+                                    <ul class="govuk-list govuk-error-summary__list">
+                                        <li>
+                                            <a href="#commodity-code-error">{{ error_summary_message | safe }}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        {% endif %}
 
-                    <h2 class="govuk-heading-l">
-                        {% block form_page_title %}{% endblock %}
-                    </h2>
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                            <h1 class="govuk-fieldset__heading">
+                                {% block form_page_title %}{% endblock %}
+                            </h1>
+                        </legend>
 
                         {% csrf_token %}
-
                         {{ form.non_field_errors }}
-
                         {% if form.errors %}
                             <div id="form"
                                  class="govuk-error-summary"
@@ -59,10 +64,26 @@
                                         {% for field in form %}
                                             {% if field.errors %}
                                                 {{ field.name|title }}
-                                                {% for error in field.errors %}
+                                                {% if field.name == 'name' %}
                                                     <li><a href="#{{ field.name }}"
-                                                           class="error">{{ error|escape }}</a></li>
-                                                {% endfor %}
+                                                          class="error">Enter your full name</a></li>
+                                                    {% endif %}
+                                                {% if field.name == 'email_address' %}
+                                                    <li><a href="#{{ field.name }}"
+                                                         class="error">Enter an email address in the correct format, like name@example.com</a></li>
+                                                    {% endif %}
+                                                {% if field.name == 'terms_and_conditions' %}
+                                                    <li><a href="#{{ field.name }}"
+                                                         class="error">Tick the box to agree to the terms and conditions</a></li>
+                                                    {% endif %}
+                                                {% if field.name == 'message' %}
+                                                    <li><a href="#{{ field.name }}"
+                                                         class="error">Ask us a question or give us feedback</a></li>
+                                                    {% endif %}
+{#                                                {% for error in field.errors %}#}
+{#                                                    <li><a href="#{{ field.name }}"#}
+{#                                                           class="error">{{ error|escape }}</a></li>#}
+{#                                                {% endfor %}#}
                                             {% endif %}
                                         {% endfor %}
                                     </ul>
@@ -76,19 +97,13 @@
                         {% endfor %}
 
                         <fieldset class="govuk-fieldset" aria-labelledby="none">
-                        <legend class="govuk-fieldset__legend">Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</legend>
-                            {{ wizard.management_form }}
-                            {% block form_body %}{% endblock %}
+                            <legend class="govuk-fieldset__legend">Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</legend>
+                                {{ wizard.management_form }}
+                                {% block form_body %}{% endblock %}
                         </fieldset>
 
-                        <button type="submit" class="govuk-button govuk-!-padding-left-8 govuk-!-padding-right-8">Continue
-                        </button>
-
-                        {% if wizard.steps.prev %}
-                            <div class="govuk-form-group govuk-!-width-two-thirds govuk-!-margin-bottom-0">
-                                <button class="govuk-button text-button" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">Go back</button>
-                            </div>
-                        {% endif %}
+                        <button type="submit" class="govuk-button govuk-!-padding-left-8 govuk-!-padding-right-8">Continue</button>
+                    </fieldset>
                 </div>
             </div>
         </form>
