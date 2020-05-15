@@ -20,7 +20,7 @@ TOPIC_CHOICES = (
 
 class ContactFormStepOne(forms.Form):
     location = forms.ChoiceField(
-        choices=LOCATION_CHOICES, widget=forms.RadioSelect, required=True
+        choices=LOCATION_CHOICES, widget=forms.RadioSelect, required=True,
     )
     location.label = "What would you like to ask us about or give feedback on?"
 
