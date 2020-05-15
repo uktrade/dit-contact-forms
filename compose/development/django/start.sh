@@ -13,7 +13,7 @@
 # These commands only need running once, unless you destroy the containers and need to build the environment
 # from scratch again
 # ----------------- commands ----------------
-sleep infinity
+#sleep infinity
 #python manage.py collectstatic --noinput
 #python manage.py migrate
 #python manage.py loaddata countries_data
