@@ -1,0 +1,7 @@
+# PostgreSQL
+# ------------------------------------------------------------------------------
+DJANGO_POSTGRES_HOST=postgres
+DJANGO_POSTGRES_DATABASE=contact_forms
+DJANGO_POSTGRES_USER=root
+DJANGO_POSTGRES_PASSWORD=root
+DJANGO_POSTGRES_PORT=5432
