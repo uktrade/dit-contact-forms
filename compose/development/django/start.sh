@@ -14,9 +14,9 @@
 # from scratch again
 # ----------------- commands ----------------
 #sleep infinity
-#python manage.py collectstatic --noinput
-#python manage.py migrate
-#python manage.py loaddata countries_data
+python manage.py collectstatic --noinput
+python manage.py migrate
+python manage.py loaddata countries_data
 # -------------------------------------------
 
 # ----------------- ONGOING DEVELOPMENT -----
@@ -48,4 +48,4 @@ python manage.py runserver_plus 0.0.0.0:8000
 # --------------------------------------------
 
 echo "use the following to get a terminal to work in"
-echo "docker exec -it dit_helpdesk_helpdesk_1 /bin/bash"
+echo "docker exec -it dit-contact-forms_contact_forms_1 /bin/bash"

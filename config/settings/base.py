@@ -215,10 +215,14 @@ LOGGING = {
         'console': {
             'class': 'logging.StreamHandler',
             'stream': sys.stdout,
-        }
+        },
+        'file': {
+            'class': 'logging.FileHandler',
+            'filename': 'site.log',
+        },
     },
     'root': {
-        'handlers': ['console'],
+        'handlers': ['console', 'file'],
         'level': LOG_LEVEL,
     },
 }

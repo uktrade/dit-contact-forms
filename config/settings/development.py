@@ -1,7 +1,29 @@
 from .base import *
 import json
 
-VCAP_SERVICES = json.loads(env.str("VCAP_SERVICES"))
+
+DATABASES = {
+    "default": {
+        "ENGINE": "psqlextra.backend",  # 'django.db.backends.postgresql_psycopg2',
+        "NAME": env.str("DJANGO_POSTGRES_DATABASE"),
+        "USER": env.str("DJANGO_POSTGRES_USER"),
+        "PASSWORD": env.str("DJANGO_POSTGRES_PASSWORD"),
+        "HOST": env.str("DJANGO_POSTGRES_HOST"),
+        "PORT": env.str("DJANGO_POSTGRES_PORT"),
+    }
+}
+
+
+default_vcap = """{
+    "redis": [
+        {
+            "credentials": {
+                "uri": "redis://localhost"
+            }
+        }
+    ]
+}"""
+VCAP_SERVICES = json.loads(env.str("VCAP_SERVICES", default_vcap))
 
 REDIS_URL = VCAP_SERVICES["redis"][0]["credentials"]["uri"]
 
