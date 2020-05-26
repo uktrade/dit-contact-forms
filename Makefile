@@ -10,7 +10,7 @@ help: ## Show this screen
 	@echo ""
 
 ##@ Setup
-build: # builds the docker containers
+build: template-files # builds the docker containers
 	docker-compose  -f $(COMPOSE_FILE) pull
 	docker-compose  -f $(COMPOSE_FILE) build
 
