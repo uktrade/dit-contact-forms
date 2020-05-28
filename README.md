@@ -2,6 +2,16 @@
 
 This service is used by people who have queries about exporting goods from the UK.
 
+# TL;DR
+
+To setup this project for local development with docker
+1. run `make  template-files`
+2. update both `.envs/.development/.django` and `.envs/.development/.postgres` (vault can be found at https://vault.ci.uktrade.digital/ui/vault/secrets/dit%2Ftrade-helpdesk/list/helpdesk/)
+3. run `make build`
+4. run `make setup`
+
+> `make help` is your friend
+
 ## Requirements
  - Python 3
  - Node [Active LTS][1] version (Current Active version is v10)
@@ -11,7 +21,7 @@ This service is used by people who have queries about exporting goods from the U
  - Directory Forms API (https://github.com/uktrade/directory-forms-api)
     - redis (installed locally)
     - postgres (installed locally)
-    
+
  ### Install using Docker
 
 If you have Docker installed, you can run this service without needing to set up the database yourself, worrying about

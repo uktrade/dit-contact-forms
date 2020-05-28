@@ -1,5 +1,5 @@
-#!/bin/bash -xe
-
+#!/bin/bash
+set -ex
 # ----------------- INITIALIZE -------------
 # ----------------- instruction -------------
 # when first building the environment and running django-compose up for the first time uncomment the following block
@@ -25,7 +25,9 @@
 # so that the django server starts when running django-compose up.
 # Also do not forget to comment out the command in the INITIALISE SECTION
 # ----------------- commands ----------------
-python manage.py runserver_plus 0.0.0.0:8000
+
+python manage.py runserver 0.0.0.0:8000
+
 # --------------------------------------------
 
 # ----------------- instruction -------------

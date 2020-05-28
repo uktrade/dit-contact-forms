@@ -13,6 +13,8 @@ services:
     env_file:
       - ./.envs/.development/.django
       - ./.envs/.development/.postgres
+    environment:
+      - DJANGO_SETTINGS_MODULE
     depends_on:
       - postgres
       - redis
@@ -26,6 +28,8 @@ services:
     environment:
       - POSTGRES_DB=contact_forms
       - POSTGRES_HOST_AUTH_METHOD=trust
+    volumes:
+      - pgdata:/var/lib/postgresql/data
 
   redis:
     image: redis:3.2
@@ -34,15 +38,18 @@ services:
       - "6379:6379"
 
   dockerhost:
-      image: qoomon/docker-host
-      cap_add: [ 'NET_ADMIN', 'NET_RAW' ]
-      mem_limit: 8M
-      restart: on-failure
+    image: qoomon/docker-host
+    cap_add: [ 'NET_ADMIN', 'NET_RAW' ]
+    mem_limit: 8M
+    restart: on-failure
   tcp_message_emitter:
-      depends_on: [ dockerhost ]
-      image: alpine
-      command: [ "sh", "-c", "while :; do date; sleep 1; done | nc 'dockerhost' 2323 -v"]
+    depends_on: [ dockerhost ]
+    image: alpine
+    command: [ "sh", "-c", "while :; do date; sleep 1; done | nc 'dockerhost' 2323 -v"]
   udp_message_emitter:
-      depends_on: [ dockerhost ]
-      image: alpine
-      command: [ "sh", "-c", "while :; do date; sleep 1; done | nc 'dockerhost' 5353 -u -v"]
+    depends_on: [ dockerhost ]
+    image: alpine
+    command: [ "sh", "-c", "while :; do date; sleep 1; done | nc 'dockerhost' 5353 -u -v"]
+
+volumes:
+  pgdata:
