@@ -1,6 +1,5 @@
 .DEFAULT_GOAL := help
 
-COMPOSE_FILE ?= development.yml
 .EXPORT_ALL_VARIABLES:
 DJANGO_SETTINGS_MODULE=config.settings.docker_development
 
@@ -11,21 +10,21 @@ help: ## Show this screen
 
 ##@ Setup
 build: template-files # builds the docker containers
-	docker-compose  -f $(COMPOSE_FILE) pull
-	docker-compose  -f $(COMPOSE_FILE) build
+	docker-compose pull
+	docker-compose build
 
 npm-install: ## install dependencies managed by npmand build gov.uk fronted framework
-	docker-compose  -f $(COMPOSE_FILE) run --rm contact_forms sh -c " \
+	docker-compose run --rm contact_forms sh -c " \
 		npm install && \
 		npm rebuild node-sass \
 	"
 
 npm-run-build: ## builds javascript dependencies
-	docker-compose  -f $(COMPOSE_FILE) run --rm contact_forms npm run build
+	docker-compose run --rm contact_forms npm run build
 
 first-time-init: ## prepares system for first run
 	@echo -e "\n\n\n\t\t===>> preparing system for first run, might take a while\n\n\n"
-	@docker-compose  -f $(COMPOSE_FILE) run --rm contact_forms bash -c " \
+	@docker-compose run --rm contact_forms bash -c " \
 		export DJANGO_SETTINGS_MODULE=config.settings.docker_development; \
 		export DJANGO_BASE_DIR=$(pwd) ; \
 		python manage.py collectstatic --noinput && \
@@ -58,13 +57,13 @@ setup: npm-install npm-run-build first-time-init template-files ## first run set
 
 ##@ project
 ssh: ## runs a bash shell on the main container
-	docker-compose -f $(COMPOSE_FILE) run --rm contact_forms bash
+	docker-compose run --rm contact_forms bash
 
 up: ## starts the containers
-	docker-compose -f $(COMPOSE_FILE) up
+	docker-compose up
 
 down: ## downs the containers
-	docker-compose -f $(COMPOSE_FILE) down
+	docker-compose down
 
 restart: down up ## alias for make down up
 

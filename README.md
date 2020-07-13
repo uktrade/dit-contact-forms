@@ -5,7 +5,8 @@ This service is used by people who have queries about exporting goods from the U
 # TL;DR
 
 To setup this project for local development with docker
-1. run `make  template-files`
+
+1. run `make template-files`
 2. update both `.envs/.development/.django` and `.envs/.development/.postgres` (vault can be found at https://vault.ci.uktrade.digital/ui/vault/secrets/dit%2Ftrade-helpdesk/list/helpdesk/)
 3. run `make build`
 4. run `make setup`
@@ -13,16 +14,18 @@ To setup this project for local development with docker
 > `make help` is your friend
 
 ## Requirements
- - Python 3
- - Node [Active LTS][1] version (Current Active version is v10)
- - Docker (if developing locally with docker)
 
- #### Optional. Only required for testing contact form submissions to zenddesk
- - Directory Forms API (https://github.com/uktrade/directory-forms-api)
-    - redis (installed locally)
-    - postgres (installed locally)
+- Python 3
+- Node [Active LTS][1] version (Current Active version is v10)
+- Docker (if developing locally with docker)
 
- ### Install using Docker
+#### Optional. Only required for testing contact form submissions to zenddesk
+
+- Directory Forms API (https://github.com/uktrade/directory-forms-api)
+  - redis (installed locally)
+  - postgres (installed locally)
+
+### Install using Docker
 
 If you have Docker installed, you can run this service without needing to set up the database yourself, worrying about
 virtual environments - it's all within the Docker instance.
@@ -35,13 +38,14 @@ virtual environments - it's all within the Docker instance.
 ### Directory Forms API (Optional only required when testing contact form submissions to zenddesk)
 
 clone the directory
+
 ```
 git clone https://github.com/uktrade/directory-forms-api.git .
 ```
 
 create a hosts file entry for
 
-`127.0.0.0.1    forms.trade.great`
+`127.0.0.0.1 forms.trade.great`
 
 Follow installation and setup instructions in https://github.com/uktrade/directory-forms-api/blob/develop/README.md
 
@@ -58,6 +62,7 @@ STAFF_SSO_AUTHBROKER_URL=
 AUTHBROKER_CLIENT_ID=
 AUTHBROKER_CLIENT_SECRET=
 ```
+
 after running `make debug` in a terminal
 
 create a superuser by running the following in a terminal
@@ -75,6 +80,7 @@ Click the add button in the Client section and add `helpdesk` as the name of the
 generate the user identifier and accss key that you need to add to the .env file for the `dit_helpdesk` application
 
 ### DIT Contact Forms
+
 First clone the repo
 
 ```bash
@@ -150,24 +156,21 @@ has been done and as long as the docker images are not destroyed.
 To build the docker containers, run:
 
 ```bash
-docker-compose -f development.yml build
+docker-compose build
 ```
 
 To run the Docker containers, run:
 
 ```bash
-docker-compose -f development.yml up
+docker-compose up
 ```
 
 Open a second terminal and run the following command to activate a shell into the docker instance
 for the trade helpdesk app with the command.
 
 ```
-docker exec -it contact_forms_contact_forms_1 /bin/bash
+docker-compose exec contact_forms /bin/bash
 ```
-
-NB: if `contact_forms_contact_forms_1` is not found run `docker ps` in your host terminal to get a list of the docker images
-and their correct names
 
 refer to "Running, then shelling in" section below
 
@@ -176,17 +179,23 @@ refer to "Running, then shelling in" section below
 refer to the section `Running, then shelling in` above to get a shell in the running docker instance
 
 From within the docker shell terminal run the following command for full tests:
+
 ```
 coverage run manage.py test contact_forms --settings=config.settings.test
 ```
+
 for testing a single app run i.e. the admin app:
+
 ```
 coverage run manage.py test admin.tests --settings=config.settings.test
 ```
+
 for testing a single app's test module run i.e. the test_views in the the hierarchy app:
+
 ```
 coverage run manage.py test admin.tests.test_views --settings=config.settings.test
 ```
+
 and so on.
 
 for coverage reports run
@@ -194,9 +203,9 @@ for coverage reports run
 ```
 coverage -d reports html
 ```
+
 you will then be able to access the coverage report html from within your project folder's root
 from your host machine at /reports
-
 
 ### Running tests and generating coverage with Docker
 
@@ -207,14 +216,15 @@ docker-compose -f test.yml up
 ```
 
 This will display in the shell the following:
+
 - all tests, showing passes and failures
 - coverage report
 
 it will also generate the following reports into folder `reports` :
+
 - xunit coverage report file
 - xml coverage report file
 - html coverage report
-
 
 ## Creating Docker container for CircleCI
 
@@ -228,10 +238,10 @@ docker push ukti/dit-contact-forms:${VERSION}
 docker push ukti/dit-contact-forms:latest
 ```
 
-[1]:	https://nodejs.org/en/about/releases/
-[2]:	https://github.com/alphagov/govuk-frontend
-[3]:	https://github.com/alphagov/govuk-country-and-territory-autocomplete
-[4]:	https://github.com/alphagov/accessible-autocomplete
-[5]:	%60https://vault.ci.uktrade.io/ui/vault/secrets/dit%2Ftrade-helpdesk/list/helpdesk/%60
-[6]:	%60https://github.com/settings/tokens%60
-[7]:	%60https://vault.ci.uktrade.io%60
+[1]: https://nodejs.org/en/about/releases/
+[2]: https://github.com/alphagov/govuk-frontend
+[3]: https://github.com/alphagov/govuk-country-and-territory-autocomplete
+[4]: https://github.com/alphagov/accessible-autocomplete
+[5]: https://vault.ci.uktrade.io/ui/vault/secrets/dit%2Ftrade-helpdesk/list/helpdesk/
+[6]: https://github.com/settings/tokens
+[7]: https://vault.ci.uktrade.io
