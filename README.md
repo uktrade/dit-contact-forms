@@ -210,7 +210,7 @@ from your host machine at /reports
 ### Running tests and generating coverage with Docker
 
 ```bash
-docker-compose -f test.yml -p contact-forms-tests up --build --abort-on-container-exit --exit-code-from contact_forms
+make test
 
 ```
 

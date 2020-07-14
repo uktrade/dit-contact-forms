@@ -58,5 +58,7 @@ up: ## starts the containers
 down: ## downs the containers
 	docker-compose down
 
-restart: down up ## alias for make down up
+test: ## runs tests in a container
+	docker-compose -f test.yml -p contact-forms-tests up --abort-on-container-exit --exit-code-from contact_forms
 
+restart: down up ## alias for make down up
