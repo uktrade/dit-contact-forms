@@ -53,7 +53,7 @@ ssh: ## runs a bash shell on the main container
 	docker-compose run --rm contact_forms bash
 
 up: ## starts the containers
-	docker-compose up
+	docker-compose up -d
 
 down: ## downs the containers
 	docker-compose down
