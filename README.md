@@ -160,7 +160,7 @@ Open a second terminal and run the following command to activate a shell into th
 for the trade helpdesk app with the command.
 
 ```
-docker-compose exec contact_forms /bin/bash
+make shell
 ```
 
 refer to "Running, then shelling in" section below

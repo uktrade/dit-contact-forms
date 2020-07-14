@@ -62,3 +62,6 @@ test: ## runs tests in a container
 	docker-compose -f test.yml -p contact-forms-tests up --abort-on-container-exit --exit-code-from contact_forms
 
 restart: down up ## alias for make down up
+
+shell: ## runs a bash shell in the contact forms container
+	docker-compose exec contact_forms /bin/bash
