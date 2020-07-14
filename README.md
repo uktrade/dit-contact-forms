@@ -121,16 +121,7 @@ npm run build
 copy the two development environment variables files
 
 ```
-.envs/.development/.django.template
-.envs/.development/.postgres.template
-
-```
-
-and rename them to
-
-```
-.envs/.development/.django
-.envs/.development/.postgres
+make template-files
 ```
 
 add entries where necessary (see comments for guidance)
