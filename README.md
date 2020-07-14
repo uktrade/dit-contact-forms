@@ -147,13 +147,13 @@ has been done and as long as the docker images are not destroyed.
 To build the docker containers, run:
 
 ```bash
-docker-compose build
+make build
 ```
 
 To run the Docker containers, run:
 
 ```bash
-docker-compose up
+make up
 ```
 
 Open a second terminal and run the following command to activate a shell into the docker instance
