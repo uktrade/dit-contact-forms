@@ -12,6 +12,7 @@ help: ## Show this screen
 build: template-files # builds the docker containers
 	docker-compose pull
 	docker-compose build
+	docker-compose -f test.yml -p contact-forms-tests build
 
 npm-install: ## install dependencies managed by npmand build gov.uk fronted framework
 	docker-compose run --rm contact_forms sh -c " \
