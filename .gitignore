@@ -48,6 +48,7 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 unittests.xml
+coverage_html/
 
 # Translations
 *.mo
