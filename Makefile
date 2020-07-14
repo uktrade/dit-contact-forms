@@ -34,23 +34,15 @@ first-time-init: ## prepares system for first run
 
 template-files: ## creates template files
 	# ensure needed .env files are present
-	@test -f .envs/.development/.django \
-		&& echo ".envs/.development/.django env file exists, not creating" \
-		||  cp .envs/.development/.django.template .envs/.development/.django
-	@test -f .envs/.test/.django \
-		&& echo ".envs/.test/.django env file exists, not creating" \
-		||  cp .envs/.test/.django.template .envs/.test/.django
-
-
-	@test -f .envs/.development/.postgres \
-		&& echo ".envs/.development/.postgres env file exists, not creating" \
-		||  cp .envs/.development/.postgres.template .envs/.development/.postgres
-	@test -f .envs/.test/.postgres \
-		&& echo ".envs/.test/.postgres env file exists, not creating" \
-		||  cp .envs/.test/.postgres.template .envs/.test/.postgres
+	@test -f .env \
+		&& echo ".env file exists, not creating" \
+		||  cp .env.template .env
+	@test -f .env.test \
+		&& echo ".env.test file exists, not creating" \
+		||  cp .env.test.template .env.test
 
 	@echo -e "\n\n\n\n\n\n \
-		===>> Please edit .envs/*/.django and .envs/*/.postgres and update them with your credentials  \n\n \
+		===>> Please edit .env and .env.test and update them with your credentials  \n\n \
 	"
 setup: npm-install npm-run-build first-time-init template-files ## first run setup
 	@ echo "run "make help" for a list o availabe options"

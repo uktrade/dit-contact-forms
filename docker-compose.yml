@@ -10,10 +10,7 @@ services:
       - .:/app
     entrypoint: dockerize -wait tcp://postgres:5432 -wait tcp://redis:6379 -timeout 120s
     env_file:
-      - ./.envs/.development/.django
-      - ./.envs/.development/.postgres
-    environment:
-      - DJANGO_SETTINGS_MODULE
+      - .env
     depends_on:
       - postgres
       - redis
@@ -24,8 +21,9 @@ services:
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_DB=contact_forms
-      - POSTGRES_HOST_AUTH_METHOD=trust
+      - POSTGRES_DB
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
     volumes:
       - pgdata:/var/lib/postgresql/data
 

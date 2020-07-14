@@ -7,7 +7,7 @@ This service is used by people who have queries about exporting goods from the U
 To setup this project for local development with docker
 
 1. run `make template-files`
-2. update both `.envs/.development/.django` and `.envs/.development/.postgres` (vault can be found at https://vault.ci.uktrade.digital/ui/vault/secrets/dit%2Ftrade-helpdesk/list/helpdesk/)
+2. update both `.env` and `.env.test` (vault can be found at https://vault.ci.uktrade.digital/ui/vault/secrets/dit%2Ftrade-helpdesk/list/helpdesk/)
 3. run `make build`
 4. run `make setup`
 
