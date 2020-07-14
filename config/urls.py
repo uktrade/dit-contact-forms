@@ -4,7 +4,6 @@ from django.urls import path, re_path, include
 from admin.views import admin_login_view
 from cookies import views as cookie_views
 from healthcheck.views import HealthCheckView
-from index import views as index
 
 handler404 = "core.views.error404handler"
 handler500 = "core.views.error500handler"
