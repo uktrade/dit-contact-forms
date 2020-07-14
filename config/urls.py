@@ -17,7 +17,6 @@ urlpatterns = [
     path("disclaimer/", include("disclaimer.urls", namespace="disclaimer")),
     path("accessibility/", include("accessibility.urls", namespace="accessibility")),
     re_path(r"^check/$", HealthCheckView.as_view(), name="healthcheck"),
-    path("",include("contact.urls", namespace="contact")),
 ]
 
 if settings.ADMIN_ENABLED:
@@ -25,6 +24,10 @@ if settings.ADMIN_ENABLED:
         path("admin/login/", admin_login_view),
         path("admin/", admin.site.urls),
     ]
+
+urlpatterns += [
+    path("",include("contact.urls", namespace="contact")),
+]
 
 if settings.DEBUG:
     import debug_toolbar
