@@ -3,11 +3,11 @@ from .base import *
 DATABASES = {
     "default": {
         "ENGINE": "psqlextra.backend",  # 'django.db.backends.postgresql_psycopg2',
-        "NAME": env.str("DJANGO_POSTGRES_DATABASE"),
-        "USER": env.str("DJANGO_POSTGRES_USER"),
-        "PASSWORD": env.str("DJANGO_POSTGRES_PASSWORD"),
-        "HOST": env.str("DJANGO_POSTGRES_HOST"),
-        "PORT": env.str("DJANGO_POSTGRES_PORT"),
+        "NAME": env.str("POSTGRES_DB"),
+        "USER": env.str("POSTGRES_USER"),
+        "PASSWORD": env.str("POSTGRES_PASSWORD"),
+        "HOST": env.str("POSTGRES_HOST"),
+        "PORT": env.str("POSTGRES_PORT"),
     }
 }
 

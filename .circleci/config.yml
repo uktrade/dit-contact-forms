@@ -15,11 +15,11 @@ aliases:
     DJANGO_SETTINGS_MODULE: config.settings.docker_development
     DJANGO_BASE_DIR: /app
     DIT_HELPDESK_ADMIN_PASSWORD: DIT_HELPDESK_ADMIN_PASSWORD
-    DJANGO_POSTGRES_HOST: DJANGO_POSTGRES_HOST
-    DJANGO_POSTGRES_DATABASE: DJANGO_POSTGRES_DATABASE
-    DJANGO_POSTGRES_USER: DJANGO_POSTGRES_USER
-    DJANGO_POSTGRES_PASSWORD: DJANGO_POSTGRES_PASSWORD
-    DJANGO_POSTGRES_PORT: DJANGO_POSTGRES_PORT
+    POSTGRES_HOST: POSTGRES_HOST
+    POSTGRES_DB: POSTGRES_DB
+    POSTGRES_USER: POSTGRES_USER
+    POSTGRES_PASSWORD: POSTGRES_PASSWORD
+    POSTGRES_PORT: POSTGRES_PORT
 
   # Redis container
   - &docker_redis
@@ -59,20 +59,12 @@ jobs:
     working_directory: ~/app
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            # when lock file changes, use increasingly general patterns to restore cache
-            - v1-dependencies-{{ .Branch }}-{{ checksum "requirements/development.txt" }}
       - run:
           command: pipenv install --system --dev --deploy
-      - save_cache:
-          key: v1-dependencies-{{ .Branch }}-{{ checksum "requirements/development.txt" }}
-          paths:
-            - "."
       - run:
           name: Running tests
           command:
-            coverage run manage.py test core.tests.test_admin_ip_middleware:AdminIPMiddlewareTestCase.test_ip_restriction_valid_ip --settings=config.settings.test
+            coverage run manage.py test contact_forms --settings=config.settings.test
       - run:
           name: Generate coverage
           command: |
@@ -93,15 +85,8 @@ jobs:
     working_directory: ~/app
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ .Branch }}-{{ checksum "requirements/development.txt" }}
       - run:
           command: pipenv install --system --dev --deploy
-      - save_cache:
-          key: v1-dependencies-{{ .Branch }}-{{ checksum "requirements/development.txt" }}
-          paths:
-            - "."
       - run:
           name: Start app
           command:

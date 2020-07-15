@@ -57,7 +57,6 @@ INSTALLED_APPS = [
     "cookies",
     "countries",
     "contact",
-    "index",
     "django_extensions",
     "authbroker_client",
     "user",

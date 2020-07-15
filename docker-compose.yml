@@ -1,0 +1,36 @@
+version: "2"
+services:
+  contact_forms:
+    build:
+      context: .
+      dockerfile: ./compose/development/django/Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    entrypoint: dockerize -wait tcp://postgres:5432 -wait tcp://redis:6379 -timeout 120s
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+      - redis
+    command: /app/compose/development/django/start.sh
+
+  postgres:
+    image: postgres:10
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  redis:
+    image: redis:3.2
+    ports:
+      - "6379:6379"
+
+volumes:
+  pgdata:
