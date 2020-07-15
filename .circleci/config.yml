@@ -59,16 +59,8 @@ jobs:
     working_directory: ~/app
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            # when lock file changes, use increasingly general patterns to restore cache
-            - v1-dependencies-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
       - run:
           command: pipenv install --system --dev --deploy
-      - save_cache:
-          key: v1-dependencies-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
-          paths:
-            - "."
       - run:
           name: Running tests
           command:
@@ -93,15 +85,8 @@ jobs:
     working_directory: ~/app
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
       - run:
           command: pipenv install --system --dev --deploy
-      - save_cache:
-          key: v1-dependencies-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
-          paths:
-            - "."
       - run:
           name: Start app
           command:
