@@ -72,7 +72,7 @@ jobs:
       - run:
           name: Running tests
           command:
-            coverage run manage.py test core.tests.test_admin_ip_middleware:AdminIPMiddlewareTestCase.test_ip_restriction_valid_ip --settings=config.settings.test
+            coverage run manage.py test contact_forms --settings=config.settings.test
       - run:
           name: Generate coverage
           command: |
