@@ -70,6 +70,7 @@ gevent = "==1.4.0"
 django-debug-toolbar = "==1.11"
 Django = "==2.2.13"
 django-environ = "*"
+elastic-apm = "*"
 
 [requires]
 python_version = "3.6"
