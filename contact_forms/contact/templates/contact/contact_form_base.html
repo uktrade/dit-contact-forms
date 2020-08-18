@@ -97,7 +97,10 @@
                         {% endfor %}
 
                         <fieldset class="govuk-fieldset" aria-labelledby="none">
-                            <legend class="govuk-fieldset__legend">Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</legend>
+                            <legend class="govuk-fieldset__legend">
+                                <span class="govuk-visually-hidden">What would you like to ask us about or give feedback on?</span>
+                                Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}
+                            </legend>
                                 {{ wizard.management_form }}
                                 {% block form_body %}{% endblock %}
                         </fieldset>
