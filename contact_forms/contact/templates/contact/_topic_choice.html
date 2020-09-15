@@ -1,0 +1,12 @@
+<div class="govuk-radios__item">
+    <input class="govuk-radios__input" id="id_step_two-enquiry_topic_{{ idx }}" required
+            name="step_two-enquiry_topic" type="radio"
+            value="{{ choice.0 }}">
+    <label class="govuk-label govuk-radios__label"
+            for="id_step_two-enquiry_topic_{{ idx }}">
+        {{ choice.1|safe }}
+        <p class="govuk-hint">
+            {{ hint }}
+        </p>
+    </label>
+</div>

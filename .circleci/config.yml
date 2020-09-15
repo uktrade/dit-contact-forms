@@ -10,6 +10,7 @@ aliases:
     DEBUG: True
     RESTRICT_ADMIN: False
     HMRC_TAX_FORM_URL: https://www.tax.service.gov.uk/shortforms/form/CITEX_CGEF
+    HMRC_TARIFF_CLASSIFICATION_SERVICE_URL: https://www.gov.uk/guidance/ask-hmrc-for-advice-on-classifying-your-goods
     DISABLE_COLLECTSTATIC: 1
     DJANGO_SECRET_KEY: DJANGO_SECRET_KEY
     DJANGO_SETTINGS_MODULE: config.settings.docker_development
