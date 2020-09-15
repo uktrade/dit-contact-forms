@@ -1,21 +1,40 @@
-from directory_forms_api_client.forms import ZendeskAPIForm, EmailAPIForm
 from django import forms
+from django.conf import settings
 from django.forms import fields
+
+from directory_forms_api_client.forms import ZendeskAPIForm, EmailAPIForm
 
 LOCATION_CHOICES = ((1, "Exporting from the UK"), (2, "Transition period enquiries"),
                     (3, "Technical help with using the service"))
 
-TOPIC_CHOICES = (
+# (
+#    (
+#       <Radio input label>,
+#       <Redirect URL> or None for no redirect
+#    )
+# )
+TOPIC_CONFIG = (
     (
-        1,
-        "Customs declarations and procedures, commodity codes, duties and tariff rates",
+        "Customs declarations and procedures, duties and tariff rates",
+        settings.HMRC_TAX_FORM_URL,
     ),
     (
-        2,
+        "Commodity codes",
+        settings.HMRC_TARIFF_CLASSIFICATION_SERVICE_URL,
+    ),
+    (
         "Exporting animals, plants or food, environmental regulations, sanitary & phytosanitary regulations",
+        None,
     ),
-    (3, "Exporting any other goods"),
+    (
+        "Exporting any other goods",
+        None,
+    ),
 )
+
+TOPIC_CHOICES = [(i, v[0]) for i, v in enumerate(TOPIC_CONFIG, 1)]
+
+TOPIC_REDIRECTS = {i: v[1] for i, v in enumerate(TOPIC_CONFIG, 1) if v[1]}
 
 
 class ContactFormStepOne(forms.Form):

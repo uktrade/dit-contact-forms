@@ -6,8 +6,9 @@ QUESTIONNAIRE = {
   },
   'step2': {
     'custom': '#id_step_two-enquiry_topic_0',
-    'goods': '#id_step_two-enquiry_topic_1',
-    'other': '#id_step_two-enquiry_topic_2',
+    'commodity_codes': '#id_step_two-enquiry_topic_1',
+    'goods': '#id_step_two-enquiry_topic_2',
+    'other': '#id_step_two-enquiry_topic_3',
   },
   'continue': 'button[type="submit"]',
 }

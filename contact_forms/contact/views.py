@@ -13,6 +13,7 @@ from contact.forms import (
     ContactFormStepThree,
     LOCATION_CHOICES,
     TOPIC_CHOICES,
+    TOPIC_REDIRECTS,
     ZendeskForm,
     ZendeskEmailForm)
 
@@ -86,13 +87,15 @@ class ContactFormWizardView(SessionWizardView):
 
         if ("enquiry_topic" in form.cleaned_data and
             self.steps.next == "step_three"
-            and form.cleaned_data["enquiry_topic"] == "1"
         ):
-            return HttpResponseRedirect(settings.HMRC_TAX_FORM_URL)
-        else:
-            return super(ContactFormWizardView, self).render_next_step(
-                form, **kwargs
-            )
+            enquiry_topic = int(form.cleaned_data["enquiry_topic"])
+            redirect_url = TOPIC_REDIRECTS.get(enquiry_topic)
+            if redirect_url:
+                return HttpResponseRedirect(redirect_url)
+        
+        return super(ContactFormWizardView, self).render_next_step(
+            form, **kwargs
+        )
 
     @staticmethod
     def process_form_data(form_list):

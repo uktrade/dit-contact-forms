@@ -20,43 +20,10 @@
             {% endif %}
 
             <div class="govuk-radios govuk-radios" id="id_step_two-enquiry_topic">
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="id_step_two-enquiry_topic_0" required
-                           name="step_two-enquiry_topic" type="radio"
-                           value="{{ wizard.form.fields.enquiry_topic.choices.0.0 }}">
-                    <label class="govuk-label govuk-radios__label"
-                           for="id_step_two-enquiry_topic_0">
-                        {{ wizard.form.fields.enquiry_topic.choices.0.1|safe }}
-                        <p class="govuk-hint">
-                            You will be redirected to Her Majesty's Revenue and Customs (HMRC) contact form
-                        </p>
-                    </label>
-
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="id_step_two-enquiry_topic_1" required
-                           name="step_two-enquiry_topic" type="radio"
-                           value="{{ wizard.form.fields.enquiry_topic.choices.1.0 }}">
-                    <label class="govuk-label govuk-radios__label" for="id_step_two-enquiry_topic_1">
-                        {{ wizard.form.fields.enquiry_topic.choices.1.1|safe }}
-                        <p class="govuk-hint">
-                            Your enquiry will be sent to the Department for Environment, Food & Rural Affairs (Defra)
-                        </p>
-                    </label>
-                </div>
-
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="id_step_two-enquiry_topic_2" required
-                           name="step_two-enquiry_topic" type="radio"
-                           value="{{ wizard.form.fields.enquiry_topic.choices.2.0 }}">
-                    <label class="govuk-label govuk-radios__label"
-                           for="id_step_two-enquiry_topic_2">
-                        {{ wizard.form.fields.enquiry_topic.choices.2.1|safe }}
-                        <p class="govuk-hint">
-                            Your enquiry will be sent to the Department for International Trade (DIT)
-                        </p>
-                    </label>
-                </div>
+                {% include "contact/_topic_choice.html" with idx=0 choice=wizard.form.fields.enquiry_topic.choices.0 hint="You will be redirected to Her Majesty's Revenue and Customs (HMRC) contact form" %}
+                {% include "contact/_topic_choice.html" with idx=1 choice=wizard.form.fields.enquiry_topic.choices.1 hint="You will be directed to the Her Majesty's Revenue and Customs (HMRC) Tariff Classification Service" %}
+                {% include "contact/_topic_choice.html" with idx=2 choice=wizard.form.fields.enquiry_topic.choices.2 hint="Your enquiry will be sent to the Department for Environment, Food & Rural Affairs (Defra)" %}
+                {% include "contact/_topic_choice.html" with idx=3 choice=wizard.form.fields.enquiry_topic.choices.3 hint="Your enquiry will be sent to the Department for International Trade (DIT)" %}
             </div>
         </fieldset>
     </div>
