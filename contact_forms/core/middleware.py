@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.http import HttpResponse
 from django.urls import resolve
+from django.utils.cache import patch_cache_control
 
 from .ip_filter import is_valid_admin_ip, get_client_ip
 
@@ -32,5 +33,23 @@ def AdminIpRestrictionMiddleware(get_response):
                     return HttpResponse("Unauthorized", status=401)
 
         return get_response(request)
+
+    return middleware
+
+
+def NoCacheMiddleware(get_response):
+    def middleware(request):
+        response = get_response(request)
+
+        patch_cache_control(
+            response,
+            no_cache=True,
+            no_store=True,
+            must_revalidate=True,
+            private=True,
+        )
+        response["Pragma"] = "no-cache"
+
+        return response
 
     return middleware

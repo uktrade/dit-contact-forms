@@ -80,6 +80,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "core.middleware.AdminIpRestrictionMiddleware",
     "core.middleware.NoIndexMiddleware",
+    "core.middleware.NoCacheMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
