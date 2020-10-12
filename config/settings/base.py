@@ -80,6 +80,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "core.middleware.AdminIpRestrictionMiddleware",
     "core.middleware.NoIndexMiddleware",
+    "core.middleware.NoCacheMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -273,3 +274,5 @@ FEEDBACK_EMAIL = env.str("FEEDBACK_EMAIL")
 FEEDBACK_FULLNAME = env.str("FEEDBACK_FULLNAME")
 BASE_SITE_URL = env.str("BASE_SITE_URL")
 
+SECURE_BROWSER_XSS_FILTER = env.bool("SECURE_BROWSER_XSS_FILTER", True)
+SECURE_CONTENT_TYPE_NOSNIFF = env.bool("SECURE_CONTENT_TYPE_NOSNIFF", True)
