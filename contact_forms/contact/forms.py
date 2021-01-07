@@ -4,8 +4,8 @@ from django.forms import fields
 
 from directory_forms_api_client.forms import ZendeskAPIForm, EmailAPIForm
 
-LOCATION_CHOICES = ((1, "Exporting from the UK"), (2, "Transition period enquiries"),
-                    (3, "Technical help with using the service"))
+LOCATION_CHOICES = ((1, "Exporting from the UK"),
+                    (2, "Technical help with using the service"))
 
 # (
 #    (
