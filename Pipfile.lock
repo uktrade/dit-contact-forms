@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "0cead890f1afe0c9f9f5df61f7f701124bcf74e5b0a766c92b489eaaeb429517"
+            "sha256": "1f6f2d55091a0665fdf3d5fb410e5dad0f57db83e011ef4df6db489cac20a4ca"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -147,6 +147,13 @@
             ],
             "index": "pypi",
             "version": "==1.8.1"
+        },
+        "django-staff-sso-client": {
+            "hashes": [
+                "sha256:7cfcfb432656bb249605d859712c6cdd1a0b6be97d02b8d4cca18faad8a9f2c0"
+            ],
+            "index": "pypi",
+            "version": "==3.1.0"
         },
         "djangorestframework": {
             "hashes": [
@@ -384,6 +391,14 @@
             ],
             "version": "==3.5"
         },
+        "oauthlib": {
+            "hashes": [
+                "sha256:bee41cc35fcca6e988463cacc3bcb8a96224f470ca547e697b604cc697b2f889",
+                "sha256:df884cd6cbe20e32633f1db1072e9356f53638e4361bef4e8b03c9127c9328ea"
+            ],
+            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
+            "version": "==3.1.0"
+        },
         "psycopg2-binary": {
             "hashes": [
                 "sha256:007ca0df127b1862fc010125bc4100b7a630efc6841047bd11afceadb4754611",
@@ -518,6 +533,14 @@
             ],
             "index": "pypi",
             "version": "==2.21.0"
+        },
+        "requests-oauthlib": {
+            "hashes": [
+                "sha256:7f71572defaecd16372f9006f33c2ec8c077c3cfa6f5911a9a90202beb513f3d",
+                "sha256:b4261601a71fd721a8bd6d7aa1cc1d6a8a93b4a9f5e96626f8e4d91e8beeaa6a",
+                "sha256:fa6c47b933f01060936d87ae9327fead68768b69c6c9ea2109c48be30f2d4dbc"
+            ],
+            "version": "==1.3.0"
         },
         "retrying": {
             "hashes": [
@@ -1108,11 +1131,11 @@
         },
         "virtualenv": {
             "hashes": [
-                "sha256:205a7577275dd0d9223c730dd498e21a8910600085c3dee97412b041fc4b853b",
-                "sha256:7992b8de87e544a4ab55afc2240bf8388c4e3b5765d03784dad384bfdf9097ee"
+                "sha256:0c111a2236b191422b37fe8c28b8c828ced39aab4bf5627fa5c331aeffb570d9",
+                "sha256:14b34341e742bdca219e10708198e704e8a7064dd32f474fc16aca68ac53a306"
             ],
             "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
-            "version": "==20.3.0"
+            "version": "==20.3.1"
         },
         "wcwidth": {
             "hashes": [
