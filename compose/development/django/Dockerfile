@@ -22,6 +22,7 @@ RUN tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
 
 RUN pip install pipenv
 RUN pipenv install --system --dev --deploy
+RUN npm set unsafe-perm true
 
 RUN npm install --global gulp-cli
 
@@ -30,6 +31,6 @@ RUN npm install --global gulp-cli
 RUN npm install
 # see: https://github.com/sass/node-sass/issues/1579
 RUN npm rebuild node-sass
-RUN npm run build;
+RUN gulp build
 
 CMD /app/compose/development/django/start.sh
