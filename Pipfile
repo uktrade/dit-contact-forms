@@ -59,6 +59,7 @@ Django = "==2.2.19"
 django-environ = "*"
 elastic-apm = "*"
 django-staff-sso-client = "*"
+django-redis = "==4.10.0"
 
 [requires]
 python_version = "3.6"
