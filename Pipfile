@@ -60,6 +60,7 @@ django-environ = "*"
 elastic-apm = "*"
 django-staff-sso-client = "*"
 django-redis = "==4.10.0"
+lxml = "==4.6.3"
 
 [requires]
 python_version = "3.6"
