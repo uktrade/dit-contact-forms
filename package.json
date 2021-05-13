@@ -4,9 +4,8 @@
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "npm run lint:javascript && npm run lint:sass",
+    "lint": "npm run lint:javascript",
     "lint:javascript": "eslint 'gulpfile.js' 'assets/**/*.js'",
-    "lint:sass": "sass-lint --config .sasslintrc 'assets/**/*.scss' --verbose --no-exit",
     "build:javascript": "gulp copyExternalAssets && gulp build:javascripts",
     "watch:javascript": "gulp copyExternalAssets && gulp watch:javascripts",
     "build:styles": "gulp copyExternalAssets && gulp build:styles",
@@ -43,7 +42,6 @@
     "gulp-task-listing": "^1.1.0",
     "gulp-uglify": "^3.0.2",
     "gulplog": "^1.0.0",
-    "sass-lint": "^1.13.1",
     "vinyl-buffer": "^1.0.1",
     "vinyl-source-stream": "^2.0.0"
   },
