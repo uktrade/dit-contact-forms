@@ -15,8 +15,6 @@ set -ex
 # ----------------- commands ----------------
 #sleep infinity
 #python manage.py collectstatic --noinput
-#python manage.py migrate
-#python manage.py loaddata countries_data
 # -------------------------------------------
 
 # ----------------- ONGOING DEVELOPMENT -----

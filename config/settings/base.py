@@ -12,11 +12,8 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import environ
 import json
 import os
-import sys
 import sentry_sdk
-import dj_database_url
-import environ
-from sentry_sdk.integrations.django import DjangoIntegration
+import sys
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 from os.path import join as join_path
@@ -44,13 +41,9 @@ ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
 
 SECRET_KEY = env.str("DJANGO_SECRET_KEY")
 
-ADMIN_ENABLED = env.bool("ADMIN_ENABLED")
-
 # Application definition
 
 INSTALLED_APPS = [
-    "django.contrib.auth",
-    "django.contrib.admin",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
@@ -59,11 +52,8 @@ INSTALLED_APPS = [
     "formtools",
     "core",
     "cookies",
-    "countries",
     "contact",
     "django_extensions",
-    "authbroker_client",
-    "user",
     "healthcheck",
     "privacy_terms_and_conditions",
     "directory_forms_api_client",
@@ -78,10 +68,8 @@ MIDDLEWARE = [
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
-    "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "core.middleware.AdminIpRestrictionMiddleware",
     "core.middleware.NoIndexMiddleware",
     "core.middleware.NoCacheMiddleware",
 ]
@@ -101,7 +89,6 @@ TEMPLATES = [
             "context_processors": [
                 "django.template.context_processors.debug",
                 "django.template.context_processors.request",
-                "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "core.context_processors.ga_gtm_processor",
             ],
@@ -111,7 +98,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
-DATABASES = {"default": dj_database_url.config()}
+DATABASES = {}
 
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 85000  # default is 1000
 
@@ -139,12 +126,7 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
-AUTHENTICATION_BACKENDS = [
-    "django.contrib.auth.backends.ModelBackend",
-    "authbroker_client.backends.AuthbrokerBackend",
-]
-
-FIXTURE_DIRS = ("countries/fixtures/",)
+AUTHENTICATION_BACKENDS = []
 
 # SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 # SESSION_COOKIE_AGE = 5 * 60
@@ -191,22 +173,6 @@ STATICFILES_STORAGE = (
 # The correct index of the client IP in the X-Forwarded-For header.  It should be set to
 # -2 if accessing the private domain and -3 if accessing the site via the public URL.
 IP_SAFELIST_XFF_INDEX = env.int("IP_SAFELIST_XFF_INDEX")
-
-
-RESTRICT_ADMIN = env.bool("RESTRICT_ADMIN")
-ALLOWED_ADMIN_IPS = env.list("ALLOWED_ADMIN_IPS")
-ALLOWED_ADMIN_IP_RANGES = env.list("ALLOWED_ADMIN_IP_RANGES")
-
-# authbroker config
-AUTHBROKER_URL = env.str("AUTHBROKER_URL")
-AUTHBROKER_CLIENT_ID = env.str("AUTHBROKER_CLIENT_ID")
-AUTHBROKER_CLIENT_SECRET = env.str("AUTHBROKER_CLIENT_SECRET")
-
-LOGIN_URL = env.str("LOGIN_URL")
-
-LOGIN_REDIRECT_URL = env.str("LOGIN_REDIRECT_URL")
-
-AUTH_USER_MODEL = "user.User"
 
 FEEDBACK_MAX_LENGTH = 1000
 CONTACT_MAX_LENGTH = 1000

@@ -1,20 +1,18 @@
 import logging
 
-from django.test import TestCase, Client
-from django.urls import reverse
+from django.test import SimpleTestCase, Client
 
 logger = logging.getLogger(__name__)
 logging.disable(logging.NOTSET)
 logger.setLevel(logging.INFO)
 
 
-class ContactFormViewTestCase(TestCase):
+class ContactFormViewTestCase(SimpleTestCase):
     """
     Test Feedback View
     """
 
     def setUp(self):
-
         self.client = Client()
         self.wizard_url = "/contact/"
 

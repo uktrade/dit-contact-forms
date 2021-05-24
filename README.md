@@ -23,11 +23,10 @@ To setup this project for local development with docker
 
 - Directory Forms API (https://github.com/uktrade/directory-forms-api)
   - redis (installed locally)
-  - postgres (installed locally)
 
 ### Install using Docker
 
-If you have Docker installed, you can run this service without needing to set up the database yourself, worrying about
+If you have Docker installed, you can run this service without needing to set up the external services yourself, worrying about
 virtual environments - it's all within the Docker instance.
 
 - Docker for mac - https://hub.docker.com/editions/community/docker-ce-desktop-mac
@@ -58,18 +57,6 @@ REDIS_CELERY_URL="redis://localhost:6379"
 GOV_NOTIFY_LETTER_API_KEY=debug
 DJANGO_SECRET_KEY=debug
 FEATURE_ENFORCE_STAFF_SSO_ENABLED=False
-STAFF_SSO_AUTHBROKER_URL=
-AUTHBROKER_CLIENT_ID=
-AUTHBROKER_CLIENT_SECRET=
-```
-
-after running `make debug` in a terminal
-
-create a superuser by running the following in a terminal
-
-```
-export DATABASE_URL=postgres://debug:debug@localhost:5432/directory_forms_api_debug
-./manage.py createsuperuser
 ```
 
 then run `make debug_webserver` to start the server

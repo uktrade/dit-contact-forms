@@ -28,9 +28,7 @@ first-time-init: ## prepares system for first run
 	@docker-compose run --rm contact_forms bash -c " \
 		export DJANGO_SETTINGS_MODULE=config.settings.docker_development; \
 		export DJANGO_BASE_DIR=$(pwd) ; \
-		python manage.py collectstatic --noinput && \
-		python manage.py migrate && \
-		 python manage.py loaddata countries_data \
+		python manage.py collectstatic --noinput
 	"
 
 template-files: ## creates template files

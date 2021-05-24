@@ -6,18 +6,12 @@ services:
       dockerfile: ./compose/test/django/Dockerfile
     volumes:
       - .:/app
-    entrypoint: dockerize -wait tcp://postgres:5432 -wait tcp://redis:6379 -timeout 120s
+    entrypoint: dockerize -wait tcp://redis:6379 -timeout 120s
     env_file:
       - .env.test
     depends_on:
-      - postgres
       - redis
     command: /app/compose/test/django/start.sh
-
-  postgres:
-    image: postgres:10
-    env_file:
-      - .env.test
 
   redis:
     image: redis:3.2
