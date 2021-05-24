@@ -9,7 +9,8 @@ https://docs.djangoproject.com/en/2.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
-import logging
+import environ
+import json
 import os
 import sys
 import sentry_sdk
@@ -33,6 +34,8 @@ env = environ.Env(
 )
 
 env.read_env()
+
+VCAP_SERVICES = env.json("VCAP_SERVICES", {})
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG")
@@ -112,8 +115,16 @@ DATABASES = {"default": dj_database_url.config()}
 
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 85000  # default is 1000
 
+if "redis" in VCAP_SERVICES:
+    REDIS_URL = VCAP_SERVICES["redis"][0]["credentials"]["uri"]
+else:
+    REDIS_URL = env.str("REDIS_URL")
+
 CACHES = {
-    "default": {"BACKEND": "redis_cache.RedisCache", "LOCATION": "localhost:6379"}
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": REDIS_URL,
+    },
 }
 
 # Password validation
