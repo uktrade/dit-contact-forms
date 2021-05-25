@@ -14,7 +14,7 @@
 # from scratch again
 # ----------------- FRONTEND SETUP ----------
 npm install
-gulp build
+npm run build
 # ----------------- commands ----------------
 # sleep infinity
 python manage.py collectstatic --noinput
