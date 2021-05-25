@@ -12,9 +12,6 @@
 #
 # These commands only need running once, unless you destroy the containers and need to build the environment
 # from scratch again
-# ----------------- FRONTEND SETUP ----------
-npm install
-npm run build
 # ----------------- commands ----------------
 # sleep infinity
 python manage.py collectstatic --noinput
