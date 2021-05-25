@@ -48,6 +48,7 @@ jobs:
           command:
             sudo apt-get update && sudo apt-get install -y nodejs npm
       - run:
+          name: Install Python deps
           command: pipenv install --system --dev --deploy
       - run:
           name: Webpack build
@@ -77,7 +78,16 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install system deps
+          command:
+            sudo apt-get update && sudo apt-get install -y nodejs npm
+      - run:
+          name: Install Python deps
           command: pipenv install --system --dev --deploy
+      - run:
+          name: Webpack build
+          command:
+            npm install && npm run build
       - run:
           name: Start app
           command:

@@ -14,15 +14,6 @@ build: template-files # builds the docker containers
 	docker-compose build
 	docker-compose -f test.yml -p contact-forms-tests build
 
-npm-install: ## install dependencies managed by npmand build gov.uk fronted framework
-	docker-compose run --rm contact_forms sh -c " \
-		npm install && \
-		npm rebuild node-sass \
-	"
-
-npm-run-build: ## builds javascript dependencies
-	docker-compose run --rm contact_forms npm run build
-
 first-time-init: ## prepares system for first run
 	@echo -e "\n\n\n\t\t===>> preparing system for first run, might take a while\n\n\n"
 	@docker-compose run --rm contact_forms bash -c " \
@@ -43,7 +34,7 @@ template-files: ## creates template files
 	@echo -e "\n\n\n\n\n\n \
 		===>> Please edit .env and .env.test and update them with your credentials  \n\n \
 	"
-setup: npm-install npm-run-build first-time-init template-files ## first run setup
+setup: first-time-init template-files ## first run setup
 	@ echo "run "make help" for a list o availabe options"
 
 ##@ project

@@ -13,19 +13,12 @@ ADD . /app/
 
 VOLUME /reports
 
-RUN curl -sL https://deb.nodesource.com/setup_10.x | bash
-RUN apt-get install -y wget virtualenv nodejs
-
+RUN apt-get install -y wget
 
 RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
 RUN tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
 
 RUN pip install pipenv
 RUN pipenv install --system --dev --deploy
-RUN npm set unsafe-perm true
-
-# install and build gov.uk frontend.
-RUN npm install
-RUN npm run build
 
 CMD /app/compose/development/django/start.sh
