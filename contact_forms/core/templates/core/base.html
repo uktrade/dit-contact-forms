@@ -1,5 +1,6 @@
-{% load static %}
+{% load render_bundle webpack_static from webpack_loader %}
 {% load gtm %}
+
 <!doctype html>
 <html lang="en" class="govuk-template ">
   <head>
@@ -8,12 +9,12 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     {% google_tag_manager %}
     <title>{% block title %}{% endblock %} - Check how to export goods</title>
-    <link rel="shortcut icon" sizes="16x16 32x32 48x48" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+    <link rel="shortcut icon" sizes="16x16 32x32 48x48" href="{% webpack_static 'images/favicon.ico' %}" type="image/x-icon">
     <meta name="twitter:dnt" content="on">
     <meta name="format-detection" content="telephone=no">
 
     <!--[if lte IE 9]>
-      <link href="{% static 'css/global-oldie.min.css' %}" rel="stylesheet" media="all" />
+      {% render_bundle "global-old-ie" "css" %}
     <![endif]-->
     <!--[if lt IE 9]>
       <script>
@@ -55,7 +56,7 @@
       </style>
     <![endif]-->
     <!--[if !(lte IE 9)]><!-->
-      <link rel="stylesheet" media="all" href="{% static 'css/global.min.css' %}">
+      {% render_bundle "global" "css" %}
     <!--<![endif]-->
     {% block extra_styles %}{% endblock extra_styles %}
 
@@ -156,7 +157,7 @@
           </div>
         </div>
       </footer>
-      <script src="{% static 'js/global.js' %}"></script>
+      {% render_bundle "global" "js" %}
       {% block footer_additions %}
       {% endblock footer_additions %}
   </body>

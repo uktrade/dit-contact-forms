@@ -57,6 +57,7 @@ django-environ = "*"
 elastic-apm = "*"
 django-redis = "==4.10.0"
 lxml = "==4.6.3"
+django-webpack-loader = "*"
 
 [requires]
 python_version = "3.6"

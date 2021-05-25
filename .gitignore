@@ -58,6 +58,7 @@ coverage_html/
 *.log
 local_settings.py
 db.sqlite3
+static_root/
 
 # Flask stuff:
 instance/
@@ -138,3 +139,6 @@ reports/*
 !.envs/.test/.django.template
 .editorconfig
 screenshots
+
+webpack-stats.json
+/assets/webpack_bundles
