@@ -1,6 +1,5 @@
 from django import forms
 from django.conf import settings
-from django.forms import fields
 
 from directory_forms_api_client.forms import ZendeskAPIForm, EmailAPIForm
 
@@ -39,26 +38,30 @@ TOPIC_REDIRECTS = {i: v[1] for i, v in enumerate(TOPIC_CONFIG, 1) if v[1]}
 
 class ContactFormStepOne(forms.Form):
     location = forms.ChoiceField(
-        choices=LOCATION_CHOICES, widget=forms.RadioSelect, required=True,
+        choices=LOCATION_CHOICES,
+        label="What would you like to ask us about or give feedback on?",
+        required=True,
+        widget=forms.RadioSelect,
     )
-    location.label = "What would you like to ask us about or give feedback on?"
 
 
 class ContactFormStepTwo(forms.Form):
     enquiry_topic = forms.ChoiceField(
-        choices=TOPIC_CHOICES, widget=forms.RadioSelect, required=True
+        choices=TOPIC_CHOICES,
+        label="What would you like to ask us about or give feedback on?",
+        required=True,
+        widget=forms.RadioSelect,
     )
-    enquiry_topic.label = "What would you like to ask us about or give feedback on?"
 
 
 class ContactFormStepThree(forms.Form):
     name = forms.CharField(required=True)
     email_address = forms.EmailField(required=True)
-    message = forms.CharField(widget=forms.Textarea, required=True)
+    message = forms.CharField(
+        help_text="Do not include personal or financial information, like your National Insurance number or credit card details.",
+        label="Tell us how we can help",
+        widget=forms.Textarea, required=True)
     terms_and_conditions = forms.BooleanField(required=True)
-
-    message.label = "Tell us how we can help"
-    message.help_text = "Do not include personal or financial information, like your National Insurance number or credit card details."
 
     class Meta:
         fields = ["message", "name", "email_address", "terms_and_conditions"]
@@ -90,7 +93,7 @@ class ZendeskForm(ZendeskAPIForm):
 
 
 class ZendeskEmailForm(EmailAPIForm):
-    message = fields.CharField()
+    message = forms.CharField()
 
     @property
     def text_body(self):
