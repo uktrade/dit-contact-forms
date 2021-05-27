@@ -1,11 +1,11 @@
 from unittest.mock import Mock
 
-from django.test import TestCase
+from django.test import SimpleTestCase
 
 from healthcheck.middleware import HealthCheckMiddleware
 
 
-class TestMiddleware(TestCase):
+class TestMiddleware(SimpleTestCase):
 
     """
     Test Healthcheck Middleware

@@ -1,9 +1,10 @@
-from django.test import TestCase
+from django.test import SimpleTestCase
 from django.apps import apps
+
 from contact.apps import ContactConfig
 
 
-class ContactConfigTestCase(TestCase):
+class ContactConfigTestCase(SimpleTestCase):
 
     """
     Test app config

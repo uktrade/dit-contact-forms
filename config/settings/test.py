@@ -17,19 +17,7 @@ TEMPLATES[0]["OPTIONS"]["loaders"] = [  # noqa F405
     )
 ]
 
-DATABASES = {
-    "default": {
-        "ENGINE": "psqlextra.backend",  # 'django.db.backends.postgresql_psycopg2',
-        "NAME": env.str("POSTGRES_DB"),
-        "USER": env.str("POSTGRES_USER"),
-        "PASSWORD": env.str("POSTGRES_PASSWORD"),
-        "HOST": env.str("POSTGRES_HOST"),
-        "PORT": env.str("POSTGRES_PORT"),
-    }
-}
-
 DEBUG = True
-RESTRICT_ADMIN = False
 
 # Secure cookie settings.
 SESSION_COOKIE_SECURE = False
