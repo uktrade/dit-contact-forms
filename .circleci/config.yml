@@ -87,7 +87,7 @@ jobs:
 
   ui_tests:
     docker:
-      - image: circleci/python:3.6
+      - image: joyzoursky/python-chromedriver
         environment: *app_base_envs
       - *docker_postgres
       - *docker_redis
@@ -97,19 +97,12 @@ jobs:
       - run:
           name: Install system deps
           command: |
-            sudo apt-get update
-            sudo apt-get install -y nodejs npm
-      - run:
-          name: Install Chromedriver
-          command: |
-            sudo apt-get install -y xvfb xdg-utils libgtk-3-0 lsb-release libappindicator3-1 fonts-liberation libasound2 libnspr4 libnss3 libgbm1
-            curl https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O
-            sudo dpkg -i google-chrome-stable_current_amd64.deb
-            rm google-chrome-stable_current_amd64.deb
-            sudo apt-get install -y zip unzip
-            wget https://chromedriver.storage.googleapis.com/90.0.4430.24/chromedriver_linux64.zip
-            unzip chromedriver_linux64.zip
-            sudo mv chromedriver /usr/local/bin
+            apt-get update
+            apt-get install -y nodejs npm
+            pip install pipenv
+            export DOCKERIZE_VERSION=v0.6.1
+            wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+            tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
       - run:
           name: Install Python deps
           command: pipenv install --system --dev --deploy
