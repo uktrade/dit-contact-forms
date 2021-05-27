@@ -1,17 +1,6 @@
 from .base import *
 
 DEBUG = True
-RESTRICT_ADMIN = False
-DATABASES = {
-    "default": {
-        "ENGINE": "psqlextra.backend",  # 'django.db.backends.postgresql_psycopg2',
-        "NAME": env.str("POSTGRES_DB"),
-        "USER": env.str("POSTGRES_USER"),
-        "PASSWORD": env.str("POSTGRES_PASSWORD"),
-        "HOST": env.str("POSTGRES_HOST"),
-        "PORT": env.str("POSTGRES_PORT"),
-    }
-}
 
 # Secure cookie settings.
 SESSION_COOKIE_SECURE = False

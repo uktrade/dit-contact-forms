@@ -1,12 +1,12 @@
 from unittest import skip
 
 from django.test import RequestFactory
-from django.test import TestCase
+from django.test import SimpleTestCase
 
 from core.views import error500handler
 
 
-class CoreViewsTestCase(TestCase):
+class CoreViewsTestCase(SimpleTestCase):
 
     """
     Test Error pages

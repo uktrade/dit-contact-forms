@@ -2,13 +2,10 @@
 version: 2
 aliases:
   - &redis_version              redis:3.2.10
-  - &postgres_version           circleci/postgres:10
   - &python_version             circleci/python:3.6
 
   - &app_base_envs
-    ADMIN_ENABLED: True
     DEBUG: True
-    RESTRICT_ADMIN: False
     HMRC_TAX_FORM_URL: https://www.tax.service.gov.uk/shortforms/form/CITEX_CGEF
     HMRC_TARIFF_CLASSIFICATION_SERVICE_URL: https://www.gov.uk/guidance/ask-hmrc-for-advice-on-classifying-your-goods
     DISABLE_COLLECTSTATIC: 1
@@ -16,25 +13,12 @@ aliases:
     DJANGO_SETTINGS_MODULE: config.settings.docker_development
     DJANGO_BASE_DIR: /app
     DIT_HELPDESK_ADMIN_PASSWORD: DIT_HELPDESK_ADMIN_PASSWORD
-    POSTGRES_HOST: POSTGRES_HOST
-    POSTGRES_DB: POSTGRES_DB
-    POSTGRES_USER: POSTGRES_USER
-    POSTGRES_PASSWORD: POSTGRES_PASSWORD
-    POSTGRES_PORT: POSTGRES_PORT
 
   # Redis container
   - &docker_redis
     image: *redis_version
     environment:
       REDIS_URL: "redis://localhost:6379/"
-
-  # Postgres container
-  - &docker_postgres
-    image: *postgres_version
-    name: postgres
-    environment:
-      POSTGRES_DB: contact_forms
-      POSTGRES_HOST_AUTH_METHOD: trust
 
   # Python container
   - &docker_python
@@ -55,7 +39,6 @@ jobs:
     docker:
       - <<: *docker_python
         environment: *app_base_envs
-      - *docker_postgres
       - *docker_redis
     working_directory: ~/app
     steps:
@@ -89,7 +72,6 @@ jobs:
     docker:
       - image: joyzoursky/python-chromedriver
         environment: *app_base_envs
-      - *docker_postgres
       - *docker_redis
     working_directory: ~/app
     steps:
