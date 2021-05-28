@@ -28,12 +28,7 @@ FORMS = [
     ("step_three", ContactFormStepThree),
 ]
 
-TEMPLATES = {
-    "step_one": "contact/step_one.html",
-    "step_two": "contact/step_two.html",
-    "step_three": "contact/step_three.html",
-}
-
+TEMPLATES = {step_name: f"contact/{step_name}.html" for step_name, _ in FORMS}
 
 LOCATIONS, TOPICS = (dict(LOCATION_CHOICES), dict(TOPIC_CHOICES))
 
@@ -48,12 +43,11 @@ def jump_to_step_three(wizard):
 
 
 class ContactFormWizardView(SessionWizardView):
-    def get_template_names(self):
-        return [TEMPLATES[self.steps.current]]
-
+    condition_dict = {"step_two": jump_to_step_three}
     form_list = FORMS
 
-    condition_dict = {"step_two": jump_to_step_three}
+    def get_template_names(self):
+        return [TEMPLATES[self.steps.current]]
 
     def done(self, form_list, **kwargs):
         context = self.process_form_data(form_list)
