@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "2a4d1c512336728b4024e4f1eac9ceb07ccac39dff88f4c98149f4e27007ff2e"
+            "sha256": "fdcee072a5abe3bec795779eefd6fad8825e4c7fc7731563078270eb7bc4a803"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -76,6 +76,21 @@
             ],
             "index": "pypi",
             "version": "==0.8.0"
+        },
+        "django-debug-toolbar": {
+            "hashes": [
+                "sha256:10f5ef59c97fad34b803b02e5850b6422082e2e44544c2ec03feb4eeee0f9158",
+                "sha256:2d240517dac3b02b7d78c9109ee88546f99171a2ec2a3efa70450771cb55735e"
+            ],
+            "index": "pypi",
+            "version": "==1.11.1"
+        },
+        "django-debug-toolbar-request-history": {
+            "hashes": [
+                "sha256:8171eb415aba8336e70815d8827b78714044bdd0a08092daf831dee741288fc4"
+            ],
+            "index": "pypi",
+            "version": "==0.0.9"
         },
         "django-environ": {
             "hashes": [
@@ -768,21 +783,6 @@
             "index": "pypi",
             "version": "==1.6.0"
         },
-        "django-debug-toolbar": {
-            "hashes": [
-                "sha256:10f5ef59c97fad34b803b02e5850b6422082e2e44544c2ec03feb4eeee0f9158",
-                "sha256:2d240517dac3b02b7d78c9109ee88546f99171a2ec2a3efa70450771cb55735e"
-            ],
-            "index": "pypi",
-            "version": "==1.11.1"
-        },
-        "django-debug-toolbar-request-history": {
-            "hashes": [
-                "sha256:8171eb415aba8336e70815d8827b78714044bdd0a08092daf831dee741288fc4"
-            ],
-            "index": "pypi",
-            "version": "==0.0.9"
-        },
         "django-formtools": {
             "hashes": [
                 "sha256:7703793f1675aa6e871f9fed147e8563816d7a5b9affdc5e3459899596217f7c",
@@ -835,7 +835,7 @@
                 "sha256:54161657e8ffc76596c4ede7080ca68cb02962a2e074a2586b695a93a925d36e",
                 "sha256:e962bff7440364183203d179d7ae9ad90cb1f2b74dcb84300e88ecc42dca3351"
             ],
-            "markers": "python_version < '3.7' and python_version < '3.7'",
+            "markers": "python_version < '3.7'",
             "version": "==5.1.4"
         },
         "ipdb": {
@@ -998,7 +998,7 @@
                 "sha256:c203ec8783bf771a155b207279b9bccb8dea02d8f0c9e5f8ead507bc3246ecc1",
                 "sha256:ef9d7589ef3c200abe66653d3f1ab1033c3c419ae9b9bdb1240a85b024efc88b"
             ],
-            "markers": "python_version >= '2.6' and python_version not in '3.0, 3.1, 3.2'",
+            "markers": "python_version >= '2.6' and python_version not in '3.0, 3.1, 3.2, 3.3'",
             "version": "==2.4.7"
         },
         "pytest": {
@@ -1103,7 +1103,7 @@
                 "sha256:806143ae5bfb6a3c6e736a764057db0e6a0e05e338b5630894a5f779cabb4f9b",
                 "sha256:b3bda1d108d5dd99f4a20d24d9c348e91c4db7ab1b749200bded2f839ccbe68f"
             ],
-            "markers": "python_version >= '2.6' and python_version not in '3.0, 3.1, 3.2'",
+            "markers": "python_version >= '2.6' and python_version not in '3.0, 3.1, 3.2, 3.3'",
             "version": "==0.10.2"
         },
         "traitlets": {
