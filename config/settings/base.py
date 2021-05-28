@@ -10,13 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 import environ
-import json
 import os
 import sentry_sdk
 import sys
-
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-from os.path import join as join_path
 
 from sentry_sdk.integrations.django import DjangoIntegration
 
@@ -59,6 +55,7 @@ INSTALLED_APPS = [
     "directory_forms_api_client",
     "accessibility",
     "disclaimer",
+    "webpack_loader",
 ]
 
 MIDDLEWARE = [
@@ -151,15 +148,12 @@ USE_THOUSAND_SEPARATOR = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 
-STATIC_URL = "/assets/"
-STATICFILES_DIRS = [join_path(APPS_DIR, "static_collected")]
+STATIC_URL = "/static/"
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "assets"),
+]
 
-STATIC_ROOT = join_path(
-    APPS_DIR, "static"
-)  # manage.py collectstatic will copy static files here
-
-MEDIA_ROOT = join_path(APPS_DIR, "media")
-MEDIA_URL = "/files/"
+STATIC_ROOT = "static_root"
 
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",

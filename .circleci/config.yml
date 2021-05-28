@@ -44,7 +44,15 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install system deps
+          command:
+            sudo apt-get update && sudo apt-get install -y nodejs npm
+      - run:
           command: pipenv install --system --dev --deploy
+      - run:
+          name: Webpack build
+          command:
+            npm install && npm run build
       - run:
           name: Running tests
           command:
@@ -62,14 +70,29 @@ jobs:
 
   ui_tests:
     docker:
-      - <<: *docker_contact_forms_test
+      - image: joyzoursky/python-chromedriver
         environment: *app_base_envs
       - *docker_redis
     working_directory: ~/app
     steps:
       - checkout
       - run:
+          name: Install system deps
+          command: |
+            apt-get update
+            apt-get install -y nodejs npm
+            pip install pipenv
+            export DOCKERIZE_VERSION=v0.6.1
+            wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+            tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+      - run:
+          name: Install Python deps
           command: pipenv install --system --dev --deploy
+      - run:
+          name: Webpack build
+          command: |
+            npm install
+            npm run build
       - run:
           name: Start app
           command:

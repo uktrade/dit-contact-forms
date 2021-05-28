@@ -98,7 +98,7 @@ This will install all of the packages needed to build the front end static asset
 To build and move all of the static assets:
 
 ```bash
-gulp build
+npm run build
 ```
 
 `npm run` will show a list of all of the commands available, including linting.
