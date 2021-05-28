@@ -17,9 +17,6 @@ import sys
 from sentry_sdk.integrations.django import DjangoIntegration
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-APPS_DIR = os.path.join(BASE_DIR, "contact_forms")
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 env = environ.Env(
     # set casting, default value
@@ -111,24 +108,6 @@ CACHES = {
     },
 }
 
-# Password validation
-# https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
-
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
-    },
-    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
-    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
-    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
-]
-
-AUTHENTICATION_BACKENDS = []
-
-# SESSION_EXPIRE_AT_BROWSER_CLOSE = False
-# SESSION_COOKIE_AGE = 5 * 60
-
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
@@ -163,13 +142,6 @@ STATICFILES_FINDERS = [
 STATICFILES_STORAGE = (
     "whitenoise.storage.CompressedStaticFilesStorage"
 )  # compression without caching
-
-# The correct index of the client IP in the X-Forwarded-For header.  It should be set to
-# -2 if accessing the private domain and -3 if accessing the site via the public URL.
-IP_SAFELIST_XFF_INDEX = env.int("IP_SAFELIST_XFF_INDEX")
-
-FEEDBACK_MAX_LENGTH = 1000
-CONTACT_MAX_LENGTH = 1000
 
 # Secure cookie settings.
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
@@ -223,9 +195,6 @@ DIRECTORY_CLIENT_CORE_CACHE_LOG_THROTTLING_SECONDS = env.int(
     "DIRECTORY_CLIENT_CORE_CACHE_LOG_THROTTLING_SECONDS"
 )
 DIRECTORY_FORMS_API_DEFAULT_TIMEOUT = 10
-
-APP_START_DOMAIN = env.str("APP_START_DOMAIN")
-FEEDBACK_DESTINATION_EMAIL = env.str("FEEDBACK_DESTINATION_EMAIL")
 
 HMRC_TAX_FORM_URL = env.str("HMRC_TAX_FORM_URL")
 HMRC_TARIFF_CLASSIFICATION_SERVICE_URL = env.str("HMRC_TARIFF_CLASSIFICATION_SERVICE_URL")

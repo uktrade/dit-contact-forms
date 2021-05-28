@@ -18,7 +18,6 @@ first-time-init: ## prepares system for first run
 	@echo -e "\n\n\n\t\t===>> preparing system for first run, might take a while\n\n\n"
 	@docker-compose run --rm contact_forms bash -c " \
 		export DJANGO_SETTINGS_MODULE=config.settings.docker_development; \
-		export DJANGO_BASE_DIR=$(pwd) ; \
 		python manage.py collectstatic --noinput
 	"
 
