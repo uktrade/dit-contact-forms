@@ -1,7 +1,6 @@
-import pytest
 from ui_test.selectors.questionnaire import QUESTIONNAIRE
 from ui_test.selectors.form import FORM
-from ui_test.user_flows import select_questionnaire, submit_form
+from ui_test.user_flows import select_questionnaire
 
 
 def test_export_from_uk_custom(browser):

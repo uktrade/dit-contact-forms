@@ -54,7 +54,7 @@ class ContactFormStepThree(forms.Form):
     name = forms.CharField(required=True)
     email_address = forms.EmailField(required=True)
     message = forms.CharField(
-        help_text="Do not include personal or financial information, like your National Insurance number or credit card details.",
+        help_text="Do not include personal or financial information, like your National Insurance number or credit card details.",  # noqa: E501
         label="Tell us how we can help",
         widget=forms.Textarea,
         required=True,

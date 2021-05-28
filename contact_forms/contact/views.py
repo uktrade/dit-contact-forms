@@ -92,7 +92,7 @@ class ContactFormWizardView(SessionWizardView):
         return super(ContactFormWizardView, self).render_next_step(form, **kwargs)
 
     @staticmethod
-    def process_form_data(form_list):
+    def process_form_data(form_list):  # noqa: C901
         form_data = [form.cleaned_data for form in form_list]
 
         context = {
