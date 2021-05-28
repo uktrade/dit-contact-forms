@@ -1,4 +1,3 @@
-var Details = require('govuk-frontend/govuk/components/details/details.js')
 var Button = require('govuk-frontend/govuk/components/button/button.js')
 var Accordion = require('govuk-frontend/govuk/components/accordion/accordion.js')
 var ErrorSummary = require('govuk-frontend/govuk/components/error-summary/error-summary.js')
@@ -11,14 +10,6 @@ cookiePolicy.initBanner('.app-cookie-banner', '.js-accept-cookie', 'cookies');
 
 // accessibility feature
 new Button(document).init()
-
-// details polyfill for MS browsers
-var $details = document.querySelectorAll('details')
-if ($details) {
-    nodeListForEach($details, function ($detail) {
-        new Details($detail).init()
-    })
-}
 
 // Find all global accordion components to enhance.
 var $accordions = document.querySelectorAll('[data-module="accordion"]')
