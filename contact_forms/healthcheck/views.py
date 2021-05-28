@@ -7,7 +7,7 @@ class HealthCheckView(TemplateView):
     template_name = "healthcheck.html"
 
     def get_context_data(self, **kwargs):
-        """ Adds status and response time to response context"""
+        """Adds status and response time to response context"""
         context = super().get_context_data(**kwargs)
         context["status"] = "OK"
         # nearest approximation of a response time

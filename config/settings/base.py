@@ -135,8 +135,8 @@ STATICFILES_FINDERS = [
 ]
 
 STATICFILES_STORAGE = (
-    "whitenoise.storage.CompressedStaticFilesStorage"
-)  # compression without caching
+    "whitenoise.storage.CompressedStaticFilesStorage"  # compression without caching
+)
 
 # Secure cookie settings.
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
