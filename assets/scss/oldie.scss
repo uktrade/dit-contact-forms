@@ -1,11 +1,5 @@
 @import 'global';
 
-.app-flexible-table__cell {
-  &::before {
-    content: none;
-  }
-}
-
 .app-hierarchy-tree__link {
   width: 80%;
 }
