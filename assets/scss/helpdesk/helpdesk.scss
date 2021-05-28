@@ -27,10 +27,6 @@ abbr {
   vertical-align: top;
 }
 
-.helpdesk-direction__left-to-right:after {
-  content: ' \279E';
-}
-
 .app-select--inline {
   @include mq ($from: tablet) {
     @include govuk-clearfix;
