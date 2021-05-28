@@ -3,7 +3,6 @@ var Button = require('govuk-frontend/govuk/components/button/button.js')
 var Accordion = require('govuk-frontend/govuk/components/accordion/accordion.js')
 var ErrorSummary = require('govuk-frontend/govuk/components/error-summary/error-summary.js')
 var common = require('govuk-frontend/govuk/common')
-var Modal = require('./modules/modal')
 var nodeListForEach = common.nodeListForEach
 var CookiePolicy = require('./modules/cookie-policy');
 
@@ -33,13 +32,6 @@ nodeListForEach($accordions, function ($accordion) {
 var $errorSummary = document.querySelector('[data-module="error-summary"]')
 if ($errorSummary) {
     new ErrorSummary($errorSummary).init()
-}
-
-var $modals = document.querySelectorAll('[data-module="modal-dialogue"]')
-if ($modals) {
-    nodeListForEach($modals, function ($modal) {
-        new Modal($modal).start()
-    })
 }
 
 module.exports = {
