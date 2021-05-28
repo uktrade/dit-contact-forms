@@ -27,31 +27,6 @@ abbr {
   vertical-align: top;
 }
 
-.app-select--inline {
-  @include mq ($from: tablet) {
-    @include govuk-clearfix;
-  }
-  text-align: right;
-}
-
-
-.app-contents li:before {
-  content: "\2014";
-  margin: 0 1em 0 0;
-}
-
-.app-info {
-  background-color: #e9f4f9;
-  border-left: solid .5em #098dc1;
-  padding: .5em;
-}
-
-.app-contents {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
 .helpdesk-breadcrumbs {
 
   position: relative;
