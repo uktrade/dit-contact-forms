@@ -3,8 +3,10 @@ from django.conf import settings
 
 from directory_forms_api_client.forms import ZendeskAPIForm, EmailAPIForm
 
-LOCATION_CHOICES = ((1, "Exporting from the UK"),
-                    (2, "Technical help with using the service"))
+LOCATION_CHOICES = (
+    (1, "Exporting from the UK"),
+    (2, "Technical help with using the service"),
+)
 
 # (
 #    (
@@ -17,18 +19,12 @@ TOPIC_CONFIG = (
         "Customs declarations and procedures, duties and tariff rates",
         settings.HMRC_TAX_FORM_URL,
     ),
-    (
-        "Commodity codes",
-        settings.HMRC_TARIFF_CLASSIFICATION_SERVICE_URL,
-    ),
+    ("Commodity codes", settings.HMRC_TARIFF_CLASSIFICATION_SERVICE_URL),
     (
         "Exporting animals, plants or food, environmental regulations, sanitary & phytosanitary regulations",
         None,
     ),
-    (
-        "Exporting any other goods",
-        None,
-    ),
+    ("Exporting any other goods", None),
 )
 
 TOPIC_CHOICES = [(i, v[0]) for i, v in enumerate(TOPIC_CONFIG, 1)]
@@ -60,7 +56,9 @@ class ContactFormStepThree(forms.Form):
     message = forms.CharField(
         help_text="Do not include personal or financial information, like your National Insurance number or credit card details.",
         label="Tell us how we can help",
-        widget=forms.Textarea, required=True)
+        widget=forms.Textarea,
+        required=True,
+    )
     terms_and_conditions = forms.BooleanField(required=True)
 
     class Meta:
@@ -97,14 +95,14 @@ class ZendeskEmailForm(EmailAPIForm):
 
     @property
     def text_body(self):
-        ''' Override text_body to text templte of email body.'''
+        """ Override text_body to text templte of email body."""
 
-        text = str(self.cleaned_data['message'])
+        text = str(self.cleaned_data["message"])
         return text
 
     @property
     def html_body(self):
-        ''' Override html_body to return html template of email body.'''
-        cleaned = str(self.cleaned_data['message']).replace("\n", "<br />")
-        cleaned_html = '<p>' + cleaned + '</p>'
+        """ Override html_body to return html template of email body."""
+        cleaned = str(self.cleaned_data["message"]).replace("\n", "<br />")
+        cleaned_html = "<p>" + cleaned + "</p>"
         return cleaned_html

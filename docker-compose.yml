@@ -27,4 +27,3 @@ services:
     working_dir: /app
   redis:
     image: redis:3.2
-  

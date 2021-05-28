@@ -15,7 +15,8 @@ from contact.forms import (
     TOPIC_CHOICES,
     TOPIC_REDIRECTS,
     ZendeskForm,
-    ZendeskEmailForm)
+    ZendeskEmailForm,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -38,21 +39,20 @@ LOCATIONS, TOPICS = (dict(LOCATION_CHOICES), dict(TOPIC_CHOICES))
 
 def jump_to_step_three(wizard):
     cleaned_data = wizard.get_cleaned_data_for_step("step_one") or {}
-    location = cleaned_data.get('location')
-    if location == '2':
+    location = cleaned_data.get("location")
+    if location == "2":
         return False
     else:
         return True
 
 
 class ContactFormWizardView(SessionWizardView):
-
     def get_template_names(self):
         return [TEMPLATES[self.steps.current]]
 
     form_list = FORMS
 
-    condition_dict = {'step_two': jump_to_step_three}
+    condition_dict = {"step_two": jump_to_step_three}
 
     def done(self, form_list, **kwargs):
         context = self.process_form_data(form_list)
@@ -72,9 +72,7 @@ class ContactFormWizardView(SessionWizardView):
 
         logger.info("FORM Data: ", data)
 
-        return render(self.request, 'contact/done.html', {
-            'form_data': data,
-        })
+        return render(self.request, "contact/done.html", {"form_data": data})
 
     def render_next_step(self, form, **kwargs):
         """
@@ -85,24 +83,23 @@ class ContactFormWizardView(SessionWizardView):
         :return: render to response
         """
 
-        if ("enquiry_topic" in form.cleaned_data and
-            self.steps.next == "step_three"
-        ):
+        if "enquiry_topic" in form.cleaned_data and self.steps.next == "step_three":
             enquiry_topic = int(form.cleaned_data["enquiry_topic"])
             redirect_url = TOPIC_REDIRECTS.get(enquiry_topic)
             if redirect_url:
                 return HttpResponseRedirect(redirect_url)
-        
-        return super(ContactFormWizardView, self).render_next_step(
-            form, **kwargs
-        )
+
+        return super(ContactFormWizardView, self).render_next_step(form, **kwargs)
 
     @staticmethod
     def process_form_data(form_list):
         form_data = [form.cleaned_data for form in form_list]
 
-        context = {"subject": "New CHEG Enquiry", "subdomain": settings.ZENDESK_SUBDOMAIN,
-                   "IEE_GA_GTM": settings.IEE_GA_GTM}
+        context = {
+            "subject": "New CHEG Enquiry",
+            "subdomain": settings.ZENDESK_SUBDOMAIN,
+            "IEE_GA_GTM": settings.IEE_GA_GTM,
+        }
 
         for form in form_data:
 
@@ -134,7 +131,7 @@ class ContactFormWizardView(SessionWizardView):
                 context["type"] = "email"
                 context["recipient_email"] = settings.EU_EXIT_DIT_EMAIL
                 context["recipient_fullname"] = settings.EU_EXIT_DIT_FULLNAME
-                context["service_name"] =settings.ZENDESK_EU_EXIT_SERVICE_NAME
+                context["service_name"] = settings.ZENDESK_EU_EXIT_SERVICE_NAME
 
             elif context["topic"] == TOPICS[4]:
                 context["type"] = "Zendesk"
@@ -153,20 +150,24 @@ class ContactFormWizardView(SessionWizardView):
 
         context["spam_control"] = helpers.SpamControl(contents=context["content"])
 
-        context["sender"] = helpers.Sender(country_code="", email_address=[context["email_address"]])
+        context["sender"] = helpers.Sender(
+            country_code="", email_address=[context["email_address"]]
+        )
 
-        context["form_url"] = "http://contact.check-duties-customs-exporting-goods.service.gov.uk/"
+        context[
+            "form_url"
+        ] = "http://contact.check-duties-customs-exporting-goods.service.gov.uk/"
 
         return context
 
     @staticmethod
     def send_mail(context):
-        email_form = ZendeskEmailForm(data={'message': context["content"]})
+        email_form = ZendeskEmailForm(data={"message": context["content"]})
         assert email_form.is_valid()
         resp = email_form.save(
             recipients=[context["recipient_email"]],
             subject=context["subject"],
-            reply_to=[context["email_address"],],
+            reply_to=[context["email_address"]],
             form_url=context["form_url"],
         )
         return resp
@@ -182,12 +183,13 @@ class ContactFormWizardView(SessionWizardView):
         )
         assert zendesk_form.is_valid()
         resp = zendesk_form.save(
-                email_address=context["email_address"],
-                full_name=context["name"],
-                form_url=context["form_url"],
-                service_name=context["service_name"],
-                spam_control=context["spam_control"],
-                sender=context["sender"],
-                subject=context["subject"],
-                subdomain=context["subdomain"])
+            email_address=context["email_address"],
+            full_name=context["name"],
+            form_url=context["form_url"],
+            service_name=context["service_name"],
+            spam_control=context["spam_control"],
+            sender=context["sender"],
+            subject=context["subject"],
+            subdomain=context["subdomain"],
+        )
         return resp

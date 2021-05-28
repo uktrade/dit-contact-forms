@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'elasticapm.contrib.django',
+    "elasticapm.contrib.django",
     "formtools",
     "core",
     "cookies",
@@ -102,10 +102,7 @@ else:
     REDIS_URL = env.str("REDIS_URL")
 
 CACHES = {
-    "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": REDIS_URL,
-    },
+    "default": {"BACKEND": "django_redis.cache.RedisCache", "LOCATION": REDIS_URL}
 }
 
 # Internationalization
@@ -128,9 +125,7 @@ USE_THOUSAND_SEPARATOR = True
 
 
 STATIC_URL = "/static/"
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "assets"),
-]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "assets")]
 
 STATIC_ROOT = "static_root"
 
@@ -155,34 +150,24 @@ CSRF_COOKIE_HTTPONLY = True
 LOG_LEVEL = env.str("LOGLEVEL")
 
 LOGGING = {
-    'version': 1,
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-            'stream': sys.stdout,
-        }
-    },
-    'root': {
-        'handlers': ['console'],
-        'level': LOG_LEVEL,
-    },
+    "version": 1,
+    "handlers": {"console": {"class": "logging.StreamHandler", "stream": sys.stdout}},
+    "root": {"handlers": ["console"], "level": LOG_LEVEL},
 }
 
 ELASTIC_APM = {
-  'SERVICE_NAME': env.str('APM_SERVICE_NAME'),
-  'SECRET_TOKEN': env.str('APM_SECRET_TOKEN'),
-  'SERVER_URL': env.str('APM_SERVER_URL'),
-  'ENVIRONMENT': env.str("APM_ENVIRONMENT"),
-  'SERVER_TIMEOUT': env.str("APM_TIMEOUT"),
-  'DEBUG': env.str('APM_DEBUG')
+    "SERVICE_NAME": env.str("APM_SERVICE_NAME"),
+    "SECRET_TOKEN": env.str("APM_SECRET_TOKEN"),
+    "SERVER_URL": env.str("APM_SERVER_URL"),
+    "ENVIRONMENT": env.str("APM_ENVIRONMENT"),
+    "SERVER_TIMEOUT": env.str("APM_TIMEOUT"),
+    "DEBUG": env.str("APM_DEBUG"),
 }
 
 sentry_sdk.init(
     env.str("SENTRY_DSN"),
-    environment=env.str('SENTRY_ENVIRONMENT'),
-    integrations=[
-        DjangoIntegration(),
-    ]
+    environment=env.str("SENTRY_ENVIRONMENT"),
+    integrations=[DjangoIntegration()],
 )
 
 DIRECTORY_FORMS_API_BASE_URL = env.str("DIRECTORY_FORMS_API_BASE_URL")
@@ -197,9 +182,11 @@ DIRECTORY_CLIENT_CORE_CACHE_LOG_THROTTLING_SECONDS = env.int(
 DIRECTORY_FORMS_API_DEFAULT_TIMEOUT = 10
 
 HMRC_TAX_FORM_URL = env.str("HMRC_TAX_FORM_URL")
-HMRC_TARIFF_CLASSIFICATION_SERVICE_URL = env.str("HMRC_TARIFF_CLASSIFICATION_SERVICE_URL")
+HMRC_TARIFF_CLASSIFICATION_SERVICE_URL = env.str(
+    "HMRC_TARIFF_CLASSIFICATION_SERVICE_URL"
+)
 
-IEE_GA_GTM = env.str('IEE_GA_GTM')
+IEE_GA_GTM = env.str("IEE_GA_GTM")
 
 EU_EXIT_DIT_EMAIL = env.str("EU_EXIT_DIT_EMAIL")
 EU_EXIT_DIT_FULLNAME = env.str("EU_EXIT_DIT_FULLNAME")
