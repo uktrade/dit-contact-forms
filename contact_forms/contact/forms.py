@@ -3,10 +3,10 @@ from django.db import models
 
 from directory_forms_api_client.forms import ZendeskAPIForm, EmailAPIForm
 
-LOCATION_CHOICES = (
-    (1, "Exporting from the UK"),
-    (2, "Technical help with using the service"),
-)
+
+class LocationChoices(models.IntegerChoices):
+    EXPORTING_FROM_THE_UK = 1, "Exporting from the UK"
+    TECHNICAL_HELP = 2, "Technical help with using the service"
 
 
 class TopicChoices(models.IntegerChoices):
@@ -23,8 +23,9 @@ class TopicChoices(models.IntegerChoices):
 
 
 class ContactFormStepOne(forms.Form):
-    location = forms.ChoiceField(
-        choices=LOCATION_CHOICES,
+    location = forms.TypedChoiceField(
+        choices=LocationChoices.choices,
+        coerce=lambda x: LocationChoices(int(x)),
         label="What would you like to ask us about or give feedback on?",
         required=True,
         widget=forms.RadioSelect,

@@ -12,14 +12,13 @@ from .forms import (
     ContactFormStepOne,
     ContactFormStepTwo,
     ContactFormStepThree,
-    LOCATION_CHOICES,
+    LocationChoices,
     TopicChoices,
     ZendeskForm,
     ZendeskEmailForm,
 )
 
 logger = logging.getLogger(__name__)
-
 
 FORMS = [
     ("step_one", ContactFormStepOne),
@@ -29,25 +28,24 @@ FORMS = [
 
 TEMPLATES = {step_name: f"contact/{step_name}.html" for step_name, _ in FORMS}
 
-LOCATIONS = dict(LOCATION_CHOICES)
-
 TOPIC_REDIRECTS = {
     TopicChoices.CUSTOMS_DECLARATIONS_AND_PROCEDURES: settings.HMRC_TAX_FORM_URL,
     TopicChoices.COMMODITY_CODES: settings.HMRC_TARIFF_CLASSIFICATION_SERVICE_URL,
 }
 
 
-def jump_to_step_three(wizard):
-    cleaned_data = wizard.get_cleaned_data_for_step("step_one") or {}
-    location = cleaned_data.get("location")
-    if location == "2":
+def display_step_two(wizard):
+    step_one_cleaned_data = wizard.get_cleaned_data_for_step("step_one")
+    if not step_one_cleaned_data:
         return False
-    else:
-        return True
+
+    location = step_one_cleaned_data.get("location")
+
+    return location == LocationChoices.EXPORTING_FROM_THE_UK
 
 
 class ContactFormWizardView(SessionWizardView):
-    condition_dict = {"step_two": jump_to_step_three}
+    condition_dict = {"step_two": display_step_two}
     form_list = FORMS
 
     def get_template_names(self):
@@ -55,9 +53,6 @@ class ContactFormWizardView(SessionWizardView):
 
     def done(self, form_list, **kwargs):
         context = self.process_form_data(form_list)
-
-        # if the chosen topic is in the last four options then go to zendesk
-        # otherwise send an email
 
         if context["type"] == "Zendesk":
             resp = ContactFormWizardView.send_to_zendesk(context)
@@ -103,12 +98,9 @@ class ContactFormWizardView(SessionWizardView):
         for form in form_data:
             """
             check and store first question response in context
-            if first response is option 3 for technical questions set context type to Zendesk
             """
             if "location" in form.keys():
-                context["location"] = LOCATIONS[int(form["location"])]
-            if context["location"] == 3:
-                context["type"] = "Zendesk"
+                context["location"] = form["location"].label
             """
             check and store the second question response in context
             """
