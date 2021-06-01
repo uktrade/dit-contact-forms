@@ -13,8 +13,7 @@ from .forms import (
     ContactFormStepTwo,
     ContactFormStepThree,
     LOCATION_CHOICES,
-    TOPIC_CHOICES,
-    TOPIC_REDIRECTS,
+    TopicChoices,
     ZendeskForm,
     ZendeskEmailForm,
 )
@@ -30,7 +29,12 @@ FORMS = [
 
 TEMPLATES = {step_name: f"contact/{step_name}.html" for step_name, _ in FORMS}
 
-LOCATIONS, TOPICS = (dict(LOCATION_CHOICES), dict(TOPIC_CHOICES))
+LOCATIONS = dict(LOCATION_CHOICES)
+
+TOPIC_REDIRECTS = {
+    TopicChoices.CUSTOMS_DECLARATIONS_AND_PROCEDURES: settings.HMRC_TAX_FORM_URL,
+    TopicChoices.COMMODITY_CODES: settings.HMRC_TARIFF_CLASSIFICATION_SERVICE_URL,
+}
 
 
 def jump_to_step_three(wizard):
@@ -77,9 +81,8 @@ class ContactFormWizardView(SessionWizardView):
         :param kwargs: passed keyword arguments
         :return: render to response
         """
-
         if "enquiry_topic" in form.cleaned_data and self.steps.next == "step_three":
-            enquiry_topic = int(form.cleaned_data["enquiry_topic"])
+            enquiry_topic = form.cleaned_data["enquiry_topic"]
             redirect_url = TOPIC_REDIRECTS.get(enquiry_topic)
             if redirect_url:
                 return HttpResponseRedirect(redirect_url)
@@ -96,8 +99,8 @@ class ContactFormWizardView(SessionWizardView):
             "IEE_GA_GTM": settings.IEE_GA_GTM,
         }
 
+        enquiry_topic = None
         for form in form_data:
-
             """
             check and store first question response in context
             if first response is option 3 for technical questions set context type to Zendesk
@@ -110,7 +113,8 @@ class ContactFormWizardView(SessionWizardView):
             check and store the second question response in context
             """
             if "enquiry_topic" in form.keys():
-                context["topic"] = TOPICS[int(form["enquiry_topic"])]
+                context["topic"] = form["enquiry_topic"].label
+                enquiry_topic = form["enquiry_topic"]
             """
             check and store the sender name, email and message in context
             """
@@ -121,19 +125,16 @@ class ContactFormWizardView(SessionWizardView):
             if "message" in form.keys():
                 context["message"] = form["message"]
 
-        if "topic" in context:
-            if context["topic"] == TOPICS[3]:
-                context["type"] = "email"
-                context["recipient_email"] = settings.EU_EXIT_DIT_EMAIL
-                context["recipient_fullname"] = settings.EU_EXIT_DIT_FULLNAME
-                context["service_name"] = settings.ZENDESK_EU_EXIT_SERVICE_NAME
-
-            elif context["topic"] == TOPICS[4]:
-                context["type"] = "Zendesk"
-                context["recipient_email"] = settings.EU_EXIT_EMAIL
-                context["recipient_fullname"] = settings.EU_EXIT_FULLNAME
-                context["service_name"] = settings.ZENDESK_EU_EXIT_SERVICE_NAME
-
+        if enquiry_topic == TopicChoices.EXPORTING_EXPLICIT:
+            context["type"] = "email"
+            context["recipient_email"] = settings.EU_EXIT_DIT_EMAIL
+            context["recipient_fullname"] = settings.EU_EXIT_DIT_FULLNAME
+            context["service_name"] = settings.ZENDESK_EU_EXIT_SERVICE_NAME
+        elif enquiry_topic == TopicChoices.EXPORTING_GENERAL:
+            context["type"] = "Zendesk"
+            context["recipient_email"] = settings.EU_EXIT_EMAIL
+            context["recipient_fullname"] = settings.EU_EXIT_FULLNAME
+            context["service_name"] = settings.ZENDESK_EU_EXIT_SERVICE_NAME
         else:
             context["type"] = "Zendesk"
             context["recipient_email"] = settings.FEEDBACK_EMAIL

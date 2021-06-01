@@ -1,5 +1,5 @@
 from django import forms
-from django.conf import settings
+from django.db import models
 
 from directory_forms_api_client.forms import ZendeskAPIForm, EmailAPIForm
 
@@ -8,28 +8,18 @@ LOCATION_CHOICES = (
     (2, "Technical help with using the service"),
 )
 
-# (
-#    (
-#       <Radio input label>,
-#       <Redirect URL> or None for no redirect
-#    )
-# )
-TOPIC_CONFIG = (
-    (
+
+class TopicChoices(models.IntegerChoices):
+    CUSTOMS_DECLARATIONS_AND_PROCEDURES = (
+        1,
         "Customs declarations and procedures, duties and tariff rates",
-        settings.HMRC_TAX_FORM_URL,
-    ),
-    ("Commodity codes", settings.HMRC_TARIFF_CLASSIFICATION_SERVICE_URL),
-    (
+    )
+    COMMODITY_CODES = 2, "Commodity codes"
+    EXPORTING_EXPLICIT = (
+        3,
         "Exporting animals, plants or food, environmental regulations, sanitary & phytosanitary regulations",
-        None,
-    ),
-    ("Exporting any other goods", None),
-)
-
-TOPIC_CHOICES = [(i, v[0]) for i, v in enumerate(TOPIC_CONFIG, 1)]
-
-TOPIC_REDIRECTS = {i: v[1] for i, v in enumerate(TOPIC_CONFIG, 1) if v[1]}
+    )
+    EXPORTING_GENERAL = 4, "Exporting any other goods"
 
 
 class ContactFormStepOne(forms.Form):
@@ -42,8 +32,9 @@ class ContactFormStepOne(forms.Form):
 
 
 class ContactFormStepTwo(forms.Form):
-    enquiry_topic = forms.ChoiceField(
-        choices=TOPIC_CHOICES,
+    enquiry_topic = forms.TypedChoiceField(
+        choices=TopicChoices.choices,
+        coerce=lambda x: TopicChoices(int(x)),
         label="What would you like to ask us about or give feedback on?",
         required=True,
         widget=forms.RadioSelect,
