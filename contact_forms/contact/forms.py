@@ -22,7 +22,25 @@ class TopicChoices(models.IntegerChoices):
     EXPORTING_GENERAL = 4, "Exporting any other goods"
 
 
-class ContactFormStepOne(forms.Form):
+class BaseStepForm(forms.Form):
+    def get_context(self):
+        if not self.cleaned_data:
+            raise Exception("Must be cleaned.")
+
+        ctx = {}
+        for field in self.ContextMeta.fields:
+            value = self.cleaned_data[field]
+            if isinstance(value, models.IntegerChoices):
+                value = value.label
+            ctx[field] = value
+
+        return ctx
+
+
+class ContactFormStepOne(BaseStepForm):
+    class ContextMeta:
+        fields = ["location"]
+
     location = forms.TypedChoiceField(
         choices=LocationChoices.choices,
         coerce=lambda x: LocationChoices(int(x)),
@@ -32,7 +50,10 @@ class ContactFormStepOne(forms.Form):
     )
 
 
-class ContactFormStepTwo(forms.Form):
+class ContactFormStepTwo(BaseStepForm):
+    class ContextMeta:
+        fields = ["enquiry_topic"]
+
     enquiry_topic = forms.TypedChoiceField(
         choices=TopicChoices.choices,
         coerce=lambda x: TopicChoices(int(x)),
@@ -42,7 +63,10 @@ class ContactFormStepTwo(forms.Form):
     )
 
 
-class ContactFormStepThree(forms.Form):
+class ContactFormStepThree(BaseStepForm):
+    class ContextMeta:
+        fields = ["name", "email_address", "message"]
+
     name = forms.CharField(required=True)
     email_address = forms.EmailField(required=True)
     message = forms.CharField(
