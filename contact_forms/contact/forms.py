@@ -53,27 +53,6 @@ class ContactFormStepThree(forms.Form):
     )
     terms_and_conditions = forms.BooleanField(required=True)
 
-    class Meta:
-        fields = ["message", "name", "email_address", "terms_and_conditions"]
-        error_messages = {
-            "message": {
-                "required": "Enter a message",
-                "max_length": "Message needs to be less than 1,000 characters",
-            },
-            "name": {
-                "required": "Enter your fullname",
-                "max_length": "Name entered needs to be less than 255 characters",
-            },
-            "email_address": {
-                "required": "Enter your email address",
-                "invalid": "Enter an email address in the correct format, like name@example.com",
-            },
-            "terms_and_conditions": {
-                "required": "Enter your email address",
-                "invalid": "Enter an email address in the correct format, like name@example.com",
-            },
-        }
-
 
 class ZendeskForm(ZendeskAPIForm):
     # note that the base form provides `requester_email` email field
