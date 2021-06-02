@@ -105,7 +105,7 @@ class ContactFormWizardView(SessionWizardView):
                 break
 
         send_type = SendType.ZENDESK
-        if enquiry_topic == TopicChoices.EXPORTING_EXPLICIT:
+        if enquiry_topic == TopicChoices.EXPORTING_SPECIFIC:
             send_type = SendType.EMAIL
             context["recipient_email"] = settings.EU_EXIT_DIT_EMAIL
             context["recipient_fullname"] = settings.EU_EXIT_DIT_FULLNAME

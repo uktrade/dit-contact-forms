@@ -15,7 +15,7 @@ class TopicChoices(models.IntegerChoices):
         "Customs declarations and procedures, duties and tariff rates",
     )
     COMMODITY_CODES = 2, "Commodity codes"
-    EXPORTING_EXPLICIT = (
+    EXPORTING_SPECIFIC = (
         3,
         "Exporting animals, plants or food, environmental regulations, sanitary & phytosanitary regulations",
     )
