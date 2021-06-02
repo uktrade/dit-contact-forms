@@ -37,7 +37,7 @@ TOPIC_REDIRECTS = {
 def display_step_two(wizard):
     step_one_cleaned_data = wizard.get_cleaned_data_for_step("step_one")
     if not step_one_cleaned_data:
-        return False
+        return True
 
     location = step_one_cleaned_data.get("location")
 
@@ -59,12 +59,12 @@ class ContactFormWizardView(SessionWizardView):
         else:
             resp = ContactFormWizardView.send_mail(context)
 
-        logger.info("FORM Submittion response: {} ".format(resp))
-        logger.info("FORM Submittion response json: {} ".format(resp.json()))
+        logger.info("FORM Submittion response: %s", resp)
+        logger.info("FORM Submittion response json: %s", resp.json())
 
         data = [form.cleaned_data for form in form_list]
 
-        logger.info("FORM Data: ", data)
+        logger.info("FORM Data: %s", data)
 
         return render(self.request, "contact/done.html", {"form_data": data})
 

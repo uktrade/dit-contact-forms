@@ -3,8 +3,8 @@ To {{ recipient_fullname }}
 
 I would like to know more about {{ location }}
 
-{% if topic %}
-I would like to know more about {{ topic }}
+{% if enquiry_topic %}
+I would like to know more about {{ enquiry_topic }}
 {% endif %}
 
 {{ message }}
