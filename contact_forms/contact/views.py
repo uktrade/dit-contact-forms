@@ -70,8 +70,7 @@ class ContactFormWizardView(SessionWizardView):
 
     def render_next_step(self, form, **kwargs):
         """
-        override next steps for step five if enquiry_topic is
-        Commodity codes, tariffs and measures, import procedures
+        return early and redirect on certain steps
         :param form: submitted form
         :param kwargs: passed keyword arguments
         :return: render to response
