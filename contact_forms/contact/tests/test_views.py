@@ -31,7 +31,7 @@ class ContactFormViewTestCase(SimpleTestCase):
         self.assertEqual(wizard["steps"].next, "step_two")
         self.assertEqual(wizard["steps"].count, 3)
 
-    def test_customs_declarations_flow(self):
+    def test_customs_declarations_wizard_steps_flow(self):
         response = self.client.get(self.wizard_url)
         self.assertEqual(response.status_code, 200)
 
@@ -56,7 +56,7 @@ class ContactFormViewTestCase(SimpleTestCase):
             response, settings.HMRC_TAX_FORM_URL, fetch_redirect_response=False
         )
 
-    def test_commodity_codes_flow(self):
+    def test_commodity_codes_wizard_steps_flow(self):
         response = self.client.get(self.wizard_url)
         self.assertEqual(response.status_code, 200)
 
@@ -85,7 +85,9 @@ class ContactFormViewTestCase(SimpleTestCase):
 
     @patch("contact.forms.ZendeskAPIForm.save")
     @patch("contact.forms.EmailAPIForm.save")
-    def test_exporting_specific(self, EmailAPIForm_save, ZendeskAPIForm_save):
+    def test_exporting_specific_wizard_steps_flow(
+        self, EmailAPIForm_save, ZendeskAPIForm_save
+    ):
         response = self.client.get(self.wizard_url)
         self.assertEqual(response.status_code, 200)
 
@@ -128,7 +130,9 @@ class ContactFormViewTestCase(SimpleTestCase):
 
     @patch("contact.forms.ZendeskAPIForm.save")
     @patch("contact.forms.EmailAPIForm.save")
-    def test_exporting_general(self, EmailAPIForm_save, ZendeskAPIForm_save):
+    def test_exporting_general_wizard_steps_flow(
+        self, EmailAPIForm_save, ZendeskAPIForm_save
+    ):
         response = self.client.get(self.wizard_url)
         self.assertEqual(response.status_code, 200)
 
@@ -177,7 +181,9 @@ class ContactFormViewTestCase(SimpleTestCase):
 
     @patch("contact.forms.ZendeskAPIForm.save")
     @patch("contact.forms.EmailAPIForm.save")
-    def test_technical_help(self, EmailAPIForm_save, ZendeskAPIForm_save):
+    def test_technical_help_wizard_steps_flow(
+        self, EmailAPIForm_save, ZendeskAPIForm_save
+    ):
         response = self.client.get(self.wizard_url)
         self.assertEqual(response.status_code, 200)
 
