@@ -112,7 +112,7 @@ add entries where necessary (see comments for guidance)
 
 You will need to access [Helpdesk Vault][3] to get the required environment variable secrets to use them in the file.
 To do so you will need to generate a github personal access token. This is needed to log into vault.
-Go here: [Vault][4] click `Generate new token` and make sure it has these scopes: `read:org`, `read:user`.
+Go here: [GitHub settings][4] click `Generate new token` and make sure it has these scopes: `read:org`, `read:user`.
 Once you've done that, head over to [Vault][5] and login with the token. You'll need to select github
 as your login option.
 
