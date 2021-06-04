@@ -13,9 +13,6 @@
     <meta name="twitter:dnt" content="on">
     <meta name="format-detection" content="telephone=no">
 
-    <!--[if lte IE 9]>
-      {% render_bundle "global-old-ie" "css" %}
-    <![endif]-->
     <!--[if lt IE 9]>
       <script>
         (function(){
@@ -55,9 +52,7 @@
         }
       </style>
     <![endif]-->
-    <!--[if !(lte IE 9)]><!-->
-      {% render_bundle "global" "css" %}
-    <!--<![endif]-->
+    {% render_bundle "global" "css" %}
     {% block extra_styles %}{% endblock extra_styles %}
 
   </head>

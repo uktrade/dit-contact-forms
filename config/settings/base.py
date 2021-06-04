@@ -17,9 +17,6 @@ import sys
 from sentry_sdk.integrations.django import DjangoIntegration
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-APPS_DIR = os.path.join(BASE_DIR, "contact_forms")
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 env = environ.Env(
     # set casting, default value
@@ -44,7 +41,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'elasticapm.contrib.django',
+    "elasticapm.contrib.django",
     "formtools",
     "core",
     "cookies",
@@ -105,29 +102,8 @@ else:
     REDIS_URL = env.str("REDIS_URL")
 
 CACHES = {
-    "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": REDIS_URL,
-    },
+    "default": {"BACKEND": "django_redis.cache.RedisCache", "LOCATION": REDIS_URL}
 }
-
-# Password validation
-# https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
-
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
-    },
-    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
-    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
-    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
-]
-
-AUTHENTICATION_BACKENDS = []
-
-# SESSION_EXPIRE_AT_BROWSER_CLOSE = False
-# SESSION_COOKIE_AGE = 5 * 60
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
@@ -149,9 +125,7 @@ USE_THOUSAND_SEPARATOR = True
 
 
 STATIC_URL = "/static/"
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "assets"),
-]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "assets")]
 
 STATIC_ROOT = "static_root"
 
@@ -161,15 +135,8 @@ STATICFILES_FINDERS = [
 ]
 
 STATICFILES_STORAGE = (
-    "whitenoise.storage.CompressedStaticFilesStorage"
-)  # compression without caching
-
-# The correct index of the client IP in the X-Forwarded-For header.  It should be set to
-# -2 if accessing the private domain and -3 if accessing the site via the public URL.
-IP_SAFELIST_XFF_INDEX = env.int("IP_SAFELIST_XFF_INDEX")
-
-FEEDBACK_MAX_LENGTH = 1000
-CONTACT_MAX_LENGTH = 1000
+    "whitenoise.storage.CompressedStaticFilesStorage"  # compression without caching
+)
 
 # Secure cookie settings.
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
@@ -183,34 +150,24 @@ CSRF_COOKIE_HTTPONLY = True
 LOG_LEVEL = env.str("LOGLEVEL")
 
 LOGGING = {
-    'version': 1,
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-            'stream': sys.stdout,
-        }
-    },
-    'root': {
-        'handlers': ['console'],
-        'level': LOG_LEVEL,
-    },
+    "version": 1,
+    "handlers": {"console": {"class": "logging.StreamHandler", "stream": sys.stdout}},
+    "root": {"handlers": ["console"], "level": LOG_LEVEL},
 }
 
 ELASTIC_APM = {
-  'SERVICE_NAME': env.str('APM_SERVICE_NAME'),
-  'SECRET_TOKEN': env.str('APM_SECRET_TOKEN'),
-  'SERVER_URL': env.str('APM_SERVER_URL'),
-  'ENVIRONMENT': env.str("APM_ENVIRONMENT"),
-  'SERVER_TIMEOUT': env.str("APM_TIMEOUT"),
-  'DEBUG': env.str('APM_DEBUG')
+    "SERVICE_NAME": env.str("APM_SERVICE_NAME"),
+    "SECRET_TOKEN": env.str("APM_SECRET_TOKEN"),
+    "SERVER_URL": env.str("APM_SERVER_URL"),
+    "ENVIRONMENT": env.str("APM_ENVIRONMENT"),
+    "SERVER_TIMEOUT": env.str("APM_TIMEOUT"),
+    "DEBUG": env.str("APM_DEBUG"),
 }
 
 sentry_sdk.init(
     env.str("SENTRY_DSN"),
-    environment=env.str('SENTRY_ENVIRONMENT'),
-    integrations=[
-        DjangoIntegration(),
-    ]
+    environment=env.str("SENTRY_ENVIRONMENT"),
+    integrations=[DjangoIntegration()],
 )
 
 DIRECTORY_FORMS_API_BASE_URL = env.str("DIRECTORY_FORMS_API_BASE_URL")
@@ -224,13 +181,14 @@ DIRECTORY_CLIENT_CORE_CACHE_LOG_THROTTLING_SECONDS = env.int(
 )
 DIRECTORY_FORMS_API_DEFAULT_TIMEOUT = 10
 
-APP_START_DOMAIN = env.str("APP_START_DOMAIN")
-FEEDBACK_DESTINATION_EMAIL = env.str("FEEDBACK_DESTINATION_EMAIL")
-
 HMRC_TAX_FORM_URL = env.str("HMRC_TAX_FORM_URL")
-HMRC_TARIFF_CLASSIFICATION_SERVICE_URL = env.str("HMRC_TARIFF_CLASSIFICATION_SERVICE_URL")
+HMRC_TARIFF_CLASSIFICATION_SERVICE_URL = env.str(
+    "HMRC_TARIFF_CLASSIFICATION_SERVICE_URL"
+)
 
-IEE_GA_GTM = env.str('IEE_GA_GTM')
+FORM_URL = env.str("FORM_URL")
+
+IEE_GA_GTM = env.str("IEE_GA_GTM")
 
 EU_EXIT_DIT_EMAIL = env.str("EU_EXIT_DIT_EMAIL")
 EU_EXIT_DIT_FULLNAME = env.str("EU_EXIT_DIT_FULLNAME")

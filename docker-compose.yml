@@ -14,6 +14,8 @@ services:
     depends_on:
       - redis
     command: /app/compose/development/django/start.sh
+    stdin_open: true
+    tty: true
   webpack:
     image: node:14
     command:
@@ -27,4 +29,3 @@ services:
     working_dir: /app
   redis:
     image: redis:3.2
-  

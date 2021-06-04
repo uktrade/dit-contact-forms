@@ -83,11 +83,8 @@ cd dit-contact-forms
 
 #### Frontend static asset installation
 
-First we need to install [GOV.UK Frontend][2] and
-[GOV.UK country and territory autocomplete][3] (Which will also also install the required [Accessible Autocomplete][4]
-dependency), and other front end dependencies.
-
-This is all done by going to the project root folder, which contains `package.json`. Then run:
+Frontend installations is done by going to the project root folder, which
+contains `package.json`. Then run:
 
 ```bash
 npm install
@@ -113,10 +110,10 @@ make template-files
 
 add entries where necessary (see comments for guidance)
 
-You will need to access [Helpdesk Vault][5] to get the required environment variable secrets to use them in the file.
+You will need to access [Helpdesk Vault][3] to get the required environment variable secrets to use them in the file.
 To do so you will need to generate a github personal access token. This is needed to log into vault.
-Go here: [Vault][6] click `Generate new token` and make sure it has these scopes: `read:org`, `read:user`.
-Once you've done that, head over to [Vault][7] and login with the token. You'll need to select github
+Go here: [GitHub settings][4] click `Generate new token` and make sure it has these scopes: `read:org`, `read:user`.
+Once you've done that, head over to [Vault][5] and login with the token. You'll need to select github
 as your login option.
 
 #### Install for development with Docker
@@ -217,8 +214,6 @@ docker push ukti/dit-contact-forms:latest
 
 [1]: https://nodejs.org/en/about/releases/
 [2]: https://github.com/alphagov/govuk-frontend
-[3]: https://github.com/alphagov/govuk-country-and-territory-autocomplete
-[4]: https://github.com/alphagov/accessible-autocomplete
-[5]: https://vault.ci.uktrade.io/ui/vault/secrets/dit%2Ftrade-helpdesk/list/helpdesk/
-[6]: https://github.com/settings/tokens
-[7]: https://vault.ci.uktrade.io
+[3]: https://vault.ci.uktrade.io/ui/vault/secrets/dit%2Ftrade-helpdesk/list/helpdesk/
+[4]: https://github.com/settings/tokens
+[5]: https://vault.ci.uktrade.io

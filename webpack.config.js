@@ -9,7 +9,6 @@ module.exports = {
         "./assets/javascript/global.js",
         "./assets/scss/global.scss"
     ],
-    "global-old-ie": "./assets/scss/oldie.scss",
   },
 
   output: {

@@ -11,8 +11,8 @@ aliases:
     DISABLE_COLLECTSTATIC: 1
     DJANGO_SECRET_KEY: DJANGO_SECRET_KEY
     DJANGO_SETTINGS_MODULE: config.settings.docker_development
-    DJANGO_BASE_DIR: /app
     DIT_HELPDESK_ADMIN_PASSWORD: DIT_HELPDESK_ADMIN_PASSWORD
+    FORM_URL: http://contact.check-duties-customs-exporting-goods.service.gov.uk/
 
   # Redis container
   - &docker_redis

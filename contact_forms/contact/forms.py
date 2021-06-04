@@ -1,85 +1,81 @@
 from django import forms
-from django.conf import settings
-from django.forms import fields
+from django.db import models
 
 from directory_forms_api_client.forms import ZendeskAPIForm, EmailAPIForm
 
-LOCATION_CHOICES = ((1, "Exporting from the UK"),
-                    (2, "Technical help with using the service"))
 
-# (
-#    (
-#       <Radio input label>,
-#       <Redirect URL> or None for no redirect
-#    )
-# )
-TOPIC_CONFIG = (
-    (
+class LocationChoices(models.IntegerChoices):
+    EXPORTING_FROM_THE_UK = 1, "Exporting from the UK"
+    TECHNICAL_HELP = 2, "Technical help with using the service"
+
+
+class TopicChoices(models.IntegerChoices):
+    CUSTOMS_DECLARATIONS_AND_PROCEDURES = (
+        1,
         "Customs declarations and procedures, duties and tariff rates",
-        settings.HMRC_TAX_FORM_URL,
-    ),
-    (
-        "Commodity codes",
-        settings.HMRC_TARIFF_CLASSIFICATION_SERVICE_URL,
-    ),
-    (
+    )
+    COMMODITY_CODES = 2, "Commodity codes"
+    EXPORTING_SPECIFIC = (
+        3,
         "Exporting animals, plants or food, environmental regulations, sanitary & phytosanitary regulations",
-        None,
-    ),
-    (
-        "Exporting any other goods",
-        None,
-    ),
-)
-
-TOPIC_CHOICES = [(i, v[0]) for i, v in enumerate(TOPIC_CONFIG, 1)]
-
-TOPIC_REDIRECTS = {i: v[1] for i, v in enumerate(TOPIC_CONFIG, 1) if v[1]}
-
-
-class ContactFormStepOne(forms.Form):
-    location = forms.ChoiceField(
-        choices=LOCATION_CHOICES, widget=forms.RadioSelect, required=True,
     )
-    location.label = "What would you like to ask us about or give feedback on?"
+    EXPORTING_GENERAL = 4, "Exporting any other goods"
 
 
-class ContactFormStepTwo(forms.Form):
-    enquiry_topic = forms.ChoiceField(
-        choices=TOPIC_CHOICES, widget=forms.RadioSelect, required=True
+class BaseStepForm(forms.Form):
+    def get_context(self):
+        if not self.cleaned_data:
+            raise Exception("Must be cleaned.")
+
+        ctx = {}
+        for field in self.ContextMeta.fields:
+            value = self.cleaned_data[field]
+            if isinstance(value, models.IntegerChoices):
+                value = value.label
+            ctx[field] = value
+
+        return ctx
+
+
+class ContactFormStepOne(BaseStepForm):
+    class ContextMeta:
+        fields = ["location"]
+
+    location = forms.TypedChoiceField(
+        choices=LocationChoices.choices,
+        coerce=lambda x: LocationChoices(int(x)),
+        label="What would you like to ask us about or give feedback on?",
+        required=True,
+        widget=forms.RadioSelect,
     )
-    enquiry_topic.label = "What would you like to ask us about or give feedback on?"
 
 
-class ContactFormStepThree(forms.Form):
+class ContactFormStepTwo(BaseStepForm):
+    class ContextMeta:
+        fields = ["enquiry_topic"]
+
+    enquiry_topic = forms.TypedChoiceField(
+        choices=TopicChoices.choices,
+        coerce=lambda x: TopicChoices(int(x)),
+        label="What would you like to ask us about or give feedback on?",
+        required=True,
+        widget=forms.RadioSelect,
+    )
+
+
+class ContactFormStepThree(BaseStepForm):
+    class ContextMeta:
+        fields = ["name", "email_address", "message"]
+
     name = forms.CharField(required=True)
     email_address = forms.EmailField(required=True)
-    message = forms.CharField(widget=forms.Textarea, required=True)
+    message = forms.CharField(
+        help_text="Do not include personal or financial information, like your National Insurance number or credit card details.",  # noqa: E501
+        label="Tell us how we can help",
+        widget=forms.Textarea,
+        required=True,
+    )
     terms_and_conditions = forms.BooleanField(required=True)
-
-    message.label = "Tell us how we can help"
-    message.help_text = "Do not include personal or financial information, like your National Insurance number or credit card details."
-
-    class Meta:
-        fields = ["message", "name", "email_address", "terms_and_conditions"]
-        error_messages = {
-            "message": {
-                "required": "Enter a message",
-                "max_length": "Message needs to be less than 1,000 characters",
-            },
-            "name": {
-                "required": "Enter your fullname",
-                "max_length": "Name entered needs to be less than 255 characters",
-            },
-            "email_address": {
-                "required": "Enter your email address",
-                "invalid": "Enter an email address in the correct format, like name@example.com",
-            },
-            "terms_and_conditions": {
-                "required": "Enter your email address",
-                "invalid": "Enter an email address in the correct format, like name@example.com",
-            },
-        }
 
 
 class ZendeskForm(ZendeskAPIForm):
@@ -90,18 +86,18 @@ class ZendeskForm(ZendeskAPIForm):
 
 
 class ZendeskEmailForm(EmailAPIForm):
-    message = fields.CharField()
+    message = forms.CharField()
 
     @property
     def text_body(self):
-        ''' Override text_body to text templte of email body.'''
+        """Override text_body to text templte of email body."""
 
-        text = str(self.cleaned_data['message'])
+        text = str(self.cleaned_data["message"])
         return text
 
     @property
     def html_body(self):
-        ''' Override html_body to return html template of email body.'''
-        cleaned = str(self.cleaned_data['message']).replace("\n", "<br />")
-        cleaned_html = '<p>' + cleaned + '</p>'
+        """Override html_body to return html template of email body."""
+        cleaned = str(self.cleaned_data["message"]).replace("\n", "<br />")
+        cleaned_html = "<p>" + cleaned + "</p>"
         return cleaned_html

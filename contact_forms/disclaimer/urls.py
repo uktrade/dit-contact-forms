@@ -4,11 +4,4 @@ from disclaimer import views
 
 app_name = "disclaimer"
 
-urlpatterns = [
-
-    re_path(
-        "",
-        views.DisclaimerView.as_view(),
-        name="disclaimer",
-    ),
-]
+urlpatterns = [re_path("", views.DisclaimerView.as_view(), name="disclaimer")]

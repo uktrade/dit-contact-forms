@@ -21,11 +21,5 @@ def show_toolbar(request):
 
 DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": show_toolbar}
 
-ES_URL = "http://es:9200"
-
-ELASTICSEARCH_DSL = {"default": {"hosts": ES_URL}}
-
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = BASE_DIR + "/app-messages"
-
-FEEDBACK_DESTINATION_EMAIL = env.str("FEEDBACK_DESTINATION_EMAIL")
