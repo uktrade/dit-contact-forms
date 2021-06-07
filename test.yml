@@ -11,7 +11,18 @@ services:
       - .env.test
     depends_on:
       - redis
+      - webpack
     command: /app/compose/test/django/start.sh
-
+  webpack:
+    image: node:14
+    command:
+      bash -c "
+        npm set unsafe-perm true
+        && npm install
+        && npm run dev
+      "
+    volumes:
+      - .:/app
+    working_dir: /app
   redis:
     image: redis:3.2
