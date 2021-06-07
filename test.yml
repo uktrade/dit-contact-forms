@@ -6,12 +6,26 @@ services:
       dockerfile: ./compose/test/django/Dockerfile
     volumes:
       - .:/app
-    entrypoint: dockerize -wait tcp://redis:6379 -timeout 120s
+    entrypoint: dockerize -wait tcp://redis:6379 -timeout 120s -wait file:///app/.webpack-generated
     env_file:
       - .env.test
     depends_on:
       - redis
+      - webpack
     command: /app/compose/test/django/start.sh
-
+  webpack:
+    image: node:14
+    command:
+      bash -c "
+        rm -f .webpack-generated
+        && npm set unsafe-perm true
+        && npm install
+        && npm run build
+        && touch .webpack-generated
+        && sleep infinity
+      "
+    volumes:
+      - .:/app
+    working_dir: /app
   redis:
     image: redis:3.2

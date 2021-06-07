@@ -142,3 +142,4 @@ screenshots
 
 webpack-stats.json
 /assets/webpack_bundles
+.webpack-generated
