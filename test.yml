@@ -6,7 +6,7 @@ services:
       dockerfile: ./compose/test/django/Dockerfile
     volumes:
       - .:/app
-    entrypoint: dockerize -wait tcp://redis:6379 -timeout 120s
+    entrypoint: dockerize -wait tcp://redis:6379 -timeout 120s -wait file:///app/.webpack-generated
     env_file:
       - .env.test
     depends_on:
@@ -17,9 +17,12 @@ services:
     image: node:14
     command:
       bash -c "
-        npm set unsafe-perm true
+        rm -f .webpack-generated
+        && npm set unsafe-perm true
         && npm install
-        && npm run dev
+        && npm run build
+        && touch .webpack-generated
+        && sleep infinity
       "
     volumes:
       - .:/app
