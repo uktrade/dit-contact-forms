@@ -63,6 +63,9 @@ jobs:
             coverage report
             coverage xml -o test-reports/coverage.xml
             coverage html -d test-reports/coverage_html
+      - run:
+          name: Formatting checks
+          command: pre-commit run --from-ref origin/HEAD --to-ref HEAD
       - store_test_results:
           path: test-reports
       - store_artifacts:
