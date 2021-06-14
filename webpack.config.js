@@ -6,8 +6,11 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
   entry: {
     global: [
-        "./assets/javascript/global.js",
-        "./assets/scss/global.scss"
+      "./assets/javascript/global.js",
+      "./assets/scss/global.scss",
+    ],
+    cookiePolicyForm: [
+      "./assets/javascript/cookie-policy-form.js",
     ],
   },
 

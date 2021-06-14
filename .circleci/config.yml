@@ -115,11 +115,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install system deps
-          command:
-            sudo apt-get update && sudo apt-get install -y nodejs npm
-      - run:
-          command: pipenv install --system --dev --deploy
+          command: pip install pre-commit
       - restore_cache:
           keys:
             - pre-commit-cache-{{ arch }}-{{ .Branch }}
