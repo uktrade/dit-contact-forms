@@ -13,7 +13,3 @@ var $errorSummary = document.querySelector('[data-module="error-summary"]');
 if ($errorSummary) {
   new ErrorSummary($errorSummary).init();
 }
-
-module.exports = {
-  bindCookiePolicyForm: cookiePolicy.bindForm,
-};

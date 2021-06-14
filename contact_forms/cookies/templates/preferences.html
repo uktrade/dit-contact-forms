@@ -1,5 +1,7 @@
 {% extends 'core/base.html' %}
 
+{% load render_bundle from webpack_loader %}
+
 {% block title %}Cookie Preferences{% endblock title %}
 
 {% block content %}
@@ -227,13 +229,5 @@
 
 {% endblock %}
 {% block footer_additions %}
-    <script>
-      DITGlobals.bindCookiePolicyForm('#cookie-preferences-form',
-        '.cookie-settings__confirmation',
-        {
-          usage: 'cookies-usage',
-          campaigns: 'cookies-campaigns',
-          settings: 'cookies-settings'
-        })
-    </script>
+    {% render_bundle "cookiePolicyForm" "js" %}
 {% endblock %}
