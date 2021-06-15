@@ -2,6 +2,8 @@ const path = require('path');
 const BundleTracker = require('webpack-bundle-tracker');
 const CopyPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const webpack = require('webpack');
+const dotenv = require('dotenv');
 
 module.exports = {
   entry: {
@@ -30,7 +32,10 @@ module.exports = {
       patterns: [
         { from: "./assets/images/", to: "images"}
       ]
-    })
+    }),
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify(dotenv.config().parsed)
+   })
   ],
 
   module: {
