@@ -10,3 +10,5 @@ cookiePolicy.bindForm(
     settings: "cookies-settings",
   }
 );
+
+iMustBreakNow();
