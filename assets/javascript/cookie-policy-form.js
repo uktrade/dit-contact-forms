@@ -11,4 +11,4 @@ cookiePolicy.bindForm(
   }
 );
 
-iMustBreakNow();
+iMustBreakNow(); // eslint-disable-line
