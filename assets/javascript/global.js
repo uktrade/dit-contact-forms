@@ -15,6 +15,9 @@ if ($errorSummary) {
   new ErrorSummary($errorSummary).init();
 }
 
+console.log(process.env.SENTRY_DSN);
+console.log(process.env.SENTRY_ENVIRONMENT);
+
 // include Sentry initialisation for frontend errors
 Sentry.init({
   dsn: process.env.SENTRY_DSN,
