@@ -1,5 +1,3 @@
-/*global SENTRY_DSN, SENTRY_ENVIRONMENT*/
-
 var Button = require("govuk-frontend/govuk/components/button/button.js");
 var ErrorSummary = require("govuk-frontend/govuk/components/error-summary/error-summary.js");
 var CookiePolicy = require("./modules/cookie-policy");
@@ -27,6 +25,8 @@ console.log(process.env.FEEDBACK_DESTINATION_EMAIL);
 //console.log(process.env);
 
 // include Sentry initialisation for frontend errors
+// Next comment needed to define globals for format checks
+/*global SENTRY_DSN, SENTRY_ENVIRONMENT*/
 Sentry.init({
   dsn: SENTRY_DSN,
   environment: SENTRY_ENVIRONMENT,

@@ -6,7 +6,7 @@ const webpack = require('webpack');
 const dotenv = require('dotenv').config();
 //const dotenv = require('dotenv-webpack');
 
-//console.log(process.env);
+console.log(SENTRY_DSN);
 //console.log(dotenv.config().parsed);
 
 module.exports = {
