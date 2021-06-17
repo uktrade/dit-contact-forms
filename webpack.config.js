@@ -3,7 +3,7 @@ const BundleTracker = require('webpack-bundle-tracker');
 const CopyPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const webpack = require('webpack');
-const dotenv = require('dotenv');
+const dotenv = require('dotenv').config();
 
 module.exports = {
   entry: {
@@ -34,8 +34,9 @@ module.exports = {
       ]
     }),
     new webpack.DefinePlugin({
-      'process.env': JSON.stringify(dotenv.config().parsed)
-   })
+      'SENTRY_DSN': JSON.stringify(process.env.SENTRY_DSN),
+      'SENTRY_ENVIRONMENT': JSON.stringify(process.env.SENTRY_ENVIRONMENT),
+    }),
   ],
 
   module: {

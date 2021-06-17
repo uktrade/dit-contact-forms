@@ -16,9 +16,11 @@ if ($errorSummary) {
 }
 
 // include Sentry initialisation for frontend errors
+// Next comment needed to define globals for format checks
+/*global SENTRY_DSN, SENTRY_ENVIRONMENT*/
 Sentry.init({
-  dsn: process.env.SENTRY_DSN,
-  environment: process.env.SENTRY_ENVIRONMENT,
+  dsn: SENTRY_DSN,
+  environment: SENTRY_ENVIRONMENT,
   tracesSampleRate: 1.0,
 });
 
