@@ -5,6 +5,9 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const webpack = require('webpack');
 const dotenv = require('dotenv');
 
+console.log(process.env);
+console.log(dotenv.config().parsed);
+
 module.exports = {
   entry: {
     global: [
