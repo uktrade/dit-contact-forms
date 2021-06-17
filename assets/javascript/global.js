@@ -19,7 +19,6 @@ if ($errorSummary) {
 
 console.log(SENTRY_DSN);
 console.log(SENTRY_ENVIRONMENT);
-console.log(process.env);
 console.log(process.env.SENTRY_DSN);
 console.log(process.env.FEEDBACK_DESTINATION_EMAIL);
 
