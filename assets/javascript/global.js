@@ -15,15 +15,6 @@ if ($errorSummary) {
   new ErrorSummary($errorSummary).init();
 }
 
-console.log(SENTRY_DSN);
-console.log(SENTRY_ENVIRONMENT);
-console.log(process.env.SENTRY_DSN);
-console.log(process.env.FEEDBACK_DESTINATION_EMAIL);
-
-//console.log(process.env.SENTRY_DSN);
-//console.log(process.env.SENTRY_ENVIRONMENT);
-//console.log(process.env);
-
 // include Sentry initialisation for frontend errors
 // Next comment needed to define globals for format checks
 /*global SENTRY_DSN, SENTRY_ENVIRONMENT*/
@@ -32,6 +23,15 @@ Sentry.init({
   environment: SENTRY_ENVIRONMENT,
   tracesSampleRate: 1.0,
 });
+
+console.log(SENTRY_DSN);
+console.log(SENTRY_ENVIRONMENT);
+//console.log(process.env.SENTRY_DSN);
+//console.log(process.env.FEEDBACK_DESTINATION_EMAIL);
+
+//console.log(process.env.SENTRY_DSN);
+//console.log(process.env.SENTRY_ENVIRONMENT);
+//console.log(process.env);
 
 module.exports = {
   bindCookiePolicyForm: cookiePolicy.bindForm,
