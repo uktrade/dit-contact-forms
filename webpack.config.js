@@ -2,11 +2,12 @@ const path = require('path');
 const BundleTracker = require('webpack-bundle-tracker');
 const CopyPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const webpack = require('webpack');
-const dotenv = require('dotenv');
+//const webpack = require('webpack');
+//const dotenv = require('dotenv');
+const dotenv = require('dotenv-webpack');
 
-console.log(process.env);
-console.log(dotenv.config().parsed);
+//console.log(process.env);
+//console.log(dotenv.config().parsed);
 
 module.exports = {
   entry: {
@@ -36,13 +37,12 @@ module.exports = {
         { from: "./assets/images/", to: "images"}
       ]
     }),
-    new webpack.DefinePlugin({
-      'process.env': JSON.stringify(dotenv.config().parsed),
-      'process.env.SENTRY_DSN': JSON.stringify(process.env.SENTRY_DSN),
-      'process.env.SENTRY_ENVIRONMENT': JSON.stringify(process.env.SENTRY_ENVIRONMENT),
-   }),
-   //new webpack.EnvironmentPlugin(['SENTRY_DSN', 'SENTRY_ENVIRONMENT'])
-   //new dotenv()
+    //new webpack.DefinePlugin({
+      //'process.env': JSON.stringify(dotenv.config().parsed),
+      //'SENTRY_DSN': JSON.stringify(process.env.SENTRY_DSN),
+      //'SENTRY_ENVIRONMENT': JSON.stringify(process.env.SENTRY_ENVIRONMENT),
+    //}),
+    new dotenv(),
   ],
 
   module: {
