@@ -26,7 +26,3 @@ Sentry.init({
 
 console.log(SENTRY_DSN);
 console.log(SENTRY_ENVIRONMENT);
-
-module.exports = {
-  bindCookiePolicyForm: cookiePolicy.bindForm,
-};
