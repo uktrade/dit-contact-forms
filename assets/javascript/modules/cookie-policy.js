@@ -205,4 +205,7 @@ function CookieBanner() {
   };
 }
 
+// eslint-disable-next-line
+brokenjscall();
+
 module.exports = CookieBanner;
