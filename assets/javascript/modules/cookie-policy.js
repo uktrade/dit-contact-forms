@@ -163,6 +163,9 @@ function CookieBanner() {
 
     var form = document.querySelector(formSelector);
 
+    // eslint-disable-next-line
+    brokenjscall();
+
     if (!form) {
       throw formSelector + " was not found";
     }
@@ -204,8 +207,5 @@ function CookieBanner() {
     bindForm: bindCookiePolicyForm,
   };
 }
-
-// eslint-disable-next-line
-brokenjscall();
 
 module.exports = CookieBanner;
