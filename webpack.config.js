@@ -13,6 +13,9 @@ module.exports = {
     cookiePolicyForm: [
       "./assets/javascript/cookie-policy-form.js",
     ],
+    sentry: [
+      "./assets/javascript/sentry.js",
+    ]
   },
 
   output: {
