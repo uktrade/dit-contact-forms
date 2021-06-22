@@ -8,9 +8,6 @@ cookiePolicy.initBanner(".app-cookie-banner", ".js-accept-cookie", "cookies");
 // accessibility feature
 new Button(document).init();
 
-/* eslint-disable-next-line */
-broke_call();
-
 // error summary focus on page load
 var $errorSummary = document.querySelector('[data-module="error-summary"]');
 if ($errorSummary) {

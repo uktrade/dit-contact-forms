@@ -174,9 +174,6 @@ function CookieBanner() {
 
     var policy = getPolicyOrDefault();
 
-    /* eslint-disable-next-line */
-    var nothing = a_third_broken_call();
-
     form[radioButtons.usage].value = policy.usage ? "on" : "off";
     form[radioButtons.settings].value = policy.settings ? "on" : "off";
     form[radioButtons.campaigns].value = policy.campaigns ? "on" : "off";
@@ -191,11 +188,6 @@ function CookieBanner() {
 
         createPoliciesCookie(settings, usage, campaigns);
         setPreferencesCookie();
-
-        /* eslint-disable-next-line */
-        not_working_js_call();
-        /* eslint-disable-next-line */
-        this_also_is_a_broken_call();
 
         confirmation.style = "display:block;";
         window.scrollTo(0, 0);
