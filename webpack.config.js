@@ -2,6 +2,7 @@ const path = require('path');
 const BundleTracker = require('webpack-bundle-tracker');
 const CopyPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const webpack = require('webpack');
 
 module.exports = {
   entry: {
@@ -12,6 +13,9 @@ module.exports = {
     cookiePolicyForm: [
       "./assets/javascript/cookie-policy-form.js",
     ],
+    sentry: [
+      "./assets/javascript/sentry.js",
+    ]
   },
 
   output: {
@@ -30,7 +34,11 @@ module.exports = {
       patterns: [
         { from: "./assets/images/", to: "images"}
       ]
-    })
+    }),
+    new webpack.DefinePlugin({
+      'SENTRY_DSN': JSON.stringify(process.env.SENTRY_DSN),
+      'SENTRY_ENVIRONMENT': JSON.stringify(process.env.SENTRY_ENVIRONMENT),
+    }),
   ],
 
   module: {
