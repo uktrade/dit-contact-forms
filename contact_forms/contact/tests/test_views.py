@@ -220,3 +220,26 @@ class ContactFormViewTestCase(SimpleTestCase):
             subdomain="dit",
             subject="New CHEG Enquiry",
         )
+
+    def test_static_pages(self):
+        disclaimer_response = self.client.get("/disclaimer/")
+        self.assertEqual(disclaimer_response.status_code, 200)
+        self.assertEqual(
+            disclaimer_response.templates[0].name, "disclaimer/disclaimer.html"
+        )
+
+        accessibility_response = self.client.get("/accessibility/")
+        self.assertEqual(accessibility_response.status_code, 200)
+        self.assertEqual(
+            accessibility_response.templates[0].name, "accessibility/accessibility.html"
+        )
+
+        privacy_response = self.client.get("/privacy-terms-and-conditions/")
+        self.assertEqual(privacy_response.status_code, 200)
+        self.assertEqual(
+            privacy_response.templates[0].name, "privacy_terms_and_conditions.html"
+        )
+
+        cookies_response = self.client.get("/cookies/")
+        self.assertEqual(cookies_response.status_code, 200)
+        self.assertEqual(cookies_response.templates[0].name, "preferences.html")
