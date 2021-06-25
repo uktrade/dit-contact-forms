@@ -13,6 +13,7 @@ pinocchio = "==0.4.2"
 pre-commit = "*"
 pytest = "==5.3.2"
 splinter = "==0.14.0"
+jedi = "==0.17.2"
 
 [packages]
 django-debug-toolbar = "==3.2.1"
