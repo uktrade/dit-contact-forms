@@ -221,6 +221,55 @@ class ContactFormViewTestCase(SimpleTestCase):
             subject="New CHEG Enquiry",
         )
 
+    def test_form_wizard_errors(self):
+        response = self.client.get(self.wizard_url)
+        self.assertEqual(response.status_code, 200)
+
+        response = self.client.post(
+            self.wizard_url,
+            data={
+                "contact_form_wizard_view-current_step": "step_one",
+                "step_one-location": 23,
+            },
+        )
+        content = response.content.decode("utf-8").replace("\n", "")
+        content = " ".join(content.split())
+        self.assertEqual(
+            '<span id="location-error" class="govuk-error-location">location</span>'
+            in content,
+            True,
+        )
+
+        response = self.client.post(
+            self.wizard_url,
+            data={
+                "contact_form_wizard_view-current_step": "step_two",
+                "step_two-enquiry_topic": 17,
+            },
+        )
+        content = response.content.decode("utf-8").replace("\n", "")
+        content = " ".join(content.split())
+        self.assertEqual(
+            '<span id="enquiry_type-error" class="govuk-error-enquiry_topic">enquiry_topic</span>'
+            in content,
+            True,
+        )
+
+        response = self.client.post(
+            self.wizard_url,
+            data={
+                "contact_form_wizard_view-current_step": "step_three",
+            },
+        )
+        content = response.content.decode("utf-8").replace("\n", "")
+        content = " ".join(content.split())
+        self.assertEqual('<a href="#name" class="error">' in content, True)
+        self.assertEqual('<a href="#email_address" class="error">' in content, True)
+        self.assertEqual('<a href="#message" class="error">' in content, True)
+        self.assertEqual(
+            '<a href="#terms_and_conditions" class="error">' in content, True
+        )
+
     def test_static_pages(self):
         disclaimer_response = self.client.get("/disclaimer/")
         self.assertEqual(disclaimer_response.status_code, 200)
