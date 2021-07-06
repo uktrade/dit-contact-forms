@@ -13,7 +13,7 @@ repos:
     rev: v2.3.0
     hooks:
       - id: prettier
-        files: assets/javascript
+        files: (assets/javascript|webpack.config.js)
         types: [javascript]
   - repo: https://github.com/pycqa/flake8
     rev: 3.9.2
@@ -23,7 +23,7 @@ repos:
     rev: v7.27.0
     hooks:
       - id: eslint
-        files: assets/javascript
+        files: (assets/javascript|webpack.config.js)
         additional_dependencies:
           - prettier@2.3.1
           - eslint@7.25.0
