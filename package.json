@@ -5,7 +5,7 @@
   "scripts": {
     "build": "webpack --config webpack.config.js",
     "clean": "rm -f ./assets/webpack_bundles/*",
-    "dev": "webpack --config webpack.config.js --watch --mode development",
+    "dev": "webpack --config webpack.config.js --watch",
     "heroku-postbuild": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -1,43 +1,34 @@
-const path = require('path');
-const BundleTracker = require('webpack-bundle-tracker');
+const path = require("path");
+const BundleTracker = require("webpack-bundle-tracker");
 const CopyPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const webpack = require('webpack');
+const webpack = require("webpack");
 
 module.exports = {
   entry: {
-    global: [
-      "./assets/javascript/global.js",
-      "./assets/scss/global.scss",
-    ],
-    cookiePolicyForm: [
-      "./assets/javascript/cookie-policy-form.js",
-    ],
-    sentry: [
-      "./assets/javascript/sentry.js",
-    ]
+    global: ["./assets/javascript/global.js", "./assets/scss/global.scss"],
+    cookiePolicyForm: ["./assets/javascript/cookie-policy-form.js"],
+    sentry: ["./assets/javascript/sentry.js"],
   },
 
   output: {
     path: path.resolve("./assets/webpack_bundles/"),
     publicPath: "/static/webpack_bundles/",
-    filename: "[name]-[fullhash].js"
+    filename: "[name]-[fullhash].js",
   },
 
   plugins: [
     new BundleTracker({ filename: "./webpack-stats.json" }),
     new MiniCssExtractPlugin({
-        filename: "[name]-[fullhash].css",
-        chunkFilename: "[id]-[fullhash].css",
+      filename: "[name]-[fullhash].css",
+      chunkFilename: "[id]-[fullhash].css",
     }),
     new CopyPlugin({
-      patterns: [
-        { from: "./assets/images/", to: "images"}
-      ]
+      patterns: [{ from: "./assets/images/", to: "images" }],
     }),
     new webpack.DefinePlugin({
-      'SENTRY_DSN': JSON.stringify(process.env.SENTRY_DSN),
-      'SENTRY_ENVIRONMENT': JSON.stringify(process.env.SENTRY_ENVIRONMENT),
+      SENTRY_DSN: JSON.stringify(process.env.SENTRY_DSN),
+      SENTRY_ENVIRONMENT: JSON.stringify(process.env.SENTRY_ENVIRONMENT),
     }),
   ],
 
@@ -78,5 +69,8 @@ module.exports = {
   resolve: {
     modules: ["node_modules"],
     extensions: [".js", ".scss"],
-  }
+  },
+
+  devtool:
+    process.env.NODE_ENV == "development" ? "eval-source-map" : "source-map",
 };
