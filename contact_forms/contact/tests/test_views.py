@@ -232,12 +232,11 @@ class ContactFormViewTestCase(SimpleTestCase):
                 "step_one-location": 23,
             },
         )
-        content = response.content.decode("utf-8").replace("\n", "")
-        response.content = " ".join(content.split())
         self.assertContains(
             response,
             '<span id="location-error" class="govuk-error-location">location</span>',
             status_code=200,
+            html=True,
         )
 
         response = self.client.post(
@@ -247,12 +246,11 @@ class ContactFormViewTestCase(SimpleTestCase):
                 "step_two-enquiry_topic": 17,
             },
         )
-        content = response.content.decode("utf-8").replace("\n", "")
-        response.content = " ".join(content.split())
         self.assertContains(
             response,
             '<span id="enquiry_type-error" class="govuk-error-enquiry_topic">enquiry_topic</span>',
             status_code=200,
+            html=True,
         )
 
         response = self.client.post(
@@ -261,17 +259,30 @@ class ContactFormViewTestCase(SimpleTestCase):
                 "contact_form_wizard_view-current_step": "step_three",
             },
         )
-        content = response.content.decode("utf-8").replace("\n", "")
-        response.content = " ".join(content.split())
-        self.assertContains(response, '<a href="#name" class="error">', status_code=200)
         self.assertContains(
-            response, '<a href="#email_address" class="error">', status_code=200
+            response,
+            '<a href="#name"class="error">Enter your full name</a>',
+            status_code=200,
+            html=True,
         )
         self.assertContains(
-            response, '<a href="#message" class="error">', status_code=200
+            response,
+            """<a href="#email_address"class="error">
+                Enter an email address in the correct format, like name@example.com</a>""",
+            status_code=200,
+            html=True,
         )
         self.assertContains(
-            response, '<a href="#terms_and_conditions" class="error">', status_code=200
+            response,
+            '<a href="#message"class="error">Ask us a question or give us feedback</a>',
+            status_code=200,
+            html=True,
+        )
+        self.assertContains(
+            response,
+            '<a href="#terms_and_conditions"class="error">Tick the box to agree to the terms and conditions</a>',
+            status_code=200,
+            html=True,
         )
 
     def test_static_pages(self):
