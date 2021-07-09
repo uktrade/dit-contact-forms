@@ -65,10 +65,8 @@ class ContactFormWizardView(SessionWizardView):
         else:
             resp = self.send_mail(context)
 
-        logger.info("FORM Submission response: %s", resp)
-        logger.info("FORM Submission response json: %s", resp.json())
-
-        logger.info(form_list)
+        logger.info("FORM Submittion response: %s", resp)
+        logger.info("FORM Submittion response json: %s", resp.json())
 
         data = [form.cleaned_data for form in form_list]
 
