@@ -70,7 +70,7 @@ jobs:
 
   ui_tests:
     docker:
-      - image: joyzoursky/python-chromedriver
+      - image: joyzoursky/python-chromedriver:3.6
         environment: *app_base_envs
       - *docker_redis
     working_directory: ~/app
