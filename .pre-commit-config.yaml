@@ -38,3 +38,8 @@ repos:
           - stylelint@13.13.0
           - stylelint-config-sass-guidelines@8.0.0
           - stylelint-config-standard@22.0.0
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.1.0
+    hooks:
+      - id: detect-secrets
+        args: ['--exclude-files', 'readme.md']
