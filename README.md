@@ -116,6 +116,15 @@ Go here: [GitHub settings][4] click `Generate new token` and make sure it has th
 Once you've done that, head over to [Vault][5] and login with the token. You'll need to select github
 as your login option.
 
+#### pre-commit
+
+Install pre-commit - a hook will execute Python and JS code formatters before
+commit
+
+```bash
+pre-commit install
+```
+
 #### Install for development with Docker
 
 Make sure that Docker is installed and running.
