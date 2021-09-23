@@ -27,11 +27,11 @@ directory-forms-api-client = "==5.0"
 django-formtools = "==2.3"
 sentry-sdk = "==0.14.1"
 gevent = "==1.4.0"
-Django = "==3.2.4"
+Django = "~=3.2"
 django-environ = "*"
 elastic-apm = "*"
 django-redis = "==4.12.1"
-django-webpack-loader = "*"
+django-webpack-loader = "~=1.1"
 
 [requires]
 python_version = "3.6"
