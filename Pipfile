@@ -4,7 +4,7 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-ipdb = "==0.11"
+ipdb = "~=0.13.0"
 Werkzeug = "==0.15.3"
 ipython_genutils = "==0.2.0"
 django-coverage-plugin = "==2.0.0"
@@ -27,11 +27,11 @@ directory-forms-api-client = "==5.0"
 django-formtools = "==2.3"
 sentry-sdk = "==0.14.1"
 gevent = "==1.4.0"
-Django = "~=3.2"
-django-environ = "*"
+Django = "~=3.2.5"
+django-environ = "~=0.7.0"
 elastic-apm = "*"
 django-redis = "==4.12.1"
-django-webpack-loader = "~=1.1"
+django-webpack-loader = "~=1.3.0"
 
 [requires]
 python_version = "3.6"
