@@ -2,16 +2,16 @@
 version: 2
 aliases:
   - &redis_version              redis:3.2.10
-  - &python_version             circleci/python:3.6
+  - &python_version             circleci/python:3.8
 
   - &app_base_envs
     DEBUG: True
     HMRC_TAX_FORM_URL: https://www.tax.service.gov.uk/shortforms/form/CITEX_CGEF
     HMRC_TARIFF_CLASSIFICATION_SERVICE_URL: https://www.gov.uk/guidance/ask-hmrc-for-advice-on-classifying-your-goods
     DISABLE_COLLECTSTATIC: 1
-    DJANGO_SECRET_KEY: DJANGO_SECRET_KEY
+    DJANGO_SECRET_KEY: DJANGO_SECRET_KEY # pragma: allowlist secret
     DJANGO_SETTINGS_MODULE: config.settings.docker_development
-    DIT_HELPDESK_ADMIN_PASSWORD: DIT_HELPDESK_ADMIN_PASSWORD
+    DIT_HELPDESK_ADMIN_PASSWORD: DIT_HELPDESK_ADMIN_PASSWORD # pragma: allowlist secret
     FORM_URL: http://contact.check-duties-customs-exporting-goods.service.gov.uk/
 
   # Redis container
@@ -70,7 +70,7 @@ jobs:
 
   ui_tests:
     docker:
-      - image: joyzoursky/python-chromedriver:3.6
+      - image: joyzoursky/python-chromedriver:3.8
         environment: *app_base_envs
       - *docker_redis
     working_directory: ~/app
