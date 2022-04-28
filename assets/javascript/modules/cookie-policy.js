@@ -22,10 +22,8 @@ function CookieBanner() {
       cookieString = cookieString + "; Secure";
     }
     document.cookie = cookieString;
-
-    dataLayer.push({event: "cookies"})
-    dataLayer.push({event: "gtm.dom"})
-
+    window.dataLayer.push({ event: "cookies" });
+    window.dataLayer.push({ event: "gtm.dom" });
   }
 
   function getCookie(name) {
