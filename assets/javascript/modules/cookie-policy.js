@@ -21,6 +21,9 @@ function CookieBanner() {
       cookieString = cookieString + "; Secure";
     }
     document.cookie = cookieString;
+
+    dataLayer.push("gtm.dom")
+
   }
 
   function getCookie(name) {
