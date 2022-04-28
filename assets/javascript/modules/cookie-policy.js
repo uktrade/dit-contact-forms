@@ -8,6 +8,7 @@ function CookieBanner() {
   var cookiesPolicyDurationDays = 365;
 
   function setCookie(name, value, options) {
+    console.log("setCookie", name, value, options);
     if (typeof options === "undefined") {
       options = {};
     }
@@ -22,7 +23,8 @@ function CookieBanner() {
     }
     document.cookie = cookieString;
 
-    dataLayer.push("gtm.dom")
+    dataLayer.push({event: "cookies"})
+    dataLayer.push({event: "gtm.dom"})
 
   }
 
