@@ -8,7 +8,6 @@ function CookieBanner() {
   var cookiesPolicyDurationDays = 365;
 
   function setCookie(name, value, options) {
-    console.log("setCookie", name, value, options);
     if (typeof options === "undefined") {
       options = {};
     }
@@ -22,6 +21,9 @@ function CookieBanner() {
       cookieString = cookieString + "; Secure";
     }
     document.cookie = cookieString;
+  }
+
+  function informGTMOfCookieUpdate() {
     window.dataLayer.push({ event: "cookies" });
     window.dataLayer.push({ event: "gtm.dom" });
   }
@@ -136,6 +138,7 @@ function CookieBanner() {
       createPoliciesCookie(true, true, true);
 
       setPreferencesCookie();
+      informGTMOfCookieUpdate();
       displayCookieBannerAcceptAll(bannerClassName);
 
       return false;
