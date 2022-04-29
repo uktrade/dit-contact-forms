@@ -23,6 +23,11 @@ function CookieBanner() {
     document.cookie = cookieString;
   }
 
+  function informGTMOfCookieUpdate() {
+    window.dataLayer.push({ event: "cookies" });
+    window.dataLayer.push({ event: "gtm.dom" });
+  }
+
   function getCookie(name) {
     var nameEQ = name + "=";
     var cookies = document.cookie.split(";");
@@ -133,6 +138,7 @@ function CookieBanner() {
       createPoliciesCookie(true, true, true);
 
       setPreferencesCookie();
+      informGTMOfCookieUpdate();
       displayCookieBannerAcceptAll(bannerClassName);
 
       return false;
