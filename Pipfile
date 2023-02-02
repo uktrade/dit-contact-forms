@@ -5,7 +5,7 @@ verify_ssl = true
 
 [dev-packages]
 ipdb = "~=0.13.0"
-Werkzeug = "==0.15.3"
+Werkzeug = "==0.15.5"
 ipython_genutils = "==0.2.0"
 django-coverage-plugin = "==2.0.0"
 django-nose = "==1.4.6"
