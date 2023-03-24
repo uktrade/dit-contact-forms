@@ -17,7 +17,7 @@ services:
     stdin_open: true
     tty: true
   webpack:
-    image: node:14
+    image: node:16.19
     command:
       bash -c "
         npm set unsafe-perm true
