@@ -70,7 +70,7 @@ jobs:
 
   ui_tests:
     docker:
-      - image: joyzoursky/python-chromedriver:3.8
+      - image: cimg/python:3.8.0-node
         environment: *app_base_envs
       - *docker_redis
     working_directory: ~/app
@@ -79,15 +79,16 @@ jobs:
       - run:
           name: Install system deps
           command: |
-            apt-get update
-            apt-get install -y nodejs npm
-            pip install pipenv
-            export DOCKERIZE_VERSION=v0.6.1
-            wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
-            tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+            sudo apt-get update
+            sudo apt install chromium-browser
+            sudo apt install python3-pip
+            sudo apt install python3-pytest
+            sudo pip3 install pipenv
+            sudo pip3 install selenium
       - run:
           name: Install Python deps
-          command: pipenv install --system --dev --deploy
+          command: |
+            pipenv install --system --dev --deploy
       - run:
           name: Webpack build
           command: |
@@ -103,7 +104,7 @@ jobs:
           name: Run tests
           command: |
             export PATH=$PATH:$HOME/bin
-            pytest ui_test/specs
+            python3 -m pytest ui_test
       - store_artifacts:
           path: screenshots
 
@@ -115,7 +116,8 @@ jobs:
     steps:
       - checkout
       - run:
-          command: pip install pre-commit
+          command: |
+            pip install pre-commit
       - restore_cache:
           keys:
             - pre-commit-cache-{{ arch }}-{{ .Branch }}
