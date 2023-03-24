@@ -14,7 +14,7 @@ services:
       - webpack
     command: /app/compose/test/django/start.sh
   webpack:
-    image: node:14
+    image: node:16.19
     command:
       bash -c "
         rm -f .webpack-generated
