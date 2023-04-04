@@ -23,7 +23,7 @@ services:
       - "9200:9200"
 
   redis:
-    image: redis:3.2
+    image: redis:4.0
     restart: always
     ports:
       - "6379:6379"
