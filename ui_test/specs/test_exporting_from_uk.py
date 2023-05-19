@@ -5,7 +5,7 @@ from ui_test.user_flows import select_questionnaire
 
 def test_export_from_uk_custom(browser):
     select_questionnaire(browser, {"step1": "export_from_uk", "step2": "custom"})
-    assert browser.is_text_present("Customs General Enquiry Form")
+    assert browser.is_text_present("Sorry, this form is now unavailable.", wait_time=10)
 
 
 def test_export_from_uk_validation_form(browser):
