@@ -14,11 +14,10 @@ services:
       - webpack
     command: /app/compose/test/django/start.sh
   webpack:
-    image: node:16.19.1
+    image: cimg/node:18.17.0
     command:
       bash -c "
         rm -f .webpack-generated
-        && npm set unsafe-perm true
         && npm install
         && npm run build
         && touch .webpack-generated
