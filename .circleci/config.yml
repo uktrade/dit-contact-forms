@@ -70,7 +70,7 @@ jobs:
 
   ui_tests:
     docker:
-      - image: cimg/python:3.8.0-node
+      - image: cimg/node:18.17.1-browsers
         environment: *app_base_envs
       - *docker_redis
     working_directory: ~/app
