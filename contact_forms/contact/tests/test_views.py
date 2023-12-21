@@ -170,7 +170,11 @@ class ContactFormViewTestCase(SimpleTestCase):
             email_address="test@example.com",
             form_url="http://contact.check-duties-customs-exporting-goods.service.gov.uk/",
             full_name="Test name",
-            sender={"email_address": ["test@example.com"], "country_code": ""},
+            sender={
+                "email_address": ["test@example.com"],
+                "country_code": "",
+                "ip_address": None,
+            },
             service_name="eu_exit",
             spam_control={
                 "contents": "\nTo euexit\n\nI would like to know more about Exporting from the UK\n\n\nI would like to know more about Exporting any other goods\n\n\nTest message\n\nThank you\nTest name\ntest@example.com\n",  # noqa: E501
@@ -212,7 +216,11 @@ class ContactFormViewTestCase(SimpleTestCase):
             email_address="test@example.com",
             form_url="http://contact.check-duties-customs-exporting-goods.service.gov.uk/",
             full_name="Test name",
-            sender={"email_address": ["test@example.com"], "country_code": ""},
+            sender={
+                "email_address": ["test@example.com"],
+                "country_code": "",
+                "ip_address": None,
+            },
             service_name="check_export_duties",
             spam_control={
                 "contents": "\nTo Live Services\n\nI would like to know more about Technical help with using the service\n\n\n\nTest message\n\nThank you\nTest name\ntest@example.com\n"  # noqa: E501
