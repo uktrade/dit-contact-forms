@@ -60,10 +60,17 @@ class ContactFormWizardView(SessionWizardView):
     def done(self, form_list, **kwargs):
         send_type, context = self.process_form_data(form_list)
 
+        print("Attempting to send to Zendesk from view")
+        print(f"Got send type {send_type}")
+
         if send_type == SendType.ZENDESK:
             resp = self.send_to_zendesk(context)
         else:
             resp = self.send_mail(context)
+
+        print("----------")
+        print(resp)
+        print("----------")
 
         logger.info("FORM Submission response: %s", resp)
         logger.info("FORM Submission response json: %s", resp.json())
@@ -150,6 +157,9 @@ class ContactFormWizardView(SessionWizardView):
         sender = helpers.Sender(
             country_code="", email_address=[context["email_address"]]
         )
+
+        print("In the send_to_zendesk method, about to save the form")
+
         resp = zendesk_form.save(
             email_address=context["email_address"],
             full_name=context["name"],
