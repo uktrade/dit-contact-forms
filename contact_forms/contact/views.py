@@ -69,8 +69,11 @@ class ContactFormWizardView(SessionWizardView):
             resp = self.send_mail(context)
 
         print("----------")
+        logger.info("----------")
         print(resp)
+        logger.info(resp)
         print("----------")
+        logger.info("----------")
 
         logger.info("FORM Submission response: %s", resp)
         logger.info("FORM Submission response json: %s", resp.json())
@@ -159,6 +162,7 @@ class ContactFormWizardView(SessionWizardView):
         )
 
         print("In the send_to_zendesk method, about to save the form")
+        logger.info("In the send_to_zendesk method, about to save the form")
 
         resp = zendesk_form.save(
             email_address=context["email_address"],
