@@ -56,6 +56,15 @@ class ContactFormWizardView(SessionWizardView):
 
     def get_template_names(self):
         return [TEMPLATES[self.steps.current]]
+    
+    def get_context_data(self, form, **kwargs):
+        ctx = super().get_context_data(form=form, **kwargs)
+
+        logger.critical("GETTING CONTEXT DATA")
+        data=self.request.session
+        logger.critical(data.__dict__)
+
+        return ctx
 
     def done(self, form_list, **kwargs):
 
