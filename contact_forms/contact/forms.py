@@ -88,6 +88,10 @@ class ContactFormStepThree(BaseStepForm):
         logger.critical("CLEANING STEP 3 FORM:")
         logger.critical(cleaned_data)
 
+        am_i_valid = self.is_valid()
+
+        logger.critical(f"Results of is_valid = {am_i_valid}")
+
         return cleaned_data
 
 
