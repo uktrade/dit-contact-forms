@@ -8,7 +8,6 @@ from directory_forms_api_client.forms import ZendeskAPIForm, EmailAPIForm
 logger = logging.getLogger(__name__)
 
 
-
 class LocationChoices(models.IntegerChoices):
     EXPORTING_FROM_THE_UK = 1, "Exporting from the UK"
     TECHNICAL_HELP = 2, "Technical help with using the service"
@@ -54,6 +53,18 @@ class ContactFormStepOne(BaseStepForm):
         widget=forms.RadioSelect,
     )
 
+    def clean(self):
+        cleaned_data = super().clean()
+
+        logger.critical("CLEANING STEP 1 FORM:")
+        logger.critical(cleaned_data)
+
+        am_i_valid = self.is_valid()
+
+        logger.critical(f"Results of is_valid = {am_i_valid}")
+
+        return cleaned_data
+
 
 class ContactFormStepTwo(BaseStepForm):
     class ContextMeta:
@@ -66,6 +77,18 @@ class ContactFormStepTwo(BaseStepForm):
         required=True,
         widget=forms.RadioSelect,
     )
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        logger.critical("CLEANING STEP 2 FORM:")
+        logger.critical(cleaned_data)
+
+        am_i_valid = self.is_valid()
+
+        logger.critical(f"Results of is_valid = {am_i_valid}")
+
+        return cleaned_data
 
 
 class ContactFormStepThree(BaseStepForm):
@@ -81,7 +104,7 @@ class ContactFormStepThree(BaseStepForm):
         required=True,
     )
     terms_and_conditions = forms.BooleanField(required=True)
-    
+
     def clean(self):
         cleaned_data = super().clean()
 
