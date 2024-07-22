@@ -183,14 +183,29 @@ class ContactFormWizardView(SessionWizardView):
         print("In the send_to_zendesk method, about to save the form")
         logger.info("In the send_to_zendesk method, about to save the form")
 
-        resp = zendesk_form.save(
-            email_address=context["email_address"],
-            full_name=context["name"],
-            form_url=settings.FORM_URL,
-            service_name=context["service_name"],
-            spam_control=spam_control,
-            sender=sender,
-            subject=context["subject"],
-            subdomain=settings.ZENDESK_SUBDOMAIN,
-        )
+        resp = mocked_requests_get()
+
+        #resp = zendesk_form.save(
+        #    email_address=context["email_address"],
+        #    full_name=context["name"],
+        #    form_url=settings.FORM_URL,
+        #    service_name=context["service_name"],
+        #    spam_control=spam_control,
+        #    sender=sender,
+        #    subject=context["subject"],
+        #    subdomain=settings.ZENDESK_SUBDOMAIN,
+        #)
         return resp
+    
+
+def mocked_requests_get(*args, **kwargs):
+    class MockResponse:
+        def __init__(self, json_data, status_code):
+            self.json_data = json_data
+            self.status_code = status_code
+
+        def json(self):
+            return self.json_data
+
+    return MockResponse({"key1": "value1"}, 200)
+
