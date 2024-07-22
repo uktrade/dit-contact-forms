@@ -58,7 +58,12 @@ class ContactFormWizardView(SessionWizardView):
         return [TEMPLATES[self.steps.current]]
 
     def done(self, form_list, **kwargs):
+
+        logger.critical("IN DONE METHOD")
+
         send_type, context = self.process_form_data(form_list)
+
+        
 
         print("Attempting to send to Zendesk from view")
         print(f"Got send type {send_type}")
@@ -93,6 +98,7 @@ class ContactFormWizardView(SessionWizardView):
         :param kwargs: passed keyword arguments
         :return: render to response
         """
+        logger.critical("RENDERING NEXT STEP")
         if "enquiry_topic" in form.cleaned_data and self.steps.next == "step_three":
             enquiry_topic = form.cleaned_data["enquiry_topic"]
             redirect_url = TOPIC_REDIRECTS.get(enquiry_topic)
@@ -105,6 +111,8 @@ class ContactFormWizardView(SessionWizardView):
         context = {
             "subject": "New CHEG Enquiry",
         }
+
+        logger.critical("PROCESSING FORM DATA")
 
         for form in form_list:
             context.update(form.get_context())
@@ -137,6 +145,7 @@ class ContactFormWizardView(SessionWizardView):
         return send_type, context
 
     def send_mail(self, context):
+        logger.critical("SENDING EMAIL")
         email_form = ZendeskEmailForm(data={"message": context["content"]})
         assert email_form.is_valid()
         resp = email_form.save(
@@ -148,6 +157,7 @@ class ContactFormWizardView(SessionWizardView):
         return resp
 
     def send_to_zendesk(self, context):
+        logger.critical("SENDING TO ZENDESK")
         zendesk_form = ZendeskForm(
             data={
                 "message": context["content"],
