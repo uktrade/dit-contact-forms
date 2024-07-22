@@ -1,7 +1,12 @@
 from django import forms
 from django.db import models
+import logging
 
 from directory_forms_api_client.forms import ZendeskAPIForm, EmailAPIForm
+
+
+logger = logging.getLogger(__name__)
+
 
 
 class LocationChoices(models.IntegerChoices):
@@ -76,6 +81,14 @@ class ContactFormStepThree(BaseStepForm):
         required=True,
     )
     terms_and_conditions = forms.BooleanField(required=True)
+    
+    def clean(self):
+        cleaned_data = super().clean()
+
+        logger.critical("CLEANING STEP 3 FORM:")
+        logger.critical(cleaned_data)
+
+        return cleaned_data
 
 
 class ZendeskForm(ZendeskAPIForm):
