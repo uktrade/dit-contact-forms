@@ -3,7 +3,7 @@ name = "pypi"
 url = "https://pypi.org/simple"
 verify_ssl = true
 
-[dev-packages]
+[packages]
 ipdb = "~=0.13.0"
 Werkzeug = "==3.0.3"
 ipython_genutils = "==0.2.0"
@@ -14,8 +14,6 @@ pre-commit = "*"
 pytest = "==7.2.0"
 splinter = "==0.18.0"
 jedi = "==0.17.2"
-
-[packages]
 django-debug-toolbar = "==3.2.1"
 flake8 = "==3.7.6"
 redis = "==4.4.4"
