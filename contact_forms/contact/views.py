@@ -85,6 +85,7 @@ class ContactFormWizardView(SessionWizardView):
         :param kwargs: passed keyword arguments
         :return: render to response
         """
+        logger.critical("Rendering next step: %s", self.steps.next)
         if "enquiry_topic" in form.cleaned_data and self.steps.next == "step_three":
             enquiry_topic = form.cleaned_data["enquiry_topic"]
             redirect_url = TOPIC_REDIRECTS.get(enquiry_topic)
