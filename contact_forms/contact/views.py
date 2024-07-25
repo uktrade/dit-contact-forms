@@ -61,6 +61,7 @@ class ContactFormWizardView(SessionWizardView):
         logger.critical("=============================")
         logger.critical("FORM SUBMITTED, RUNNING PROCESS STEP:")
         logger.critical("form = " + str(form))
+        logger.critical("form step data = " + str(self.get_form_step_data(form)))
         logger.critical("is form valid = " + str(form.is_valid()))
         logger.critical("=============================")
         return self.get_form_step_data(form)
