@@ -68,7 +68,7 @@ class ContactFormWizardView(SessionWizardView):
             self.get_form_step_data(form)["contact_form_wizard_view-current_step"]
             == "step_three"
         ):
-            self.done()
+            self.done(self.form_list)
         else:
             return self.get_form_step_data(form)
 
