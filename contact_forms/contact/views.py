@@ -58,17 +58,17 @@ class ContactFormWizardView(SessionWizardView):
         return [TEMPLATES[self.steps.current]]
 
     #def process_step(self, form):
-    #    print("=============================")
-    #    print("FORM SUBMITTED, RUNNING PROCESS STEP:")
-    #    print("form = " + str(form))
-    #    print("self = " + str(self.__dict__))
-    #    print("self breakdown = ")
+    #    logger.critical("=============================")
+    #    logger.critical("FORM SUBMITTED, RUNNING PROCESS STEP:")
+    #    logger.critical("form = " + str(form))
+    #    logger.critical("self = " + str(self.__dict__))
+    #    logger.critical("self breakdown = ")
     #    for val in self.__dict__:
-    #        print(" : " + str(val))
-    #    print("form_list = " + str(self.form_list))
-    #    print("form step data = " + str(self.get_form_step_data(form)))
-    #    print("is form valid = " + str(form.is_valid()))
-    #    print("=============================")
+    #        logger.critical(" : " + str(val))
+    #    logger.critical("form_list = " + str(self.form_list))
+    #    logger.critical("form step data = " + str(self.get_form_step_data(form)))
+    #    logger.critical("is form valid = " + str(form.is_valid()))
+    #    logger.critical("=============================")
 
     #    #PROCESSING FORM DATA:
     #    #FormS = [<ContactFormStepOne bound=True, valid=True, fields=(location)>, <ContactFormStepThree bound=True, valid=True, fields=(name;email_address;message;terms_and_conditions)>]
@@ -83,10 +83,10 @@ class ContactFormWizardView(SessionWizardView):
 
     def done(self, form_list, **kwargs):
 
-        print("+++++++++++++++++++++++++++++")
-        print("FORM SUBMITTED, RUNNING DONE:")
-        print("form_list = " + str(form_list))
-        print("+++++++++++++++++++++++++++++")
+        logger.critical("+++++++++++++++++++++++++++++")
+        logger.critical("FORM SUBMITTED, RUNNING DONE:")
+        logger.critical("form_list = " + str(form_list))
+        logger.critical("+++++++++++++++++++++++++++++")
 
         send_type, context = self.process_form_data(form_list)
 
@@ -114,12 +114,12 @@ class ContactFormWizardView(SessionWizardView):
         :return: render to response
         """
 
-        print("-----------------------------------------")
-        print("RENDERING NEXT STEP:")
-        print("Current step = " + str(self.steps.current))
-        print("Next step = " + str(self.steps.next))
-        print("Form = " + str(form))
-        print("-----------------------------------------")
+        logger.critical("-----------------------------------------")
+        logger.critical("RENDERING NEXT STEP:")
+        logger.critical("Current step = " + str(self.steps.current))
+        logger.critical("Next step = " + str(self.steps.next))
+        logger.critical("Form = " + str(form))
+        logger.critical("-----------------------------------------")
 
         if "enquiry_topic" in form.cleaned_data and self.steps.next == "step_three":
             enquiry_topic = form.cleaned_data["enquiry_topic"]
@@ -134,14 +134,14 @@ class ContactFormWizardView(SessionWizardView):
             "subject": "New CHEG Enquiry",
         }
 
-        print("-----------------------------------------")
-        print("PROCESSING FORM DATA:")
-        print("Forms = " + str(form_list))
+        logger.critical("-----------------------------------------")
+        logger.critical("PROCESSING FORM DATA:")
+        logger.critical("Forms = " + str(form_list))
 
         for form in form_list:
-            print(form)
+            logger.critical(form)
             context.update(form.get_context())
-        print("-----------------------------------------")
+        logger.critical("-----------------------------------------")
 
         enquiry_topic = None
         form_data = [form.cleaned_data for form in form_list]

@@ -45,7 +45,7 @@ class ContactFormStepOne(BaseStepForm):
         choices=LocationChoices.choices,
         coerce=lambda x: LocationChoices(int(x)),
         label="What would you like to ask us about or give feedback on?",
-        required=True,
+        required=False,
         widget=forms.RadioSelect,
     )
 
@@ -58,7 +58,7 @@ class ContactFormStepTwo(BaseStepForm):
         choices=TopicChoices.choices,
         coerce=lambda x: TopicChoices(int(x)),
         label="What would you like to ask us about or give feedback on?",
-        required=True,
+        required=False,
         widget=forms.RadioSelect,
     )
 
@@ -67,15 +67,15 @@ class ContactFormStepThree(BaseStepForm):
     class ContextMeta:
         fields = ["name", "email_address", "message"]
 
-    name = forms.CharField(required=True)
-    email_address = forms.EmailField(required=True)
+    name = forms.CharField(required=False)
+    email_address = forms.EmailField(required=False)
     message = forms.CharField(
         help_text="Do not include personal or financial information, like your National Insurance number or credit card details.",  # noqa: E501
         label="Tell us how we can help",
         widget=forms.Textarea,
-        required=True,
+        required=False,
     )
-    terms_and_conditions = forms.BooleanField(required=True)
+    terms_and_conditions = forms.BooleanField(required=False)
 
 
 class ZendeskForm(ZendeskAPIForm):
