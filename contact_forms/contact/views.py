@@ -57,27 +57,27 @@ class ContactFormWizardView(SessionWizardView):
     def get_template_names(self):
         return [TEMPLATES[self.steps.current]]
 
-    def process_step(self, form):
-        print("=============================")
-        print("FORM SUBMITTED, RUNNING PROCESS STEP:")
-        print("form = " + str(form))
-        print("form step data = " + str(self.get_form_step_data(form)))
-        print("is form valid = " + str(form.is_valid()))
-        print("=============================")
-        if (
-            self.get_form_step_data(form)["contact_form_wizard_view-current_step"]
-            == "step_three"
-        ):
-            self.done(self.form_list)
-        else:
-            return self.get_form_step_data(form)
+    #def process_step(self, form):
+    #    logger.critical("=============================")
+    #    logger.critical("FORM SUBMITTED, RUNNING PROCESS STEP:")
+    #    logger.critical("form = " + str(form))
+    #    logger.critical("form step data = " + str(self.get_form_step_data(form)))
+    #    logger.critical("is form valid = " + str(form.is_valid()))
+    #    logger.critical("=============================")
+    #    if (
+    #        self.get_form_step_data(form)["contact_form_wizard_view-current_step"]
+    #        == "step_three"
+    #    ):
+    #        self.done(self.form_list)
+    #    else:
+    #        return self.get_form_step_data(form)
 
     def done(self, form_list, **kwargs):
 
-        print("+++++++++++++++++++++++++++++")
-        print("FORM SUBMITTED, RUNNING DONE:")
-        print("form_list = " + str(form_list))
-        print("+++++++++++++++++++++++++++++")
+        logger.critical("+++++++++++++++++++++++++++++")
+        logger.critical("FORM SUBMITTED, RUNNING DONE:")
+        logger.critical("form_list = " + str(form_list))
+        logger.critical("+++++++++++++++++++++++++++++")
 
         send_type, context = self.process_form_data(form_list)
 
@@ -105,11 +105,12 @@ class ContactFormWizardView(SessionWizardView):
         :return: render to response
         """
 
-        print("-----------------------------------------")
-        print("RENDERING NEXT STEP:")
-        print("Current step = " + str(self.steps.current))
-        print("Next step = " + str(self.steps.next))
-        print("-----------------------------------------")
+        logger.critical("-----------------------------------------")
+        logger.critical("RENDERING NEXT STEP:")
+        logger.critical("Current step = " + str(self.steps.current))
+        logger.critical("Next step = " + str(self.steps.next))
+        logger.critical("Form = " + str(form))
+        logger.critical("-----------------------------------------")
 
         if "enquiry_topic" in form.cleaned_data and self.steps.next == "step_three":
             enquiry_topic = form.cleaned_data["enquiry_topic"]
