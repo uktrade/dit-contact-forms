@@ -56,6 +56,14 @@ class ContactFormWizardView(SessionWizardView):
 
     def get_template_names(self):
         return [TEMPLATES[self.steps.current]]
+    
+    def process_step(self, form):
+        print("=============================")
+        print("FORM SUBMITTED, RUNNING PROCESS STEP:")
+        print("form = " + str(form))
+        print("is form valid = " + str(form.is_valid()))
+        print("=============================")
+        return self.get_form_step_data(form)
 
     def done(self, form_list, **kwargs):
 
@@ -165,7 +173,7 @@ class ContactFormWizardView(SessionWizardView):
         )
 
         resp = mocked_requests_get()
-        #resp = zendesk_form.save(
+        # resp = zendesk_form.save(
         #    email_address=context["email_address"],
         #    full_name=context["name"],
         #    form_url=settings.FORM_URL,
@@ -174,9 +182,10 @@ class ContactFormWizardView(SessionWizardView):
         #    sender=sender,
         #    subject=context["subject"],
         #    subdomain=settings.ZENDESK_SUBDOMAIN,
-        #)
+        # )
         return resp
-    
+
+
 def mocked_requests_get(*args, **kwargs):
     class MockResponse:
         def __init__(self, json_data, status_code):
