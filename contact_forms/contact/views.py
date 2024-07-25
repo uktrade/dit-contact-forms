@@ -59,6 +59,7 @@ class ContactFormWizardView(SessionWizardView):
 
     def done(self, form_list, **kwargs):
         send_type, context = self.process_form_data(form_list)
+        logger.critical("DONE method callled")
 
         if send_type == SendType.ZENDESK:
             logger.critical("sending to zenddesk")
