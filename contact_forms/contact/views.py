@@ -81,6 +81,19 @@ class ContactFormWizardView(SessionWizardView):
     #    else:
     #        return self.get_form_step_data(form)
 
+    def post(self, *args, **kwargs):                                                                                                                                                                                                                    
+                                                                                                                                            
+        form = self.get_form(data=self.request.POST, files=self.request.FILES)
+        is_valid = form.is_valid()
+
+        logger.critical("+++++++++++++++++++++++++++++")
+        logger.critical("IN POST METHOD:")
+        logger.critical("Form = " + str(form))
+        logger.critical("Form validity = " + str(is_valid))
+        logger.critical("+++++++++++++++++++++++++++++")                                         
+                                                                                         
+        return super(ContactFormWizardView, self).post(*args, **kwargs)
+
     def done(self, form_list, **kwargs):
 
         logger.critical("+++++++++++++++++++++++++++++")

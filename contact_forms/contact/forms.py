@@ -1,7 +1,11 @@
 from django import forms
 from django.db import models
+import logging
 
 from directory_forms_api_client.forms import ZendeskAPIForm, EmailAPIForm
+
+
+logger = logging.getLogger(__name__)
 
 
 class LocationChoices(models.IntegerChoices):
@@ -45,9 +49,21 @@ class ContactFormStepOne(BaseStepForm):
         choices=LocationChoices.choices,
         coerce=lambda x: LocationChoices(int(x)),
         label="What would you like to ask us about or give feedback on?",
-        required=False,
+        required=True,
         widget=forms.RadioSelect,
     )
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        logger.critical("CLEANING STEP 1 FORM:")
+        logger.critical(cleaned_data)
+
+        am_i_valid = self.is_valid()
+
+        logger.critical(f"Results of is_valid = {am_i_valid}")
+
+        return cleaned_data
 
 
 class ContactFormStepTwo(BaseStepForm):
@@ -58,24 +74,48 @@ class ContactFormStepTwo(BaseStepForm):
         choices=TopicChoices.choices,
         coerce=lambda x: TopicChoices(int(x)),
         label="What would you like to ask us about or give feedback on?",
-        required=False,
+        required=True,
         widget=forms.RadioSelect,
     )
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        logger.critical("CLEANING STEP 2 FORM:")
+        logger.critical(cleaned_data)
+
+        am_i_valid = self.is_valid()
+
+        logger.critical(f"Results of is_valid = {am_i_valid}")
+
+        return cleaned_data
 
 
 class ContactFormStepThree(BaseStepForm):
     class ContextMeta:
         fields = ["name", "email_address", "message"]
 
-    name = forms.CharField(required=False)
-    email_address = forms.EmailField(required=False)
+    name = forms.CharField(required=True)
+    email_address = forms.EmailField(required=True)
     message = forms.CharField(
         help_text="Do not include personal or financial information, like your National Insurance number or credit card details.",  # noqa: E501
         label="Tell us how we can help",
         widget=forms.Textarea,
-        required=False,
+        required=True,
     )
-    terms_and_conditions = forms.BooleanField(required=False)
+    terms_and_conditions = forms.BooleanField(required=True)
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        logger.critical("CLEANING STEP 3 FORM:")
+        logger.critical(cleaned_data)
+
+        am_i_valid = self.is_valid()
+
+        logger.critical(f"Results of is_valid = {am_i_valid}")
+
+        return cleaned_data
 
 
 class ZendeskForm(ZendeskAPIForm):
