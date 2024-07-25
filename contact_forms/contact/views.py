@@ -58,6 +58,12 @@ class ContactFormWizardView(SessionWizardView):
         return [TEMPLATES[self.steps.current]]
 
     def done(self, form_list, **kwargs):
+
+        print("+++++++++++++++++++++++++++++")
+        print("FORM SUBMITTED, RUNNING DONE:")
+        print("form_list = " + str(form_list))
+        print("+++++++++++++++++++++++++++++")
+
         send_type, context = self.process_form_data(form_list)
 
         if send_type == SendType.ZENDESK:
@@ -83,6 +89,13 @@ class ContactFormWizardView(SessionWizardView):
         :param kwargs: passed keyword arguments
         :return: render to response
         """
+
+        print("-----------------------------------------")
+        print("RENDERING NEXT STEP:")
+        print("Current step = " + str(self.steps.current))
+        print("Next step = " + str(self.steps.next))
+        print("-----------------------------------------")
+
         if "enquiry_topic" in form.cleaned_data and self.steps.next == "step_three":
             enquiry_topic = form.cleaned_data["enquiry_topic"]
             redirect_url = TOPIC_REDIRECTS.get(enquiry_topic)
@@ -150,14 +163,27 @@ class ContactFormWizardView(SessionWizardView):
         sender = helpers.Sender(
             country_code="", email_address=[context["email_address"]]
         )
-        resp = zendesk_form.save(
-            email_address=context["email_address"],
-            full_name=context["name"],
-            form_url=settings.FORM_URL,
-            service_name=context["service_name"],
-            spam_control=spam_control,
-            sender=sender,
-            subject=context["subject"],
-            subdomain=settings.ZENDESK_SUBDOMAIN,
-        )
+
+        resp = mocked_requests_get()
+        #resp = zendesk_form.save(
+        #    email_address=context["email_address"],
+        #    full_name=context["name"],
+        #    form_url=settings.FORM_URL,
+        #    service_name=context["service_name"],
+        #    spam_control=spam_control,
+        #    sender=sender,
+        #    subject=context["subject"],
+        #    subdomain=settings.ZENDESK_SUBDOMAIN,
+        #)
         return resp
+    
+def mocked_requests_get(*args, **kwargs):
+    class MockResponse:
+        def __init__(self, json_data, status_code):
+            self.json_data = json_data
+            self.status_code = status_code
+
+        def json(self):
+            return self.json_data
+
+    return MockResponse({"key1": "value1"}, 200)
