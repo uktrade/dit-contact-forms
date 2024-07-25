@@ -57,42 +57,43 @@ class ContactFormWizardView(SessionWizardView):
     def get_template_names(self):
         return [TEMPLATES[self.steps.current]]
 
-    #def process_step(self, form):
-    #    logger.critical("=============================")
-    #    logger.critical("FORM SUBMITTED, RUNNING PROCESS STEP:")
-    #    logger.critical("form = " + str(form))
-    #    logger.critical("self = " + str(self.__dict__))
-    #    logger.critical("self breakdown = ")
-    #    for val in self.__dict__:
-    #        logger.critical(" : " + str(val))
-    #    logger.critical("form_list = " + str(self.form_list))
-    #    logger.critical("form step data = " + str(self.get_form_step_data(form)))
-    #    logger.critical("is form valid = " + str(form.is_valid()))
-    #    logger.critical("=============================")
+    def process_step(self, form):
+        logger.critical("=============================")
+        logger.critical("FORM SUBMITTED, RUNNING PROCESS STEP:")
+        logger.critical("form = " + str(form))
+        logger.critical("self = " + str(self.__dict__))
+        logger.critical("self breakdown = ")
+        for val in self.__dict__:
+            logger.critical(" : " + str(val))
+        logger.critical("form_list = " + str(self.form_list))
+        logger.critical("form step data = " + str(self.get_form_step_data(form)))
+        logger.critical("is form valid = " + str(form.is_valid()))
+        logger.critical("=============================")
 
-    #    #PROCESSING FORM DATA:
-    #    #FormS = [<ContactFormStepOne bound=True, valid=True, fields=(location)>, <ContactFormStepThree bound=True, valid=True, fields=(name;email_address;message;terms_and_conditions)>]
+        #PROCESSING FORM DATA:
+        #FormS = [<ContactFormStepOne bound=True, valid=True, fields=(location)>, <ContactFormStepThree bound=True, valid=True, fields=(name;email_address;message;terms_and_conditions)>]
 
-    #    if (
-    #        self.get_form_step_data(form)["contact_form_wizard_view-current_step"]
-    #        == "step_three"
-    #    ):
-    #        self.done(self.form_list)
-    #    else:
-    #        return self.get_form_step_data(form)
+        #if (
+        #    self.get_form_step_data(form)["contact_form_wizard_view-current_step"]
+        #    == "step_three"
+        #):
+        #    self.done(self.form_list)
+        #else:
+        #    return self.get_form_step_data(form)
+        return self.get_form_step_data(form)
 
-    def post(self, *args, **kwargs):                                                                                                                                                                                                                    
-                                                                                                                                            
-        form = self.get_form(data=self.request.POST, files=self.request.FILES)
-        is_valid = form.is_valid()
-
-        logger.critical("+++++++++++++++++++++++++++++")
-        logger.critical("IN POST METHOD:")
-        logger.critical("Form = " + str(form))
-        logger.critical("Form validity = " + str(is_valid))
-        logger.critical("+++++++++++++++++++++++++++++")                                         
-                                                                                         
-        return super(ContactFormWizardView, self).post(*args, **kwargs)
+    #def post(self, *args, **kwargs):                                                                                                                                                                                                                    
+    #                                                                                                                                        
+    #    form = self.get_form(data=self.request.POST, files=self.request.FILES)
+    #    is_valid = form.is_valid()
+#
+    #    logger.critical("+++++++++++++++++++++++++++++")
+    #    logger.critical("IN POST METHOD:")
+    #    logger.critical("Form = " + str(form))
+    #    logger.critical("Form validity = " + str(is_valid))
+    #    logger.critical("+++++++++++++++++++++++++++++")                                         
+    #                                                                                     
+    #    return super(ContactFormWizardView, self).post(*args, **kwargs)
 
     def done(self, form_list, **kwargs):
 
