@@ -61,6 +61,7 @@ class ContactFormWizardView(SessionWizardView):
         send_type, context = self.process_form_data(form_list)
 
         if send_type == SendType.ZENDESK:
+            logger.critical("sending to zenddesk")
             resp = self.send_to_zendesk(context)
         else:
             resp = self.send_mail(context)
