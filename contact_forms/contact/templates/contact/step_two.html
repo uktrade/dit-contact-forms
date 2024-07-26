@@ -14,7 +14,7 @@
         <fieldset class="govuk-fieldset" aria-describedby="changed-name-hint">
             {% if wizard.form.errors %}
                 {% for error in wizard.form.errors %}
-                    <span id="enquiry_type-error"
+                    <span id="enquiry_topic-error"
                           class="govuk-error-enquiry_topic">{{ error | escape }}</span>
                 {% endfor %}
             {% endif %}

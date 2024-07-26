@@ -5,7 +5,7 @@
 {% block title_form_page %}Contact us{% endblock %}
 
 {% block form_page_title %}
-    {{ wizard.form.location.label }}
+    {{ wizard.form.enquiry_type.label }}
     <p class="govuk-hint govuk-!-margin-bottom-1">Contact the Department for Business and Trade (DBT) with questions about trade and investment or to give feedback.</p>
 {% endblock %}
 
@@ -14,17 +14,17 @@
       <fieldset class="govuk-fieldset" aria-describedby="changed-name-hint">
             {% if wizard.form.errors %}
                 {% for error in wizard.form.errors %}
-                    <span id="location-error"
-                          class="govuk-error-location">{{ error | escape }}</span>
+                    <span id="enquiry_type-error"
+                          class="govuk-error-enquiry_type">{{ error | escape }}</span>
                 {% endfor %}
             {% endif %}
-            <div class="govuk-radios govuk-radios" id="id_step_one-location">
-                {% for choice in wizard.form.fields.location.choices %}
+            <div class="govuk-radios govuk-radios" id="id_step_one-enquiry_type">
+                {% for choice in wizard.form.fields.enquiry_type.choices %}
                     <div class="govuk-radios__item">
-                        <input class="govuk-radios__input" id="id_step_one-location_{{ forloop.counter0 }}" required
-                            name="step_one-location" type="radio"
+                        <input class="govuk-radios__input" id="id_step_one-enquiry_type_{{ forloop.counter0 }}" required
+                            name="step_one-enquiry_type" type="radio"
                             value="{{ choice.0 }}">
-                        <label class="govuk-label govuk-radios__label" for="id_step_one-location_{{ forloop.counter0 }}">
+                        <label class="govuk-label govuk-radios__label" for="id_step_one-enquiry_type_{{ forloop.counter0 }}">
                             {{ choice.1 }}</label>
                     </div>
                 {% endfor %}
