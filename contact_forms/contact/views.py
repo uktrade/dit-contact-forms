@@ -58,6 +58,9 @@ class ContactFormWizardView(SessionWizardView):
         return [TEMPLATES[self.steps.current]]
 
     def done(self, form_list, **kwargs):
+
+        logger.critical("DONE METHOD CALLED.")
+
         send_type, context = self.process_form_data(form_list)
 
         if send_type == SendType.ZENDESK:
@@ -76,20 +79,20 @@ class ContactFormWizardView(SessionWizardView):
 
         return render(self.request, "contact/done.html", {"form_data": data})
 
-    def render_next_step(self, form, **kwargs):
-        """
-        return early and redirect on certain steps
-        :param form: submitted form
-        :param kwargs: passed keyword arguments
-        :return: render to response
-        """
-        if "enquiry_topic" in form.cleaned_data and self.steps.next == "step_three":
-            enquiry_topic = form.cleaned_data["enquiry_topic"]
-            redirect_url = TOPIC_REDIRECTS.get(enquiry_topic)
-            if redirect_url:
-                return HttpResponseRedirect(redirect_url)
+    # def render_next_step(self, form, **kwargs):
+    #    """
+    #    return early and redirect on certain steps
+    #    :param form: submitted form
+    #    :param kwargs: passed keyword arguments
+    #    :return: render to response
+    #    """
+    #    if "enquiry_topic" in form.cleaned_data and self.steps.next == "step_three":
+    #        enquiry_topic = form.cleaned_data["enquiry_topic"]
+    #        redirect_url = TOPIC_REDIRECTS.get(enquiry_topic)
+    #        if redirect_url:
+    #            return HttpResponseRedirect(redirect_url)
 
-        return super(ContactFormWizardView, self).render_next_step(form, **kwargs)
+    #    return super(ContactFormWizardView, self).render_next_step(form, **kwargs)
 
     def process_form_data(self, form_list):
         context = {
