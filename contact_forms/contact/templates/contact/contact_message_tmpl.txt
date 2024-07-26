@@ -1,7 +1,7 @@
 
 To {{ recipient_fullname }}
 
-I would like to know more about {{ location }}
+I would like to know more about {{ enquiry_type }}
 
 {% if enquiry_topic %}
 I would like to know more about {{ enquiry_topic }}
