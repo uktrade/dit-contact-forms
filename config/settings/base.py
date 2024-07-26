@@ -96,17 +96,13 @@ DATABASES = {}
 
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 85000  # default is 1000
 
-#if "redis" in VCAP_SERVICES:
-#    REDIS_URL = VCAP_SERVICES["redis"][0]["credentials"]["uri"]
-#else:
-#    REDIS_URL = env.str("REDIS_URL")
+if "redis" in VCAP_SERVICES:
+    REDIS_URL = VCAP_SERVICES["redis"][0]["credentials"]["uri"]
+else:
+    REDIS_URL = env.str("REDIS_URL")
 
 CACHES = {
-    #"default": {"BACKEND": "django_redis.cache.RedisCache", "LOCATION": REDIS_URL}
-    "default": {
-        "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
-        "LOCATION": "/var/tmp/django_cache",
-    }
+    "default": {"BACKEND": "django_redis.cache.RedisCache", "LOCATION": REDIS_URL}
 }
 
 # Internationalization

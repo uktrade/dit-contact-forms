@@ -8,8 +8,11 @@ services:
       - "8000:8000"
     volumes:
       - .:/app
+    entrypoint: dockerize -wait tcp://redis:6379 -timeout 120s
     env_file:
       - .env
+    depends_on:
+      - redis
     command: /app/compose/development/django/start.sh
     stdin_open: true
     tty: true
@@ -25,3 +28,5 @@ services:
     volumes:
       - .:/app
     working_dir: /app
+  redis:
+    image: redis:4.0
