@@ -57,7 +57,7 @@ class ContactFormWizardView(SessionWizardView):
     def get_template_names(self):
         return [TEMPLATES[self.steps.current]]
 
-    def done(self, form_list, **kwargs):
+    def done(self, form_list, form_dict, **kwargs):
         send_type, context = self.process_form_data(form_list)
 
         if send_type == SendType.ZENDESK:
