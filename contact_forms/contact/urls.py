@@ -1,7 +1,23 @@
-from django.urls import re_path
+from django.urls import path, re_path
 
 from contact import views
 
 app_name = "contact"
 
-urlpatterns = [re_path("", views.ContactFormWizardView.as_view(), name="form-view")]
+enquiry_wizard_view = views.CheckHowToExportGoodsContactView.as_view(
+    url_name="contact:enquiry-wizard-step",
+)
+
+urlpatterns = [
+    path("", views.IndexView.as_view(), name="index"),
+    re_path(
+        r"^enquiry/(?P<step>.+)$",
+        enquiry_wizard_view,
+        name="enquiry-wizard-step",
+    ),
+    path(
+        "enquiry",
+        enquiry_wizard_view,
+        name="enquiry-wizard",
+    ),
+]

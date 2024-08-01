@@ -4,8 +4,8 @@ from django.db import models
 from directory_forms_api_client.forms import ZendeskAPIForm, EmailAPIForm
 
 
-class LocationChoices(models.IntegerChoices):
-    EXPORTING_FROM_THE_UK = 1, "Exporting from the UK"
+class EnquiryTypeChoices(models.IntegerChoices):
+    EXPORTING_HELP = 1, "Exporting from the UK"
     TECHNICAL_HELP = 2, "Technical help with using the service"
 
 
@@ -39,11 +39,11 @@ class BaseStepForm(forms.Form):
 
 class ContactFormStepOne(BaseStepForm):
     class ContextMeta:
-        fields = ["location"]
+        fields = ["enquiry_type"]
 
-    location = forms.TypedChoiceField(
-        choices=LocationChoices.choices,
-        coerce=lambda x: LocationChoices(int(x)),
+    enquiry_type = forms.TypedChoiceField(
+        choices=EnquiryTypeChoices.choices,
+        coerce=lambda x: EnquiryTypeChoices(int(x)),
         label="What would you like to ask us about or give feedback on?",
         required=True,
         widget=forms.RadioSelect,
