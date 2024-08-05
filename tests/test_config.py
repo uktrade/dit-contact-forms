@@ -1,7 +1,7 @@
 from django.test import SimpleTestCase
 from django.apps import apps
 
-from contact.apps import ContactConfig
+from contact_forms.contact.apps import ContactConfig
 
 
 class ContactConfigTestCase(SimpleTestCase):

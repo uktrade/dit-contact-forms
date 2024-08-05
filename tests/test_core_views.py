@@ -3,7 +3,7 @@ from unittest import skip
 from django.test import RequestFactory
 from django.test import SimpleTestCase
 
-from core.views import error500handler
+from contact_forms.core.views import error500handler
 
 
 class CoreViewsTestCase(SimpleTestCase):

@@ -1,7 +1,7 @@
 from django.test import SimpleTestCase
 
-from cookies.templatetags.gtm import google_tag_manager
-from cookies.templatetags.gtm import google_tag_manager_noscript
+from contact_forms.cookies.templatetags.gtm import google_tag_manager
+from contact_forms.cookies.templatetags.gtm import google_tag_manager_noscript
 
 
 class GoogleTagManagerTestCase(SimpleTestCase):
