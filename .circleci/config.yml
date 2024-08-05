@@ -55,12 +55,13 @@ jobs:
             npm install && npm run build
       - run:
           name: Running tests
-          command:
+          command: |
             pip install pytest
             pytest
       - run:
           name: Generate coverage
           command: |
+            pip install coverage
             coverage report
             coverage xml -o test-reports/coverage.xml
             coverage html -d test-reports/coverage_html
