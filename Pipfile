@@ -34,6 +34,7 @@ django-webpack-loader = "~=3.1.0"
 selenium = {webdriver = "==4.11.2"}
 greenlet = "==3.0.3"
 urllib3 = "==2.2.2"
+coverage = "==7.6.1"
 
 [requires]
 python_version = "3.12"
