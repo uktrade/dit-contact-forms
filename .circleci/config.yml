@@ -55,7 +55,7 @@ jobs:
             npm install && npm run build
       - run:
           name: Running tests
-          command:
+          command: |
             pip install coverage
             coverage run manage.py test contact_forms --settings=config.settings.test
       - run:
