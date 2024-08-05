@@ -2,7 +2,7 @@
 # This is used for development only, we are not worried about image size
 # Instead we prefer build speed and readability this is why RUN commands are not merged
 #
-FROM python:3.12
+FROM python:3.11
 
 ENV DOCKERIZE_VERSION v0.6.1
 
