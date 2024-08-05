@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class AccessibilityConfig(AppConfig):
-    name = "accessibility"
+    name = "contact_forms.accessibility"

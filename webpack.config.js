@@ -18,7 +18,7 @@ module.exports = {
   },
 
   plugins: [
-    new BundleTracker({ filename: "./webpack-stats.json" }),
+    new BundleTracker({ path: "./", filename: "webpack-stats.json" }),
     new MiniCssExtractPlugin({
       filename: "[name]-[fullhash].css",
       chunkFilename: "[id]-[fullhash].css",

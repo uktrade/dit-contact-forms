@@ -3,7 +3,7 @@ from unittest import skip
 from django.test import RequestFactory
 from django.test import SimpleTestCase
 
-from core.views import error500handler
+from contact_forms.core import views
 
 
 class CoreViewsTestCase(SimpleTestCase):
@@ -19,5 +19,5 @@ class CoreViewsTestCase(SimpleTestCase):
 
     def test_500_error(self):
         req = RequestFactory().get("/contact/")
-        resp = error500handler(req)
+        resp = views.error500handler(req)
         self.assertEqual(resp.status_code, 500)

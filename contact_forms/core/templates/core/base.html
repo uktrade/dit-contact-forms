@@ -52,10 +52,10 @@
         }
       </style>
     <![endif]-->
-    {% render_bundle "global" "css" %}
+    {% render_bundle 'global' 'css' %}
     {% block extra_styles %}{% endblock extra_styles %}
 
-    {% render_bundle "sentry" %}
+    {% render_bundle 'sentry' %}
   </head>
   <body class="govuk-template__body">
     <script>
@@ -153,7 +153,7 @@
           </div>
         </div>
       </footer>
-      {% render_bundle "global" "js" %}
+      {% render_bundle 'global' 'js' %}
       {% block footer_additions %}
       {% endblock footer_additions %}
   </body>

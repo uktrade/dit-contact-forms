@@ -11,9 +11,11 @@ django-coverage-plugin = "==2.0.0"
 django-nose = "==1.4.7"
 pinocchio = "==0.4.2"
 pre-commit = "*"
-pytest = "==7.2.0"
+pytest = "==8.3.2"
 splinter = "==0.18.0"
 jedi = "==0.17.2"
+pytest-cov = "==5.0.0"
+pytest-django = "==4.8.0"
 
 [packages]
 django-debug-toolbar = "==4.4.6"
@@ -30,11 +32,11 @@ Django = "==4.2.14"
 django-environ = "~=0.11.2"
 elastic-apm = "*"
 django-redis = "==5.4.0"
-django-webpack-loader = "~=3.1.0"
+django-webpack-loader = "==3.1.0"
 selenium = {webdriver = "==4.11.2"}
 greenlet = "==3.0.3"
 urllib3 = "==2.2.2"
 coverage = "==7.6.1"
 
 [requires]
-python_version = "3.11"
+python_version = "3.12"

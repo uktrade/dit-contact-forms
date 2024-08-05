@@ -13,6 +13,7 @@ from contact_forms.contact.forms import (
     TopicChoices,
 )
 from contact_forms.contact.views import CheckHowToExportGoodsContactView
+from django.test.client import RequestFactory
 
 logger = logging.getLogger(__name__)
 logging.disable(logging.NOTSET)
@@ -97,8 +98,8 @@ class ContactFormViewTestCase(SimpleTestCase):
             fetch_redirect_response=False,
         )
 
-    @patch("contact.forms.ZendeskAPIForm.save")
-    @patch("contact.forms.EmailAPIForm.save")
+    @patch("contact_forms.contact.forms.ZendeskAPIForm.save")
+    @patch("contact_forms.contact.forms.EmailAPIForm.save")
     def test_exporting_specific_wizard_steps_flow(
         self, EmailAPIForm_save, ZendeskAPIForm_save
     ):
@@ -138,8 +139,8 @@ class ContactFormViewTestCase(SimpleTestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, self.wizard_step_done_url)
 
-    @patch("contact.forms.ZendeskAPIForm.save")
-    @patch("contact.forms.EmailAPIForm.save")
+    @patch("contact_forms.contact.forms.ZendeskAPIForm.save")
+    @patch("contact_forms.contact.forms.EmailAPIForm.save")
     def test_exporting_general_wizard_steps_flow(
         self, EmailAPIForm_save, ZendeskAPIForm_save
     ):
@@ -179,8 +180,8 @@ class ContactFormViewTestCase(SimpleTestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, self.wizard_step_done_url)
 
-    @patch("contact.forms.ZendeskAPIForm.save")
-    @patch("contact.forms.EmailAPIForm.save")
+    @patch("contact_forms.contact.forms.ZendeskAPIForm.save")
+    @patch("contact_forms.contact.forms.EmailAPIForm.save")
     def test_technical_help_wizard_steps_flow(
         self, EmailAPIForm_save, ZendeskAPIForm_save
     ):
@@ -304,16 +305,16 @@ class ContactFormViewTestCase(SimpleTestCase):
         self.assertEqual(cookies_response.status_code, 200)
         self.assertEqual(cookies_response.templates[0].name, "preferences.html")
 
-    @patch("contact.forms.ZendeskAPIForm.save")
-    @patch("contact.forms.ZendeskAPIForm.is_valid")
-    @patch("contact.forms.EmailAPIForm.save")
+    @patch("contact_forms.contact.forms.ZendeskAPIForm.save")
+    @patch("contact_forms.contact.forms.ZendeskAPIForm.is_valid")
+    @patch("contact_forms.contact.forms.EmailAPIForm.save")
     @patch("formtools.wizard.views.NamedUrlSessionWizardView.get_cleaned_data_for_step")
     def test_done_submissions_tech_help(
         self, get_clean_data, EmailAPIForm_save, valid_form, ZendeskAPIForm_save
     ):
 
         view = CheckHowToExportGoodsContactView()
-        view.request = "request_mock"
+        view.request = RequestFactory()
 
         get_clean_data.return_value = {
             "enquiry_type": EnquiryTypeChoices.TECHNICAL_HELP
@@ -359,16 +360,16 @@ class ContactFormViewTestCase(SimpleTestCase):
         for key, value in expected_call_args.items():
             assert (key, value) in call_list.kwargs.items()
 
-    @patch("contact.forms.ZendeskAPIForm.save")
-    @patch("contact.forms.ZendeskAPIForm.is_valid")
-    @patch("contact.forms.EmailAPIForm.save")
+    @patch("contact_forms.contact.forms.ZendeskAPIForm.save")
+    @patch("contact_forms.contact.forms.ZendeskAPIForm.is_valid")
+    @patch("contact_forms.contact.forms.EmailAPIForm.save")
     @patch("formtools.wizard.views.NamedUrlSessionWizardView.get_cleaned_data_for_step")
     def test_done_submissions_export_specific(
         self, get_clean_data, EmailAPIForm_save, valid_form, ZendeskAPIForm_save
     ):
 
         view = CheckHowToExportGoodsContactView()
-        view.request = "request_mock"
+        view.request = RequestFactory()
 
         def side_effect_choice(input):
             if input == "step_one":
@@ -416,16 +417,16 @@ class ContactFormViewTestCase(SimpleTestCase):
         for key, value in expected_call_args.items():
             assert (key, value) in call_list.kwargs.items()
 
-    @patch("contact.forms.ZendeskAPIForm.save")
-    @patch("contact.forms.ZendeskAPIForm.is_valid")
-    @patch("contact.forms.EmailAPIForm.save")
+    @patch("contact_forms.contact.forms.ZendeskAPIForm.save")
+    @patch("contact_forms.contact.forms.ZendeskAPIForm.is_valid")
+    @patch("contact_forms.contact.forms.EmailAPIForm.save")
     @patch("formtools.wizard.views.NamedUrlSessionWizardView.get_cleaned_data_for_step")
     def test_done_submissions_export_general(
         self, get_clean_data, EmailAPIForm_save, valid_form, ZendeskAPIForm_save
     ):
 
         view = CheckHowToExportGoodsContactView()
-        view.request = "request_mock"
+        view.request = RequestFactory()
 
         def side_effect_choice(input):
             if input == "step_one":
