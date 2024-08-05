@@ -43,20 +43,20 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "elasticapm.contrib.django",
     "formtools",
-    "core",
-    "cookies",
-    "contact",
+    "contact_forms.core",
+    "contact_forms.cookies",
+    "contact_forms.contact",
     "django_extensions",
-    "healthcheck",
-    "privacy_terms_and_conditions",
+    "contact_forms.healthcheck",
+    "contact_forms.privacy_terms_and_conditions",
     "directory_forms_api_client",
-    "accessibility",
-    "disclaimer",
+    "contact_forms.accessibility",
+    "contact_forms.disclaimer",
     "webpack_loader",
 ]
 
 MIDDLEWARE = [
-    "healthcheck.middleware.HealthCheckMiddleware",
+    "contact_forms.healthcheck.middleware.HealthCheckMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -64,8 +64,8 @@ MIDDLEWARE = [
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "core.middleware.NoIndexMiddleware",
-    "core.middleware.NoCacheMiddleware",
+    "contact_forms.core.middleware.NoIndexMiddleware",
+    "contact_forms.core.middleware.NoCacheMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -84,7 +84,7 @@ TEMPLATES = [
                 "django.template.context_processors.debug",
                 "django.template.context_processors.request",
                 "django.contrib.messages.context_processors.messages",
-                "core.context_processors.ga_gtm_processor",
+                "contact_forms.core.context_processors.ga_gtm_processor",
             ],
         },
     }

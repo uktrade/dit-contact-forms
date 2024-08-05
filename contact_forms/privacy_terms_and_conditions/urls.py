@@ -1,6 +1,6 @@
 from django.urls import re_path
 
-from privacy_terms_and_conditions import views
+from contact_forms.privacy_terms_and_conditions import views
 
 app_name = "privacy_terms_and_conditions"
 

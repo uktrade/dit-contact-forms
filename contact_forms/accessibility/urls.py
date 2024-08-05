@@ -1,6 +1,6 @@
 from django.urls import re_path
 
-from accessibility import views
+from contact_forms.accessibility import views
 
 app_name = "accessibility"
 

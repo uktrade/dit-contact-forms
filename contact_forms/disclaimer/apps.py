@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class DisclaimerConfig(AppConfig):
-    name = "disclaimer"
+    name = "contact_forms.disclaimer"
