@@ -1,4 +1,4 @@
-FROM python:3.8
+FROM python:3.12
 
 ENV DOCKERIZE_VERSION v0.6.1
 

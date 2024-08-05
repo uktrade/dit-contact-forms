@@ -35,6 +35,5 @@ selenium = {webdriver = "==4.11.2"}
 greenlet = "==3.0.3"
 urllib3 = "==2.2.2"
 
-
 [requires]
-python_version = "3.8"
+python_version = "3.12"

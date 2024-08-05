@@ -2,7 +2,7 @@
 version: 2
 aliases:
   - &redis_version              redis:4.0
-  - &python_version             circleci/python:3.8
+  - &python_version             cimg/python:3.12
 
   - &app_base_envs
     DEBUG: True
