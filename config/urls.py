@@ -1,8 +1,8 @@
 from django.conf import settings
 from django.urls import path, re_path, include
 
-from cookies import views as cookie_views
-from healthcheck.views import HealthCheckView
+from contact_forms.cookies import views as cookie_views
+from contact_forms.healthcheck.views import HealthCheckView
 
 handler404 = "contact_forms.core.views.error404handler"
 handler500 = "contact_forms.core.views.error500handler"
@@ -15,12 +15,17 @@ urlpatterns = [
     ),
     path(
         "privacy-terms-and-conditions/",
-        include("privacy_terms_and_conditions.urls", namespace="privacy"),
+        include("contact_forms.privacy_terms_and_conditions.urls", namespace="privacy"),
     ),
-    path("disclaimer/", include("disclaimer.urls", namespace="disclaimer")),
-    path("accessibility/", include("accessibility.urls", namespace="accessibility")),
+    path(
+        "disclaimer/", include("contact_forms.disclaimer.urls", namespace="disclaimer")
+    ),
+    path(
+        "accessibility/",
+        include("contact_forms.accessibility.urls", namespace="accessibility"),
+    ),
     re_path(r"^check/$", HealthCheckView.as_view(), name="healthcheck"),
-    path("", include("contact.urls", namespace="contact")),
+    path("", include("contact_forms.contact.urls", namespace="contact")),
 ]
 
 if settings.DEBUG:

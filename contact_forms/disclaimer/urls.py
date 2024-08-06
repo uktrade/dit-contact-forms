@@ -1,6 +1,6 @@
 from django.urls import re_path
 
-from disclaimer import views
+from contact_forms.disclaimer import views
 
 app_name = "disclaimer"
 
