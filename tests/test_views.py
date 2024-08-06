@@ -304,9 +304,9 @@ class ContactFormViewTestCase(SimpleTestCase):
         self.assertEqual(cookies_response.status_code, 200)
         self.assertEqual(cookies_response.templates[0].name, "preferences.html")
 
-    @patch("contact.forms.ZendeskAPIForm.save")
-    @patch("contact.forms.ZendeskAPIForm.is_valid")
-    @patch("contact.forms.EmailAPIForm.save")
+    @patch("contact_forms.contact.forms.ZendeskAPIForm.save")
+    @patch("contact_forms.contact.forms.ZendeskAPIForm.is_valid")
+    @patch("contact_forms.contact.forms.EmailAPIForm.save")
     @patch("formtools.wizard.views.NamedUrlSessionWizardView.get_cleaned_data_for_step")
     def test_done_submissions_tech_help(
         self, get_clean_data, EmailAPIForm_save, valid_form, ZendeskAPIForm_save
@@ -359,9 +359,9 @@ class ContactFormViewTestCase(SimpleTestCase):
         for key, value in expected_call_args.items():
             assert (key, value) in call_list.kwargs.items()
 
-    @patch("contact.forms.ZendeskAPIForm.save")
-    @patch("contact.forms.ZendeskAPIForm.is_valid")
-    @patch("contact.forms.EmailAPIForm.save")
+    @patch("contact_forms.contact.forms.ZendeskAPIForm.save")
+    @patch("contact_forms.contact.forms.ZendeskAPIForm.is_valid")
+    @patch("contact_forms.contact.forms.EmailAPIForm.save")
     @patch("formtools.wizard.views.NamedUrlSessionWizardView.get_cleaned_data_for_step")
     def test_done_submissions_export_specific(
         self, get_clean_data, EmailAPIForm_save, valid_form, ZendeskAPIForm_save
@@ -416,9 +416,9 @@ class ContactFormViewTestCase(SimpleTestCase):
         for key, value in expected_call_args.items():
             assert (key, value) in call_list.kwargs.items()
 
-    @patch("contact.forms.ZendeskAPIForm.save")
-    @patch("contact.forms.ZendeskAPIForm.is_valid")
-    @patch("contact.forms.EmailAPIForm.save")
+    @patch("contact_forms.contact.forms.ZendeskAPIForm.save")
+    @patch("contact_forms.contact.forms.ZendeskAPIForm.is_valid")
+    @patch("contact_forms.contact.forms.EmailAPIForm.save")
     @patch("formtools.wizard.views.NamedUrlSessionWizardView.get_cleaned_data_for_step")
     def test_done_submissions_export_general(
         self, get_clean_data, EmailAPIForm_save, valid_form, ZendeskAPIForm_save
