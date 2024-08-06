@@ -17,7 +17,7 @@ TEMPLATES[0]["OPTIONS"]["loaders"] = [  # noqa F405
     )
 ]
 
-# DEBUG = True
+DEBUG = True
 #
 ## Secure cookie settings.
 SESSION_COOKIE_SECURE = False

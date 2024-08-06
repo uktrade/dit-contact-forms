@@ -13,6 +13,7 @@ from contact_forms.contact.forms import (
     TopicChoices,
 )
 from contact_forms.contact.views import CheckHowToExportGoodsContactView
+from django.test.client import RequestFactory
 
 logger = logging.getLogger(__name__)
 logging.disable(logging.NOTSET)
@@ -313,7 +314,7 @@ class ContactFormViewTestCase(SimpleTestCase):
     ):
 
         view = CheckHowToExportGoodsContactView()
-        view.request = "request_mock"
+        view.request = RequestFactory()
 
         get_clean_data.return_value = {
             "enquiry_type": EnquiryTypeChoices.TECHNICAL_HELP
@@ -368,7 +369,7 @@ class ContactFormViewTestCase(SimpleTestCase):
     ):
 
         view = CheckHowToExportGoodsContactView()
-        view.request = "request_mock"
+        view.request = RequestFactory()
 
         def side_effect_choice(input):
             if input == "step_one":
@@ -425,7 +426,7 @@ class ContactFormViewTestCase(SimpleTestCase):
     ):
 
         view = CheckHowToExportGoodsContactView()
-        view.request = "request_mock"
+        view.request = RequestFactory()
 
         def side_effect_choice(input):
             if input == "step_one":
