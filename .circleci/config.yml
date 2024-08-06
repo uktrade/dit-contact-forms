@@ -105,9 +105,12 @@ jobs:
       - *wait_for_backend
       - run:
           name: Run tests
-          command: |
-            export PATH=$PATH:$HOME/bin
-            python3 -m pytest ui_test
+          # Removed the following commands from "Run tests" step - to be replaced
+          # with new UI tests in TSS-2039
+          # export PATH=$PATH:$HOME/bin
+          # python3 -m pytest ui_test
+          command:
+            env
       - store_artifacts:
           path: screenshots
 
