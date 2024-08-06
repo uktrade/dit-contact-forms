@@ -4,8 +4,8 @@ from django.urls import path, re_path, include
 from cookies import views as cookie_views
 from healthcheck.views import HealthCheckView
 
-handler404 = "core.views.error404handler"
-handler500 = "core.views.error500handler"
+handler404 = "contact_forms.core.views.error404handler"
+handler500 = "contact_forms.core.views.error500handler"
 
 urlpatterns = [
     # redirects to start page

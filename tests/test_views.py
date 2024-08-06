@@ -97,8 +97,8 @@ class ContactFormViewTestCase(SimpleTestCase):
             fetch_redirect_response=False,
         )
 
-    @patch("contact.forms.ZendeskAPIForm.save")
-    @patch("contact.forms.EmailAPIForm.save")
+    @patch("contact_forms.contact.forms.ZendeskAPIForm.save")
+    @patch("contact_forms.contact.forms.EmailAPIForm.save")
     def test_exporting_specific_wizard_steps_flow(
         self, EmailAPIForm_save, ZendeskAPIForm_save
     ):
@@ -138,8 +138,8 @@ class ContactFormViewTestCase(SimpleTestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, self.wizard_step_done_url)
 
-    @patch("contact.forms.ZendeskAPIForm.save")
-    @patch("contact.forms.EmailAPIForm.save")
+    @patch("contact_forms.contact.forms.ZendeskAPIForm.save")
+    @patch("contact_forms.contact.forms.EmailAPIForm.save")
     def test_exporting_general_wizard_steps_flow(
         self, EmailAPIForm_save, ZendeskAPIForm_save
     ):
@@ -179,8 +179,8 @@ class ContactFormViewTestCase(SimpleTestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, self.wizard_step_done_url)
 
-    @patch("contact.forms.ZendeskAPIForm.save")
-    @patch("contact.forms.EmailAPIForm.save")
+    @patch("contact_forms.contact.forms.ZendeskAPIForm.save")
+    @patch("contact_forms.contact.forms.EmailAPIForm.save")
     def test_technical_help_wizard_steps_flow(
         self, EmailAPIForm_save, ZendeskAPIForm_save
     ):
