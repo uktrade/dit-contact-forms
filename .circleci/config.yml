@@ -46,11 +46,14 @@ jobs:
       - checkout
       - run:
           name: Install system deps
-          command:
-            sudo apt-get update && sudo apt-get install -y nodejs npm
-      - run:
           command: |
-            pip install pipenv
+            sudo apt-get update
+            sudo apt-get install -y nodejs npm
+            sudo apt install python3-pip
+            sudo apt install python3-pytest
+            sudo pip3 install pipenv
+      - run:
+          command:
             pipenv install --system --dev --deploy
       - run:
           name: Webpack build
