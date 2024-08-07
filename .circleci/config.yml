@@ -37,7 +37,8 @@ aliases:
 jobs:
   unit_tests:
     docker:
-      - <<: *docker_python
+      - image: cimg/node:18.17.1-browsers
+      #- <<: *docker_python
         environment: *app_base_envs
       - *docker_redis
     working_directory: ~/app
