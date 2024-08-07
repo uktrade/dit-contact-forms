@@ -49,7 +49,9 @@ jobs:
           command:
             sudo apt-get update && sudo apt-get install -y nodejs npm
       - run:
-          command: pipenv install --system --dev --deploy
+          command: |
+            pip install pipenv
+            pipenv install --system --dev --deploy
       - run:
           name: Webpack build
           command:
