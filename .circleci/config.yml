@@ -1,5 +1,9 @@
 # ~/.circleci/config.yml
-version: 2
+version: 2.1
+
+orbs:
+  codecov: codecov/codecov@4.1.0
+
 aliases:
   - &redis_version              redis:4.0
   - &python_version             cimg/python:3.12
@@ -34,9 +38,6 @@ aliases:
       name: Wait for backend
       command: dockerize -wait http://localhost:8000 -timeout 300s
 
-orbs:
-  codecov: codecov/codecov@3
-
 jobs:
   unit_tests:
     docker:
@@ -67,16 +68,16 @@ jobs:
           command: |
             pip install pytest
             pytest --junitxml=test-results/junit.xml
-      - run:
-          name: Generate coverage
-          command: |
-            pip install coverage
-            coverage report
-            coverage xml -o test-reports/coverage.xml
-            coverage html -d test-reports/coverage_html
-      - run:
-              name: Save coverage
-              command: coverage json
+      #- run:
+      #    name: Generate coverage
+      #    command: |
+      #      pip install coverage
+      #      coverage report
+      #      coverage xml -o test-reports/coverage.xml
+      #      coverage html -d test-reports/coverage_html
+      #- run:
+      #        name: Save coverage
+      #        command: coverage json
       - codecov/upload
       - store_test_results:
               path: ./test-reports/
