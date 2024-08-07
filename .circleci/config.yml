@@ -63,7 +63,7 @@ jobs:
           name: Running tests
           command: |
             pip install pytest
-            pytest
+            pytest --junitxml=test-results/junit.xml
       - run:
           name: Generate coverage
           command: |
