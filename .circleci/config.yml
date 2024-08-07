@@ -34,6 +34,9 @@ aliases:
       name: Wait for backend
       command: dockerize -wait http://localhost:8000 -timeout 300s
 
+orbs:
+  codecov: codecov/codecov@3
+
 jobs:
   unit_tests:
     docker:
@@ -71,8 +74,12 @@ jobs:
             coverage report
             coverage xml -o test-reports/coverage.xml
             coverage html -d test-reports/coverage_html
+      - run:
+              name: Save coverage
+              command: coverage json
+      - codecov/upload
       - store_test_results:
-          path: test-reports
+              path: ./test-reports/
       - store_artifacts:
           path: test-reports
 
