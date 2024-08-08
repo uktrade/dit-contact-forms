@@ -2,7 +2,7 @@ from unittest.mock import Mock
 
 from django.test import SimpleTestCase
 
-from healthcheck.middleware import HealthCheckMiddleware
+from contact_forms.healthcheck.middleware import HealthCheckMiddleware
 
 
 class TestMiddleware(SimpleTestCase):
