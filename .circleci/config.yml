@@ -10,7 +10,7 @@ aliases:
 
   - &app_base_envs
     DEBUG: True
-    HMRC_TAX_FORM_URL: https://www.tax.service.gov.uk/shortforms/form/CITEX_CGEF
+    HMRC_TAX_FORM_URL: https://www.gov.uk/government/organisations/hm-revenue-customs/contact/customs-international-trade-and-excise-enquiries
     HMRC_TARIFF_CLASSIFICATION_SERVICE_URL: https://www.gov.uk/guidance/ask-hmrc-for-advice-on-classifying-your-goods
     DISABLE_COLLECTSTATIC: 1
     DJANGO_SECRET_KEY: DJANGO_SECRET_KEY # pragma: allowlist secret
