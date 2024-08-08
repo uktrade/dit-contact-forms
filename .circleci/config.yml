@@ -5,7 +5,7 @@ orbs:
   codecov: codecov/codecov@4.1.0
 
 aliases:
-  - &redis_version              redis:4.0
+  - &redis_version              redis
   - &python_version             cimg/python:3.12
 
   - &app_base_envs
