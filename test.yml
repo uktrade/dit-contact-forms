@@ -27,4 +27,4 @@ services:
       - .:/app
     working_dir: /app
   redis:
-    image: redis:4.0
+    image: redis:7.1
