@@ -42,7 +42,9 @@ jobs:
   unit_tests:
     docker:
       - image: cimg/node:18.17.1-browsers
-        environment: *app_base_envs
+        environment: 
+          *app_base_envs
+          ZENDESK_SUBDOMAIN: test
       - *docker_redis
     working_directory: ~/app
     steps:
@@ -76,7 +78,9 @@ jobs:
   ui_tests:
     docker:
       - image: cimg/node:18.17.1-browsers
-        environment: *app_base_envs
+        environment: 
+          *app_base_envs
+          ZENDESK_SUBDOMAIN: test
       - *docker_redis
     working_directory: ~/app
     steps:
