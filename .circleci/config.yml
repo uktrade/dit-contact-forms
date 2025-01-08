@@ -44,7 +44,6 @@ jobs:
     docker:
       - image: cimg/node:18.17.1-browsers
         environment: *app_base_envs
-        
       - *docker_redis
     working_directory: ~/app
     steps:
