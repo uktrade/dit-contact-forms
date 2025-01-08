@@ -17,6 +17,7 @@ aliases:
     DJANGO_SETTINGS_MODULE: config.settings.docker_development
     DIT_HELPDESK_ADMIN_PASSWORD: DIT_HELPDESK_ADMIN_PASSWORD # pragma: allowlist secret
     FORM_URL: http://contact.check-duties-customs-exporting-goods.service.gov.uk/
+    ZENDESK_SUBDOMAIN: test
 
   # Redis container
   - &docker_redis
@@ -42,9 +43,8 @@ jobs:
   unit_tests:
     docker:
       - image: cimg/node:18.17.1-browsers
-        environment: 
-          *app_base_envs
-          ZENDESK_SUBDOMAIN: test
+        environment: *app_base_envs
+        
       - *docker_redis
     working_directory: ~/app
     steps:
@@ -78,9 +78,7 @@ jobs:
   ui_tests:
     docker:
       - image: cimg/node:18.17.1-browsers
-        environment: 
-          *app_base_envs
-          ZENDESK_SUBDOMAIN: test
+        environment: *app_base_envs
       - *docker_redis
     working_directory: ~/app
     steps:
